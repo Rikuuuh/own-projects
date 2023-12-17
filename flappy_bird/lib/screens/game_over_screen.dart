@@ -1,4 +1,5 @@
 import 'package:flappy_bird_game/game/assets.dart';
+import 'package:flappy_bird_game/game/configuration.dart';
 import 'package:flappy_bird_game/game/flappy_bird_game.dart';
 import 'package:flutter/material.dart';
 
@@ -39,6 +40,7 @@ class GameOverScreen extends StatelessWidget {
       );
 
   void onRestart() {
+    Config.gameSpeed = 220.0;
     game.bird.reset();
     game.overlays.remove('gameOver');
     game.resumeEngine();

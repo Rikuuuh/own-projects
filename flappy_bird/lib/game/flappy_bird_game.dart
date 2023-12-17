@@ -3,6 +3,7 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flappy_bird_game/components/background.dart';
 import 'package:flappy_bird_game/components/bird.dart';
+import 'package:flappy_bird_game/components/clouds.dart';
 import 'package:flappy_bird_game/components/ground.dart';
 import 'package:flappy_bird_game/components/pipe_group.dart';
 import 'package:flappy_bird_game/game/configuration.dart';
@@ -15,11 +16,25 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   Timer interval = Timer(Config.pipeInterval, repeat: true);
   bool isHit = false;
   late TextComponent score;
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    interval.update(dt);
+    score.text = 'Score: ${bird.score}';
+
+    if (bird.score % 10 == 0 && bird.score != 0) {
+      // Kasvata gameSpeedia 10 yksiköllä jokaista kymmentä pistettä kohden
+      Config.gameSpeed = 220.0 + (bird.score / 10 * 10);
+    }
+  }
+
   @override
   Future<void> onLoad() async {
     addAll([
       Background(),
       Ground(),
+      Clouds(),
       bird = Bird(),
       score = buildScore(),
     ]);
@@ -41,12 +56,5 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   @override
   void onTap() {
     bird.fly();
-  }
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-    interval.update(dt);
-    score.text = 'Score: ${bird.score}';
   }
 }

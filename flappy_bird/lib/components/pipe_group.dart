@@ -17,7 +17,11 @@ class PipeGroup extends PositionComponent with HasGameRef<FlappyBirdGame> {
     position.x = gameRef.size.x;
 
     final heightMinusGround = gameRef.size.y - Config.groundHeight;
-    final spacing = 100 + _random.nextDouble() * (heightMinusGround / 4);
+    const baseSpacing = 200; // Suurempi kiinteä arvo
+    final maxRandomSpacing =
+        heightMinusGround / 6; // Rajoitettu satunnainen osuus
+    final spacing = baseSpacing + _random.nextDouble() * maxRandomSpacing;
+
     final centerY =
         spacing + _random.nextDouble() * (heightMinusGround - spacing);
 
@@ -30,8 +34,8 @@ class PipeGroup extends PositionComponent with HasGameRef<FlappyBirdGame> {
   }
 
   void updateScore() {
-    gameRef.bird.score += 1;
     FlameAudio.play(Assets.point);
+    gameRef.bird.score += 5;
   }
 
   @override
@@ -44,7 +48,7 @@ class PipeGroup extends PositionComponent with HasGameRef<FlappyBirdGame> {
       updateScore();
     }
 
-    if (gameRef.isHit) {
+    if (gameRef.isHit == true) {
       removeFromParent();
       gameRef.isHit = false;
     }

@@ -23,14 +23,23 @@ class GameOverScreen extends StatelessWidget {
                   fontFamily: 'Game',
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               Image.asset(Assets.gameOver),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: onRestart,
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
                 child: const Text(
                   'Restart',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: onMainMenu,
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+                child: const Text(
+                  'Main Menu',
                   style: TextStyle(fontSize: 20),
                 ),
               ),
@@ -40,9 +49,17 @@ class GameOverScreen extends StatelessWidget {
       );
 
   void onRestart() {
+    game.bird.reset();
+    Config.gameSpeed = 220.0;
+    game.overlays.remove('gameOver');
+    game.interval.reset();
+    game.resumeEngine();
+  }
+
+  void onMainMenu() {
     Config.gameSpeed = 220.0;
     game.bird.reset();
     game.overlays.remove('gameOver');
-    game.resumeEngine();
+    game.overlays.add('mainMenu');
   }
 }

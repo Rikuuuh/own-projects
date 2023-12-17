@@ -19,9 +19,9 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   String selectedBirdType = 'bird';
   void startGameWithSelectedBird(String birdType) {
     selectedBirdType = birdType;
-    bird.removeFromParent(); // Poista vanha lintu
-    bird = Bird(selectedBirdType); // Luo uusi lintu valitulla tyypillä
-    add(bird); // Lisää uusi lintu peliin
+    bird.removeFromParent();
+    bird = Bird(selectedBirdType);
+    add(bird);
   }
 
   @override
@@ -31,7 +31,6 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
     score.text = 'Score: ${bird.score}';
 
     if (bird.score % 10 == 0 && bird.score != 0) {
-      // Kasvata gameSpeedia 10 yksiköllä jokaista kymmentä pistettä kohden
       Config.gameSpeed = 220.0 + (bird.score / 10 * 10);
     }
   }

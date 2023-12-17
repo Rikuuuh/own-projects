@@ -12,17 +12,14 @@ class Bird extends SpriteGroupComponent<BirdMovement>
     with HasGameRef<FlappyBirdGame>, CollisionCallbacks {
   Bird(this.birdType);
 
-  final String birdType; // Lisätty muuttuja lintutyyppiä varten
+  final String birdType;
   int score = 0;
 
   @override
   Future<void> onLoad() async {
-    final birdMidFlap =
-        await gameRef.loadSprite('assets/images/${birdType}_midflap.png');
-    final birdUpFlap =
-        await gameRef.loadSprite('assets/images/${birdType}_midflap.png');
-    final birdDownFlap =
-        await gameRef.loadSprite('assets/images/${birdType}_downflap.png');
+    final birdMidFlap = await gameRef.loadSprite('${birdType}_midflap.png');
+    final birdUpFlap = await gameRef.loadSprite('${birdType}_midflap.png');
+    final birdDownFlap = await gameRef.loadSprite('${birdType}_downflap.png');
 
     gameRef.bird;
 

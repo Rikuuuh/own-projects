@@ -17,9 +17,8 @@ class PipeGroup extends PositionComponent with HasGameRef<FlappyBirdGame> {
     position.x = gameRef.size.x;
 
     final heightMinusGround = gameRef.size.y - Config.groundHeight;
-    const baseSpacing = 200; // Suurempi kiinteä arvo
-    final maxRandomSpacing =
-        heightMinusGround / 6; // Rajoitettu satunnainen osuus
+    const baseSpacing = 200;
+    final maxRandomSpacing = heightMinusGround / 6;
     final spacing = baseSpacing + _random.nextDouble() * maxRandomSpacing;
 
     final centerY =

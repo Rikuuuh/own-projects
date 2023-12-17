@@ -10,15 +10,19 @@ import 'package:flutter/material.dart';
 
 class Bird extends SpriteGroupComponent<BirdMovement>
     with HasGameRef<FlappyBirdGame>, CollisionCallbacks {
-  Bird();
+  Bird(this.birdType);
 
+  final String birdType; // Lisätty muuttuja lintutyyppiä varten
   int score = 0;
 
   @override
   Future<void> onLoad() async {
-    final birdMidFlap = await gameRef.loadSprite(Assets.birdMidFlap);
-    final birdUpFlap = await gameRef.loadSprite(Assets.birdUpFlap);
-    final birdDownFlap = await gameRef.loadSprite(Assets.birdDownFlap);
+    final birdMidFlap =
+        await gameRef.loadSprite('assets/images/${birdType}_midflap.png');
+    final birdUpFlap =
+        await gameRef.loadSprite('assets/images/${birdType}_midflap.png');
+    final birdDownFlap =
+        await gameRef.loadSprite('assets/images/${birdType}_downflap.png');
 
     gameRef.bird;
 

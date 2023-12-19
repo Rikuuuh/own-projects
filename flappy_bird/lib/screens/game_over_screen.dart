@@ -31,7 +31,7 @@ class GameOverScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
                 child: const Text(
                   'Restart',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
               const SizedBox(height: 20),
@@ -40,7 +40,7 @@ class GameOverScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
                 child: const Text(
                   'Main Menu',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
             ],

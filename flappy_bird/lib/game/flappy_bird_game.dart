@@ -16,7 +16,7 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   Timer interval = Timer(Config.pipeInterval, repeat: true);
   bool isHit = false;
   late TextComponent score;
-  String selectedBirdType = 'bird';
+  String selectedBirdType = 'bird1';
   void startGameWithSelectedBird(String birdType) {
     selectedBirdType = birdType;
     bird.removeFromParent();

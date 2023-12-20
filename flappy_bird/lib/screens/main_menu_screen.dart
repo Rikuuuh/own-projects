@@ -16,6 +16,7 @@ class MainMenuScreen extends StatefulWidget {
 
 class _MainMenuScreenState extends State<MainMenuScreen> {
   String? selectedBirdType;
+  String? selectedBackgroundType;
   final List<String> birdImages = [
     'assets/images/bird1_midflap.png',
     'assets/images/bird2_midflap.png',
@@ -25,17 +26,29 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     'assets/images/bird6_midflap.png',
   ];
 
+  final List<String> backgroundImages = [
+    'assets/images/background1_done.png',
+    'assets/images/background2_done.png',
+    'assets/images/background3_done.png'
+  ];
+
   void onBirdSelected(String birdType) {
     setState(() {
       selectedBirdType = birdType;
     });
   }
 
+  void onBackgroundSelected(String backgroundType) {
+    setState(() {
+      selectedBackgroundType = backgroundType;
+    });
+  }
+
   void onStartGamePressed() {
-    if (selectedBirdType == null) Center(child: Text('Valitse lintu ensiksi!'));
     // Logiikka pelin aloittamiseen valitulla linnulla
-    if (selectedBirdType != null) {
-      widget.game.startGameWithSelectedBird(selectedBirdType!);
+    if (selectedBirdType != null && selectedBackgroundType != null) {
+      widget.game.startGameWithSelectedItems(
+          selectedBirdType!, selectedBackgroundType!);
       widget.game.overlays.remove('mainMenu');
       widget.game.interval.reset();
       widget.game.resumeEngine();
@@ -68,7 +81,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             ),
             const SizedBox(height: 5),
             Text(
-              'Valitse sankarisi',
+              'Valitse hahmosi',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             GridView.builder(
@@ -84,15 +97,21 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 bool isSelected =
                     birdImages[index].split('/').last.split('_')[0] ==
                         selectedBirdType;
-                return ElevatedButton(
-                  onPressed: () => onBirdSelected(
+                return GestureDetector(
+                  onTap: () => onBirdSelected(
                       birdImages[index].split('/').last.split('_')[0]),
-                  style: ElevatedButton.styleFrom(
-                    side: isSelected
-                        ? const BorderSide(width: 2.5, color: Colors.cyan)
-                        : null,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: isSelected
+                          ? Border.all(color: Colors.cyan, width: 2.5)
+                          : null,
+                    ),
+                    child: AspectRatio(
+                      aspectRatio: 1, // Säädä tarvittaessa
+                      child:
+                          Image.asset(birdImages[index], fit: BoxFit.fitWidth),
+                    ),
                   ),
-                  child: Image.asset(birdImages[index]),
                 );
               },
             ),
@@ -100,6 +119,37 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             Text(
               'Valitse Taustasi',
               style: Theme.of(context).textTheme.titleLarge,
+            ),
+            GridView.builder(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+              shrinkWrap: true,
+              itemCount: backgroundImages.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
+              ),
+              itemBuilder: (context, index) {
+                bool isSelected =
+                    backgroundImages[index].split('/').last.split('_')[0] ==
+                        selectedBackgroundType;
+                return GestureDetector(
+                  onTap: () => onBackgroundSelected(
+                      backgroundImages[index].split('/').last.split('_')[0]),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: isSelected
+                          ? Border.all(color: Colors.cyan, width: 2.5)
+                          : null,
+                    ),
+                    child: AspectRatio(
+                      aspectRatio: 1, // Säädä tarvittaessa
+                      child: Image.asset(backgroundImages[index],
+                          fit: BoxFit.cover),
+                    ),
+                  ),
+                );
+              },
             ),
             ElevatedButton(
               onPressed: onStartGamePressed,

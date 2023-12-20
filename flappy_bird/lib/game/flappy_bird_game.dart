@@ -13,15 +13,22 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   FlappyBirdGame();
 
   late Bird bird;
+  late Background background;
   Timer interval = Timer(Config.pipeInterval, repeat: true);
   bool isHit = false;
   late TextComponent score;
   String selectedBirdType = 'bird1';
-  void startGameWithSelectedBird(String birdType) {
+  String selectedBackgroundType = 'background1';
+  void startGameWithSelectedItems(String birdType, String backgroundType) {
     selectedBirdType = birdType;
+    selectedBackgroundType = backgroundType;
+
+    background = Background(selectedBackgroundType);
+    add(background); // Lisää tausta ensin
+
     bird.removeFromParent();
     bird = Bird(selectedBirdType);
-    add(bird);
+    add(bird); // Lisää lintu sen jälkeen
   }
 
   @override
@@ -38,7 +45,7 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   @override
   Future<void> onLoad() async {
     addAll([
-      Background(),
+      Background(selectedBackgroundType),
       Ground(),
       Clouds(),
       bird = Bird(selectedBirdType),

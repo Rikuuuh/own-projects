@@ -14,23 +14,13 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
 
   late Bird bird;
   late Background background;
+  late Ground ground;
   Timer interval = Timer(Config.pipeInterval, repeat: true);
   bool isHit = false;
   late TextComponent score;
   String selectedBirdType = 'bird1';
   String selectedBackgroundType = 'background1';
-  void startGameWithSelectedItems(String birdType, String backgroundType) {
-    selectedBirdType = birdType;
-    selectedBackgroundType = backgroundType;
-
-    background = Background(selectedBackgroundType);
-    add(background); // Lisää tausta ensin
-
-    bird.removeFromParent();
-    bird = Bird(selectedBirdType);
-    add(bird); // Lisää lintu sen jälkeen
-  }
-
+  String selectedGround = 'ground1_done.png';
   @override
   void update(double dt) {
     super.update(dt);
@@ -42,11 +32,53 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
     }
   }
 
+  void startGameWithSelectedItems(String birdType, String backgroundType) {
+    selectedBirdType = birdType;
+    selectedBackgroundType = backgroundType;
+
+    String groundType = 'ground1_done.png';
+    String pipeType;
+
+    background = Background(selectedBackgroundType);
+    add(background);
+    switch (selectedBackgroundType) {
+      case "background1_done.png":
+        groundType = "ground1_done.png";
+        pipeType = "pipe1";
+        break;
+      case "background2_done.png":
+        groundType = "ground2_done.png";
+        pipeType = "pipe2";
+        break;
+      case "background3_done.png":
+        groundType = "ground3_done.png";
+        pipeType = "pipe3";
+        break;
+      default:
+      // Oletusarvot tai virheenkäsittely
+    }
+
+    ground = Ground(groundType);
+    add(ground);
+
+    // Putkien logiikka (jos tarpeen)
+    // ...
+
+    bird.removeFromParent();
+    bird = Bird(selectedBirdType);
+    add(bird);
+
+    // Varmista, että score näkyy oikein
+    score.removeFromParent();
+    score = buildScore();
+    add(score);
+  }
+
   @override
   Future<void> onLoad() async {
     addAll([
       Background(selectedBackgroundType),
-      Ground(),
+      Ground(selectedGround),
       Clouds(),
       bird = Bird(selectedBirdType),
       score = buildScore(),

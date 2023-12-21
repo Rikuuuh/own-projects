@@ -44,6 +44,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     });
   }
 
+  // Score ei tuu
+  // Ground ei tuu
   void onStartGamePressed() {
     // Logiikka pelin aloittamiseen valitulla linnulla
     if (selectedBirdType != null && selectedBackgroundType != null) {
@@ -117,7 +119,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             ),
             const SizedBox(height: 5),
             Text(
-              'Valitse Taustasi',
+              'Valitse maailmasi',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             GridView.builder(

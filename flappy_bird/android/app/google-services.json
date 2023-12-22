@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "673005324146",
+    "project_id": "olympialaiset-5e33c",
+    "storage_bucket": "olympialaiset-5e33c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673005324146:android:1ba6252d5ee3c5fcc83feb",
+        "android_client_info": {
+          "package_name": "com.example.flappy_bird"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2UmcDFNv0sIpgj5W5kCGHBFb_1z2I0Ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

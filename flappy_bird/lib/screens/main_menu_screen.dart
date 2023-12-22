@@ -1,22 +1,22 @@
+import 'dart:io';
+
 import 'package:flappy_bird_game/game/flappy_bird_game.dart';
 import 'package:flappy_bird_game/screens/count_down_overlay.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class MainMenuScreen extends StatefulWidget {
   final FlappyBirdGame game;
   static const String id = 'mainMenu';
 
-  const MainMenuScreen({
-    Key? key,
-    required this.game,
-  }) : super(key: key);
+  const MainMenuScreen({super.key, required this.game});
 
   @override
   State<MainMenuScreen> createState() => _MainMenuScreenState();
 }
 
 class _MainMenuScreenState extends State<MainMenuScreen> {
-  String howManyLeft = '20';
+  String howManyLeft = '25';
   String name = 'Riku';
   String? selectedBirdType;
   String? selectedBackgroundType;
@@ -48,7 +48,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
               'Olympic Bird',
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 letterSpacing: 2,
-                fontSize: 50,
+                fontSize: 55,
                 fontFamily: 'game',
                 shadows: [
                   const Shadow(
@@ -59,17 +59,18 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 ],
               ),
             ),
+            const SizedBox(height: 18),
             Wrap(
               direction: Axis.horizontal,
               alignment: WrapAlignment.center,
               children: <Widget>[
                 Text(
-                  'Valmiina haasteeseen?',
+                  'Valmiina haasteeseen $name?',
                   style: Theme.of(context).textTheme.bodyMedium,
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  'Olympic Bird kutsuu sinut $name kisaamaan!',
+                  'Olympic Bird kutsuu sinut kisaamaan!',
                   style: Theme.of(context).textTheme.bodyMedium,
                   textAlign: TextAlign.center,
                 ),
@@ -85,13 +86,13 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 )
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 18),
             Text(
               'Valitse hahmosi',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             GridView.builder(
-              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+              padding: const EdgeInsets.fromLTRB(12, 18, 12, 18),
               shrinkWrap: true,
               itemCount: birdImages.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -109,7 +110,9 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                       border: isSelected
-                          ? Border.all(color: Colors.cyan, width: 2.5)
+                          ? Border.all(
+                              color: const Color.fromARGB(255, 200, 225, 255),
+                              width: 2.5)
                           : null,
                     ),
                     child: AspectRatio(
@@ -146,7 +149,9 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                       border: isSelected
-                          ? Border.all(color: Colors.cyan, width: 2.5)
+                          ? Border.all(
+                              color: const Color.fromARGB(255, 200, 225, 255),
+                              width: 2.5)
                           : null,
                     ),
                     child: AspectRatio(
@@ -196,29 +201,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   void onStartGamePressed() {
     late OverlayEntry overlayEntry;
     if (selectedBirdType == null || selectedBackgroundType == null) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Valitse hahmo ja tausta',
-                style: TextStyle(color: Colors.black)),
-            content: const Text(
-                'Sinun täytyy valita hahmo ja tausta ennen kuin voit aloittaa pelin.',
-                style: TextStyle(color: Colors.black)),
-            actions: <Widget>[
-              TextButton(
-                child: const Text(
-                  'OK',
-                  style: TextStyle(color: Colors.black),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
+      _showDialog();
       return;
     }
     overlayEntry = OverlayEntry(
@@ -240,6 +223,58 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
       widget.game.overlays.remove('mainMenu');
       widget.game.interval.reset();
       widget.game.resumeEngine();
+    }
+  }
+
+  void _showDialog() {
+    if (Platform.isIOS) {
+      showCupertinoDialog(
+        context: context,
+        builder: (ctx) => CupertinoAlertDialog(
+          title: const Text('Valitse hahmo ja tausta'),
+          content: const Text(
+              'Sinun täytyy valita hahmo ja tausta ennen kuin voit aloittaa pelin'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('OK'),
+            )
+          ],
+        ),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          backgroundColor: Colors.black,
+          title: const Text(
+            'Valitse hahmo ja tausta',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          content: const Text(
+              'Sinun täytyy valita hahmo ja tausta ennen kuin voit aloittaa pelin',
+              style: TextStyle(
+                color: Colors.white,
+              )),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
+              ),
+            )
+          ],
+        ),
+      );
     }
   }
 }

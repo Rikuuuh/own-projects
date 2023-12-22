@@ -32,7 +32,7 @@ class PipeGroup extends PositionComponent with HasGameRef<FlappyBirdGame> {
           pipeType: pipeType),
       Pipe(
           pipePosition: PipePosition.bottom,
-          height: heightMinusGround - (centerY + spacing / 1.8),
+          height: heightMinusGround - (centerY + spacing / 3),
           pipeType: pipeType),
     ]);
   }

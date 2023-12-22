@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class GameOverScreen extends StatelessWidget {
   final FlappyBirdGame game;
 
-  const GameOverScreen({Key? key, required this.game}) : super(key: key);
+  const GameOverScreen({super.key, required this.game});
 
   @override
   Widget build(BuildContext context) => Material(

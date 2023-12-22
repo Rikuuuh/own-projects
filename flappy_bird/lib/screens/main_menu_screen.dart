@@ -17,7 +17,7 @@ class MainMenuScreen extends StatefulWidget {
 
 class _MainMenuScreenState extends State<MainMenuScreen> {
   String howManyLeft = '25';
-  String name = 'Riku';
+  String name = 'Jenna';
   String? selectedBirdType;
   String? selectedBackgroundType;
   final List<String> birdImages = [

@@ -3,11 +3,11 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flappy_bird_game/components/background.dart';
 import 'package:flappy_bird_game/components/bird.dart';
-import 'package:flappy_bird_game/components/clouds.dart';
 import 'package:flappy_bird_game/components/ground.dart';
+import 'package:flappy_bird_game/components/pipe.dart';
 import 'package:flappy_bird_game/components/pipe_group.dart';
 import 'package:flappy_bird_game/game/configuration.dart';
-import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart';
 
 class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   FlappyBirdGame();
@@ -15,12 +15,14 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   late Bird bird;
   late Background background;
   late Ground ground;
+  late Pipe pipe;
   Timer interval = Timer(Config.pipeInterval, repeat: true);
   bool isHit = false;
   late TextComponent score;
   String selectedBirdType = 'bird1';
   String selectedBackgroundType = 'background1';
   String selectedGround = 'ground1_done.png';
+  String selectedPipe = 'pipe1_norm.png';
   @override
   void update(double dt) {
     super.update(dt);
@@ -35,43 +37,80 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   void startGameWithSelectedItems(String birdType, String backgroundType) {
     selectedBirdType = birdType;
     selectedBackgroundType = backgroundType;
-
-    String groundType = 'ground1_done.png';
-    String pipeType;
+    removeAll(children);
 
     background = Background(selectedBackgroundType);
     add(background);
+
+    score.removeFromParent();
+    score = buildScore();
+    add(score);
+
+    String groundType = 'assets/images/ground1_done.png';
+    String pipeType = 'assets/images/pipe1_norm.png';
     switch (selectedBackgroundType) {
-      case "background1_done.png":
+      case "background1":
         groundType = "ground1_done.png";
         pipeType = "pipe1";
         break;
-      case "background2_done.png":
+      case "background2":
         groundType = "ground2_done.png";
         pipeType = "pipe2";
         break;
-      case "background3_done.png":
+      case "background3":
         groundType = "ground3_done.png";
         pipeType = "pipe3";
         break;
-      default:
-      // Oletusarvot tai virheenkäsittely
     }
 
     ground = Ground(groundType);
     add(ground);
 
     // Putkien logiikka (jos tarpeen)
-    // ...
+    interval.onTick = () => add(PipeGroup(pipeType));
 
     bird.removeFromParent();
     bird = Bird(selectedBirdType);
     add(bird);
 
-    // Varmista, että score näkyy oikein
-    score.removeFromParent();
+    isHit = false;
+    interval.reset();
+  }
+
+  void resetGame() {
+    removeAll(children); // Poistaa kaikki nykyiset pelielementit
+
+    // Luo ja lisää uudet komponentit
+    background = Background(selectedBackgroundType);
+    add(background);
     score = buildScore();
     add(score);
+    String groundType = 'assets/images/ground1_done.png';
+    String pipeType = 'assets/images/pipe1_norm.png';
+    switch (selectedBackgroundType) {
+      case "background1":
+        groundType = "ground1_done.png";
+        pipeType = "pipe1";
+        break;
+      case "background2":
+        groundType = "ground2_done.png";
+        pipeType = "pipe2";
+        break;
+      case "background3":
+        groundType = "ground3_done.png";
+        pipeType = "pipe3";
+        break;
+    }
+    ground = Ground(groundType);
+    add(ground);
+    interval.onTick = () => add(PipeGroup(pipeType));
+
+    bird = Bird(selectedBirdType);
+    add(bird);
+
+    // Resetoi pelin tila
+    isHit = false;
+    interval.reset();
   }
 
   @override
@@ -79,12 +118,11 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
     addAll([
       Background(selectedBackgroundType),
       Ground(selectedGround),
-      Clouds(),
       bird = Bird(selectedBirdType),
       score = buildScore(),
     ]);
 
-    interval.onTick = () => add(PipeGroup());
+    interval.onTick = () => add(PipeGroup(selectedPipe));
   }
 
   TextComponent buildScore() {
@@ -93,7 +131,17 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
       anchor: Anchor.center,
       textRenderer: TextPaint(
         style: const TextStyle(
-            fontSize: 40, fontFamily: 'Game', fontWeight: FontWeight.bold),
+          fontSize: 45,
+          fontFamily: 'Game',
+          fontWeight: FontWeight.bold,
+          shadows: [
+            Shadow(
+              color: Colors.black,
+              blurRadius: 2.0,
+              offset: Offset(2.5, 2.5),
+            ),
+          ],
+        ),
       ),
     );
   }

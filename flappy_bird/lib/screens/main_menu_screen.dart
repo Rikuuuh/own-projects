@@ -1,4 +1,5 @@
 import 'package:flappy_bird_game/game/flappy_bird_game.dart';
+import 'package:flappy_bird_game/screens/count_down_overlay.dart';
 import 'package:flutter/material.dart';
 
 class MainMenuScreen extends StatefulWidget {
@@ -15,6 +16,8 @@ class MainMenuScreen extends StatefulWidget {
 }
 
 class _MainMenuScreenState extends State<MainMenuScreen> {
+  String howManyLeft = '20';
+  String name = 'Riku';
   String? selectedBirdType;
   String? selectedBackgroundType;
   final List<String> birdImages = [
@@ -32,37 +35,12 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     'assets/images/background3_done.png'
   ];
 
-  void onBirdSelected(String birdType) {
-    setState(() {
-      selectedBirdType = birdType;
-    });
-  }
-
-  void onBackgroundSelected(String backgroundType) {
-    setState(() {
-      selectedBackgroundType = backgroundType;
-    });
-  }
-
-  // Score ei tuu
-  // Ground ei tuu
-  void onStartGamePressed() {
-    // Logiikka pelin aloittamiseen valitulla linnulla
-    if (selectedBirdType != null && selectedBackgroundType != null) {
-      widget.game.startGameWithSelectedItems(
-          selectedBirdType!, selectedBackgroundType!);
-      widget.game.overlays.remove('mainMenu');
-      widget.game.interval.reset();
-      widget.game.resumeEngine();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     widget.game.pauseEngine();
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(35.0),
         child: Column(
           children: [
             const SizedBox(height: 10),
@@ -81,7 +59,33 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 5),
+            Wrap(
+              direction: Axis.horizontal,
+              alignment: WrapAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Valmiina haasteeseen?',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  'Olympic Bird kutsuu sinut $name kisaamaan!',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  'Sinulla on $howManyLeft yritystä saada parempi tulos kuin muilla osallistujilla.',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  'Onnea matkaan!',
+                  style: Theme.of(context).textTheme.titleMedium,
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
+            const SizedBox(height: 10),
             Text(
               'Valitse hahmosi',
               style: Theme.of(context).textTheme.titleLarge,
@@ -117,11 +121,12 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 );
               },
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 10),
             Text(
               'Valitse maailmasi',
               style: Theme.of(context).textTheme.titleLarge,
             ),
+            const SizedBox(height: 10),
             GridView.builder(
               padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
               shrinkWrap: true,
@@ -147,19 +152,94 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                     child: AspectRatio(
                       aspectRatio: 1, // Säädä tarvittaessa
                       child: Image.asset(backgroundImages[index],
-                          fit: BoxFit.cover),
+                          fit: BoxFit.fill),
                     ),
                   ),
                 );
               },
             ),
+            const SizedBox(height: 15),
             ElevatedButton(
               onPressed: onStartGamePressed,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                foregroundColor: const Color.fromARGB(255, 56, 255, 225),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                textStyle: Theme.of(context).textTheme.titleMedium,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+              ),
               child: const Text('Aloita peli'),
             ),
+            const SizedBox(height: 10),
+            Text('$howManyLeft Yritystä jäljellä'),
           ],
         ),
       ),
     );
+  }
+
+  void onBirdSelected(String birdType) {
+    setState(() {
+      selectedBirdType = birdType;
+    });
+  }
+
+  void onBackgroundSelected(String backgroundType) {
+    setState(() {
+      selectedBackgroundType = backgroundType;
+    });
+  }
+
+  void onStartGamePressed() {
+    late OverlayEntry overlayEntry;
+    if (selectedBirdType == null || selectedBackgroundType == null) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Valitse hahmo ja tausta',
+                style: TextStyle(color: Colors.black)),
+            content: const Text(
+                'Sinun täytyy valita hahmo ja tausta ennen kuin voit aloittaa pelin.',
+                style: TextStyle(color: Colors.black)),
+            actions: <Widget>[
+              TextButton(
+                child: const Text(
+                  'OK',
+                  style: TextStyle(color: Colors.black),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+    overlayEntry = OverlayEntry(
+      builder: (context) => CountdownOverlay(
+        onCountdownComplete: () {
+          overlayEntry.remove();
+          startGame();
+        },
+      ),
+    );
+    Overlay.of(context).insert(overlayEntry);
+  }
+
+  void startGame() {
+    // Logiikka pelin aloittamiseen valitulla linnulla
+    if (selectedBirdType != null && selectedBackgroundType != null) {
+      widget.game.startGameWithSelectedItems(
+          selectedBirdType!, selectedBackgroundType!);
+      widget.game.overlays.remove('mainMenu');
+      widget.game.interval.reset();
+      widget.game.resumeEngine();
+    }
   }
 }

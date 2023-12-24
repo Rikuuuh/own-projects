@@ -1,5 +1,3 @@
-// ignore: unused_import
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 pickImage(ImageSource source) async {
@@ -9,6 +7,4 @@ pickImage(ImageSource source) async {
   if (file != null) {
     return await file.readAsBytes();
   }
-  // ignore: avoid_print
-  print('No Images selected');
 }

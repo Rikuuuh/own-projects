@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
       ),
       drawer: const MainDrawer(),
       body: Container(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(40),
         child: Column(
           children: [
             Row(

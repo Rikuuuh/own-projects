@@ -1,3 +1,4 @@
+import 'package:flappy_bird_game/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -90,7 +91,9 @@ class MainDrawer extends StatelessWidget {
                   ),
             ),
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const ProfilePage(),
+              ));
             },
           )
         ],

@@ -18,6 +18,8 @@ dependencies:
   flame: ^1.10.0
   flame_audio: ^2.1.2
   image_picker: ^1.0.5
+  cloud_firestore: ^4.13.6
+  firebase_storage: ^11.1.0
 
 dev_dependencies:
   flutter_test:

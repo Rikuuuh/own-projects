@@ -23,7 +23,7 @@ class _ProfileState extends State<ProfilePage> {
   Uint8List? _image;
 
   void selectImage() async {
-    Uint8List img = await pickImage(ImageSource.gallery);
+    Uint8List img = await pickImage(ImageSource.camera);
     setState(() {
       _image = img;
     });

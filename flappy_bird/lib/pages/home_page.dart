@@ -1,18 +1,11 @@
-import 'package:flappy_bird_game/main_drawer.dart';
-import 'package:flappy_bird_game/pages/profile_page.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flappy_bird_game/main_drawer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   Widget _title() {
-    return Container(
-      alignment: Alignment.center,
-      child: const Text(
-        'Olympialaiset',
-      ),
-    );
+    return const Text('Olympialaiset');
   }
 
   @override
@@ -22,7 +15,30 @@ class HomePage extends StatelessWidget {
         title: _title(),
       ),
       drawer: const MainDrawer(),
-      body: const ProfilePage(),
+      body: Container(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Image.asset(
+                    'assets/images/miehet.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Image.asset(
+                    'assets/images/naiset.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }

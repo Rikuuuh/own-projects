@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
         });
       },
       child: Text(
-        isLogin ? 'Register instead' : 'Login isntead',
+        isLogin ? 'Register instead' : 'Login instead',
       ),
     );
   }

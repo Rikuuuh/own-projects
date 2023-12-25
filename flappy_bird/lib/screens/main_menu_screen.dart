@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/game/flappy_bird_game.dart';
 import 'package:flappy_bird_game/screens/count_down_overlay.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +19,28 @@ class MainMenuScreen extends StatefulWidget {
 }
 
 class _MainMenuScreenState extends State<MainMenuScreen> {
+  final User? user = Auth().currentUser;
+  List<String> highscoreDocIds = [];
+  Future? letsGetDocIds;
+
+  @override
+  void initState() {
+    letsGetDocIds;
+    super.initState();
+  }
+
+  Future getDocId() async {
+    await FirebaseFirestore.instance
+        .collection("highscores")
+        .orderBy("score", descending: true)
+        .limit(10)
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              highscoreDocIds.add(element.reference.id);
+            }));
+  }
+
   String howManyLeft = '25';
-  String name = 'Jenna';
   String? selectedBirdType;
   String? selectedBackgroundType;
   final List<String> birdImages = [
@@ -65,7 +88,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
               alignment: WrapAlignment.center,
               children: <Widget>[
                 Text(
-                  'Valmiina haasteeseen $name?',
+                  'Valmiina haasteeseen $user?',
                   style: Theme.of(context).textTheme.bodyMedium,
                   textAlign: TextAlign.center,
                 ),
@@ -180,6 +203,19 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             ),
             const SizedBox(height: 10),
             Text('$howManyLeft Yritystä jäljellä'),
+            Expanded(
+              child: FutureBuilder(
+                  future: letsGetDocIds,
+                  builder: (context, snapshot) {
+                    ListView.builder(
+                      itemCount: highscoreDocIds.length,
+                      itemBuilder: (context, index) {
+                        return Text(highscoreDocIds[index]);
+                      },
+                    );
+                    return SizedBox();
+                  }),
+            )
           ],
         ),
       ),

@@ -66,7 +66,6 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
     ground = Ground(groundType);
     add(ground);
 
-    // Putkien logiikka (jos tarpeen)
     interval.onTick = () => add(PipeGroup(pipeType));
 
     bird.removeFromParent();
@@ -78,9 +77,8 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   }
 
   void resetGame() {
-    removeAll(children); // Poistaa kaikki nykyiset pelielementit
+    removeAll(children);
 
-    // Luo ja lisää uudet komponentit
     background = Background(selectedBackgroundType);
     add(background);
     score = buildScore();

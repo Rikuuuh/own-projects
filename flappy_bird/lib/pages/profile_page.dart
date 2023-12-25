@@ -4,7 +4,7 @@ import 'package:flappy_bird_game/main_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flappy_bird_game/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flappy_bird_game/auth.dart';
+import 'package:flappy_bird_game/auth/auth.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:flappy_bird_game/resources/add_data.dart';
@@ -18,9 +18,6 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfileState extends State<ProfilePage> {
   final User? user = Auth().currentUser;
-  Future<void> signOut() async {
-    await Auth().signOut();
-  }
 
   Uint8List? _image;
 
@@ -37,7 +34,9 @@ class _ProfileState extends State<ProfilePage> {
 
   Widget _signOutButton() {
     return ElevatedButton(
-      onPressed: signOut,
+      onPressed: () {
+        FirebaseAuth.instance.signOut();
+      },
       child: const Text('Sign out'),
     );
   }

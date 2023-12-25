@@ -1,5 +1,17 @@
+import 'package:flame/game.dart';
 import 'package:flappy_bird_game/pages/profile_page.dart';
+import 'package:flappy_bird_game/screens/game_over_screen.dart';
+import 'package:flappy_bird_game/screens/main_menu_screen.dart';
+
 import 'package:flutter/material.dart';
+
+import 'game/flappy_bird_game.dart';
+
+Widget mainMenuScreenWrapper(BuildContext context, Object? game) {
+  return MainMenuScreen(game: game as FlappyBirdGame);
+}
+
+final game = FlappyBirdGame();
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});
@@ -67,14 +79,25 @@ class MainDrawer extends StatelessWidget {
               color: Theme.of(context).colorScheme.onBackground,
             ),
             title: Text(
-              'Olympic Bird sijoitukset',
+              'Olympic Bird - Peli',
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Theme.of(context).colorScheme.onBackground,
                     fontSize: 24,
                   ),
             ),
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) {
+                  GameWidget(game: game, initialActiveOverlays: const [
+                    MainMenuScreen.id
+                  ], overlayBuilderMap: {
+                    'mainMenu': (context, _) =>
+                        mainMenuScreenWrapper(context, game),
+                    'gameOver': (context, _) => GameOverScreen(game: game),
+                  });
+                  return SizedBox();
+                },
+              ));
             },
           ),
           ListTile(

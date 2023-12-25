@@ -1,12 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/game/assets.dart';
 import 'package:flappy_bird_game/game/configuration.dart';
 import 'package:flappy_bird_game/game/flappy_bird_game.dart';
 import 'package:flutter/material.dart';
+import 'package:flappy_bird_game/auth/auth.dart';
 
 class GameOverScreen extends StatelessWidget {
   final FlappyBirdGame game;
 
-  const GameOverScreen({super.key, required this.game});
+  GameOverScreen({super.key, required this.game});
+  final User? user = Auth().currentUser;
 
   @override
   Widget build(BuildContext context) => Material(
@@ -47,8 +51,15 @@ class GameOverScreen extends StatelessWidget {
           ),
         ),
       );
+  void submitScore() {
+    var database = FirebaseFirestore.instance;
+    database
+        .collection('highscores')
+        .add({"name": user, "score": game.bird.score});
+  }
 
   void onRestart() {
+    submitScore();
     game.resetGame();
 
     Config.gameSpeed = 220.0;

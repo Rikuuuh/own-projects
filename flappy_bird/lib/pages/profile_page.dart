@@ -1,13 +1,14 @@
 import 'dart:typed_data';
+import 'package:flutter_animate/flutter_animate.dart';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flappy_bird_game/main_drawer.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flappy_bird_game/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flappy_bird_game/auth/auth.dart';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:flappy_bird_game/resources/add_data.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -17,7 +18,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfileState extends State<ProfilePage> {
-  final User? user = Auth().currentUser;
+  final User? user = FirebaseAuth.instance.currentUser;
 
   Uint8List? _image;
 
@@ -26,6 +27,18 @@ class _ProfileState extends State<ProfilePage> {
     setState(() {
       _image = img;
     });
+  }
+
+  Future<void> saveProfile() async {
+    if (_image != null && user != null) {
+      String filePath = 'user_profiles/${user?.uid}/profile.jpg';
+      var storageRef = FirebaseStorage.instance.ref().child(filePath);
+      await storageRef.putData(_image!);
+
+      String downloadURL = await storageRef.getDownloadURL();
+
+      await user?.updatePhotoURL(downloadURL);
+    }
   }
 
   Widget _userUid() {
@@ -44,20 +57,21 @@ class _ProfileState extends State<ProfilePage> {
   Widget _addImage() {
     return Stack(
       children: [
-        _image != null
-            ? CircleAvatar(
-                radius: 64,
-                backgroundImage: MemoryImage(_image!),
-              )
-            : const CircleAvatar(
-                radius: 65,
-                backgroundImage: AssetImage('assets/images/user.png'),
-              ),
+        if (user?.photoURL != null)
+          CircleAvatar(
+            backgroundImage: NetworkImage(user!.photoURL!),
+            radius: 64,
+          )
+        else
+          const CircleAvatar(
+            backgroundImage: AssetImage('assets/images/user.png'),
+            radius: 64,
+          ),
         Positioned(
           top: -14,
           left: 95,
           child: IconButton(
-            color: Colors.white,
+            color: Colors.deepPurple,
             onPressed: selectImage,
             icon: const Icon(Icons.add_a_photo),
           ),
@@ -67,14 +81,7 @@ class _ProfileState extends State<ProfilePage> {
   }
 
   Widget _title() {
-    return const Text('Olympialaiset');
-  }
-
-  final TextEditingController nameController = TextEditingController();
-  void saveProfile() async {
-    String name = nameController.text;
-
-    String resp = await StoreData().savedata(name: name, file: _image!);
+    return const Text('Omat tiedot');
   }
 
   @override
@@ -93,14 +100,6 @@ class _ProfileState extends State<ProfilePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               _addImage(),
-              TextField(
-                controller: nameController,
-                decoration: const InputDecoration(
-                  hintText: 'Nimesi',
-                  contentPadding: EdgeInsets.all(10),
-                  border: OutlineInputBorder(),
-                ),
-              ),
               ElevatedButton(
                 onPressed: saveProfile,
                 child: const Text('Save profile'),

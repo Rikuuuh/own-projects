@@ -1,10 +1,9 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/game/flappy_bird_game.dart';
-import 'package:flappy_bird_game/screens/count_down_overlay.dart';
+import 'package:flappy_bird_game/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -12,7 +11,7 @@ class MainMenuScreen extends StatefulWidget {
   final FlappyBirdGame game;
   static const String id = 'mainMenu';
 
-  const MainMenuScreen({super.key, required this.game});
+  const MainMenuScreen(BuildContext context, {super.key, required this.game});
 
   @override
   State<MainMenuScreen> createState() => _MainMenuScreenState();
@@ -20,27 +19,118 @@ class MainMenuScreen extends StatefulWidget {
 
 class _MainMenuScreenState extends State<MainMenuScreen> {
   final User? user = Auth().currentUser;
-  List<String> highscoreDocIds = [];
-  Future? letsGetDocIds;
+  String? firstName;
+  int? remainingAttempts;
 
   @override
   void initState() {
-    letsGetDocIds;
     super.initState();
+    _loadUserData();
+    _loadRemainingAttempts();
   }
 
-  Future getDocId() async {
-    await FirebaseFirestore.instance
+  Future<void> _loadRemainingAttempts() async {
+    String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
+    int attempts = await getRemainingAttempts(userId);
+    setState(() {
+      remainingAttempts = attempts;
+    });
+  }
+
+  Future<int> getRemainingAttempts(String userId) async {
+    DocumentSnapshot userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    return userDoc['attempts left'];
+  }
+
+  Future<void> decreaseAttempt(String userId) async {
+    DocumentReference userRef =
+        FirebaseFirestore.instance.collection('users').doc(userId);
+
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot snapshot = await transaction.get(userRef);
+
+      if (!snapshot.exists) {
+        throw Exception("User not found!");
+      }
+
+      int currentAttempts = snapshot['attempts left'];
+      if (currentAttempts > 0) {
+        transaction.update(userRef, {'attempts left': currentAttempts - 1});
+      } else {
+        return const HomePage();
+      }
+    });
+  }
+
+  Future<void> _loadUserData() async {
+    var userDetails = await UserService.getUserDetails();
+    setState(() {
+      firstName = userDetails.firstName;
+    });
+  }
+
+  Future<void> showHighScores(BuildContext context) async {
+    // Hae highscore-tiedot Firestoresta
+    var highscores = await FirebaseFirestore.instance
         .collection("highscores")
         .orderBy("score", descending: true)
         .limit(10)
-        .get()
-        .then((value) => value.docs.forEach((element) {
-              highscoreDocIds.add(element.reference.id);
-            }));
+        .get();
+
+    // Näytä dialogi
+    // ignore: use_build_context_synchronously
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          alignment: Alignment.center,
+          backgroundColor: Colors.blueGrey,
+          title: const Text(
+            'Tämän hetken 10 parasta',
+            style: TextStyle(fontSize: 20),
+          ),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: highscores.docs.length,
+              itemBuilder: (BuildContext context, int index) {
+                var scoreData = highscores.docs[index].data();
+                return ListTile(
+                  title: Text(
+                    '${scoreData['name']}',
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  leading: SizedBox(
+                    child: CircleAvatar(
+                      radius: 22,
+                      backgroundImage: NetworkImage(user!.photoURL!),
+                    ),
+                  ),
+                  trailing: Text('${scoreData['score']}',
+                      style: const TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold)),
+                );
+              },
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                'Sulje',
+                style: TextStyle(color: Colors.black),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
-  String howManyLeft = '25';
   String? selectedBirdType;
   String? selectedBackgroundType;
   final List<String> birdImages = [
@@ -62,161 +152,192 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   Widget build(BuildContext context) {
     widget.game.pauseEngine();
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(35.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            Text(
-              'Olympic Bird',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                letterSpacing: 2,
-                fontSize: 55,
-                fontFamily: 'game',
-                shadows: [
-                  const Shadow(
-                    color: Colors.blueAccent,
-                    blurRadius: 2.0,
-                    offset: Offset(1.5, 1.5),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(33, 0, 33, 0),
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              Text(
+                'Olympic Bird',
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  letterSpacing: 2,
+                  fontSize: 55,
+                  fontFamily: 'game',
+                  shadows: [
+                    const Shadow(
+                      color: Colors.blueAccent,
+                      blurRadius: 2.0,
+                      offset: Offset(1.5, 1.5),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 15),
+              Wrap(
+                direction: Axis.horizontal,
+                alignment: WrapAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Valmiina haasteeseen ${firstName?.toUpperCase()}?',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    textAlign: TextAlign.center,
                   ),
+                  Text(
+                    'Olympic Bird kutsuu sinut kisaamaan!',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    'Sinulla on 25 yritystä saada parempi tulos kuin muilla osallistujilla.',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    'Onnea matkaan!',
+                    style: Theme.of(context).textTheme.titleMedium,
+                    textAlign: TextAlign.center,
+                  )
                 ],
               ),
-            ),
-            const SizedBox(height: 18),
-            Wrap(
-              direction: Axis.horizontal,
-              alignment: WrapAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Valmiina haasteeseen $user?',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  'Olympic Bird kutsuu sinut kisaamaan!',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  'Sinulla on $howManyLeft yritystä saada parempi tulos kuin muilla osallistujilla.',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  'Onnea matkaan!',
-                  style: Theme.of(context).textTheme.titleMedium,
-                  textAlign: TextAlign.center,
-                )
-              ],
-            ),
-            const SizedBox(height: 18),
-            Text(
-              'Valitse hahmosi',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            GridView.builder(
-              padding: const EdgeInsets.fromLTRB(12, 18, 12, 18),
-              shrinkWrap: true,
-              itemCount: birdImages.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
+              const SizedBox(height: 12),
+              Text(
+                'Valitse hahmosi',
+                style: Theme.of(context).textTheme.titleLarge,
               ),
-              itemBuilder: (context, index) {
-                bool isSelected =
-                    birdImages[index].split('/').last.split('_')[0] ==
-                        selectedBirdType;
-                return GestureDetector(
-                  onTap: () => onBirdSelected(
-                      birdImages[index].split('/').last.split('_')[0]),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: isSelected
-                          ? Border.all(
-                              color: const Color.fromARGB(255, 200, 225, 255),
-                              width: 2.5)
-                          : null,
+              GridView.builder(
+                padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
+                shrinkWrap: true,
+                itemCount: birdImages.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                ),
+                itemBuilder: (context, index) {
+                  bool isSelected =
+                      birdImages[index].split('/').last.split('_')[0] ==
+                          selectedBirdType;
+                  return GestureDetector(
+                    onTap: () => onBirdSelected(
+                        birdImages[index].split('/').last.split('_')[0]),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: isSelected
+                            ? Border.all(
+                                color: const Color.fromARGB(255, 200, 225, 255),
+                                width: 2.5)
+                            : null,
+                      ),
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Image.asset(birdImages[index],
+                            fit: BoxFit.fitWidth),
+                      ),
                     ),
-                    child: AspectRatio(
-                      aspectRatio: 1, // Säädä tarvittaessa
-                      child:
-                          Image.asset(birdImages[index], fit: BoxFit.fitWidth),
+                  );
+                },
+              ),
+              Text(
+                'Valitse maailmasi',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 5),
+              GridView.builder(
+                padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+                shrinkWrap: true,
+                itemCount: backgroundImages.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                ),
+                itemBuilder: (context, index) {
+                  bool isSelected =
+                      backgroundImages[index].split('/').last.split('_')[0] ==
+                          selectedBackgroundType;
+                  return GestureDetector(
+                    onTap: () => onBackgroundSelected(
+                        backgroundImages[index].split('/').last.split('_')[0]),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: isSelected
+                            ? Border.all(
+                                color: const Color.fromARGB(255, 200, 225, 255),
+                                width: 2.5)
+                            : null,
+                      ),
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Image.asset(backgroundImages[index],
+                            fit: BoxFit.fill),
+                      ),
                     ),
+                  );
+                },
+              ),
+              const SizedBox(height: 5),
+              ElevatedButton(
+                onPressed: onStartGamePressed,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  foregroundColor: const Color.fromARGB(255, 56, 255, 225),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 11),
+                  textStyle: Theme.of(context).textTheme.titleMedium,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      side: const BorderSide(
+                          color: Color.fromARGB(255, 56, 255, 225),
+                          width: 1.5)),
+                ),
+                child: const Text('Aloita peli'),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(
+                          context); // Palaa takaisin edelliselle näytölle
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent,
+                      foregroundColor: Colors.black,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 11),
+                      textStyle: Theme.of(context).textTheme.titleMedium,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        side: const BorderSide(color: Colors.black, width: 1.5),
+                      ),
+                    ),
+                    child: const Text('Poistu pelistä'),
                   ),
-                );
-              },
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Valitse maailmasi',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 10),
-            GridView.builder(
-              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-              shrinkWrap: true,
-              itemCount: backgroundImages.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-              ),
-              itemBuilder: (context, index) {
-                bool isSelected =
-                    backgroundImages[index].split('/').last.split('_')[0] ==
-                        selectedBackgroundType;
-                return GestureDetector(
-                  onTap: () => onBackgroundSelected(
-                      backgroundImages[index].split('/').last.split('_')[0]),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: isSelected
-                          ? Border.all(
-                              color: const Color.fromARGB(255, 200, 225, 255),
-                              width: 2.5)
-                          : null,
+                  const SizedBox(width: 5),
+                  ElevatedButton(
+                    onPressed: () {
+                      showHighScores(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 42, vertical: 11),
+                      textStyle: Theme.of(context).textTheme.titleMedium,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        side: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 1.5),
+                      ),
                     ),
-                    child: AspectRatio(
-                      aspectRatio: 1, // Säädä tarvittaessa
-                      child: Image.asset(backgroundImages[index],
-                          fit: BoxFit.fill),
-                    ),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 15),
-            ElevatedButton(
-              onPressed: onStartGamePressed,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: const Color.fromARGB(255, 56, 255, 225),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
-                textStyle: Theme.of(context).textTheme.titleMedium,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
+                    child: const Text('Tulokset'),
+                  )
+                ],
               ),
-              child: const Text('Aloita peli'),
-            ),
-            const SizedBox(height: 10),
-            Text('$howManyLeft Yritystä jäljellä'),
-            Expanded(
-              child: FutureBuilder(
-                  future: letsGetDocIds,
-                  builder: (context, snapshot) {
-                    ListView.builder(
-                      itemCount: highscoreDocIds.length,
-                      itemBuilder: (context, index) {
-                        return Text(highscoreDocIds[index]);
-                      },
-                    );
-                    return SizedBox();
-                  }),
-            )
-          ],
+              const SizedBox(height: 10),
+              Text('$remainingAttempts Yritystä jäljellä'),
+            ],
+          ),
         ),
       ),
     );
@@ -234,21 +355,49 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     });
   }
 
-  void onStartGamePressed() {
-    late OverlayEntry overlayEntry;
+  void onStartGamePressed() async {
     if (selectedBirdType == null || selectedBackgroundType == null) {
       _showDialog();
-      return;
     }
-    overlayEntry = OverlayEntry(
-      builder: (context) => CountdownOverlay(
-        onCountdownComplete: () {
-          overlayEntry.remove();
-          startGame();
-        },
-      ),
-    );
-    Overlay.of(context).insert(overlayEntry);
+    String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
+    int attemptsLeft = await getRemainingAttempts(userId);
+    if (attemptsLeft > 0) {
+      // Aloita peli ja vähennä yritystä
+      await decreaseAttempt(userId);
+      startGame();
+    } else {
+      // Näytä ilmoitus, ettei yrityksiä ole jäljellä
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: Colors.black,
+          title: const Text(
+            '25 yrityksen raja tuli vastaan.',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          content: const Text('Kiitos pelaamisestasi',
+              style: TextStyle(
+                color: Colors.white,
+              )),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    }
   }
 
   void startGame() {

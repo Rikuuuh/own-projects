@@ -39,22 +39,25 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future signUp() async {
-    // Authenticate user
     if (passwordConfirmed()) {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim());
-    }
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: _emailController.text.trim(),
+              password: _passwordController.text.trim());
 
-    // Add user details
-    adduserDetails(
-        _firstNameController.text.trim(), _lastNameController.text.trim());
+      await adduserDetails(
+          userCredential.user!.uid, // Käytä UID:tä dokumentin avaimena
+          _firstNameController.text.trim(),
+          _lastNameController.text.trim());
+    }
   }
 
-  Future adduserDetails(String firstName, String lastName) async {
-    await FirebaseFirestore.instance.collection('users').add({
+  Future adduserDetails(
+      String userId, String firstName, String lastName) async {
+    await FirebaseFirestore.instance.collection('users').doc(userId).set({
       'first name': firstName,
       'last name': lastName,
+      'attempts left': 25,
     });
   }
 

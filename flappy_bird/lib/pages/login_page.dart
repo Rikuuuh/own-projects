@@ -17,10 +17,46 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      );
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pop();
+    } on FirebaseAuthException catch (e) {
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          content: Text(e.message.toString(),
+              style: const TextStyle(color: Colors.black)),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
+    // ignore: use_build_context_synchronously
   }
 
   @override

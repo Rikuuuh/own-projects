@@ -57,7 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
     await FirebaseFirestore.instance.collection('users').doc(userId).set({
       'first name': firstName,
       'last name': lastName,
-      'attempts left': 25,
+      'attempts left': 50,
     });
   }
 

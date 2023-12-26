@@ -31,6 +31,7 @@ class MainDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
     return Drawer(
+      width: 275,
       child: Column(
         children: [
           GestureDetector(
@@ -81,7 +82,7 @@ class MainDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
-              Icons.format_list_numbered,
+              Icons.format_list_bulleted,
               size: 26,
               color: Theme.of(context).colorScheme.onBackground,
             ),

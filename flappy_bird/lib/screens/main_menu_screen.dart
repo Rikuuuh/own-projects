@@ -71,21 +71,19 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   }
 
   Future<void> showHighScores(BuildContext context) async {
-    // Hae highscore-tiedot Firestoresta
     var highscores = await FirebaseFirestore.instance
         .collection("highscores")
         .orderBy("score", descending: true)
         .limit(10)
         .get();
 
-    // Näytä dialogi
     // ignore: use_build_context_synchronously
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           alignment: Alignment.center,
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: Colors.deepPurple[200],
           title: const Text(
             'Tämän hetken 10 parasta',
             style: TextStyle(fontSize: 20),
@@ -189,7 +187,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    'Sinulla on 25 yritystä saada parempi tulos kuin muilla osallistujilla.',
+                    'Sinulla on 50 yritystä saada parempi tulos kuin muilla osallistujilla.',
                     style: Theme.of(context).textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
@@ -373,15 +371,12 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
         builder: (context) => AlertDialog(
           backgroundColor: Colors.black,
           title: const Text(
-            '25 yrityksen raja tuli vastaan.',
+            '50 yrityksen raja tuli vastaan! ',
             style: TextStyle(
               color: Colors.white,
             ),
           ),
-          content: const Text('Kiitos pelaamisestasi',
-              style: TextStyle(
-                color: Colors.white,
-              )),
+          icon: const Icon(Icons.bedtime),
           actions: [
             TextButton(
               onPressed: () {

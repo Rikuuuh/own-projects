@@ -1,7 +1,8 @@
 import 'dart:typed_data';
-import 'package:flutter_animate/flutter_animate.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flappy_bird_game/auth/get_user_name.dart';
 import 'package:flappy_bird_game/main_drawer.dart';
 
 import 'package:flutter/material.dart';
@@ -19,6 +20,20 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfileState extends State<ProfilePage> {
   final User? user = FirebaseAuth.instance.currentUser;
+
+  // Document ID's
+  List<String> docIDs = [];
+
+  // get docID's
+  Future getDocId() async {
+    await FirebaseFirestore.instance.collection('users').get().then(
+          (snapshot) => snapshot.docs.forEach(
+            (document) {
+              docIDs.add(document.reference.id);
+            },
+          ),
+        );
+  }
 
   Uint8List? _image;
 
@@ -39,19 +54,6 @@ class _ProfileState extends State<ProfilePage> {
 
       await user?.updatePhotoURL(downloadURL);
     }
-  }
-
-  Widget _userUid() {
-    return Text(user?.email ?? 'User email');
-  }
-
-  Widget _signOutButton() {
-    return ElevatedButton(
-      onPressed: () {
-        FirebaseAuth.instance.signOut();
-      },
-      child: const Text('Sign out'),
-    );
   }
 
   Widget _addImage() {
@@ -80,15 +82,17 @@ class _ProfileState extends State<ProfilePage> {
     );
   }
 
-  Widget _title() {
-    return const Text('Omat tiedot');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: _title(),
+          title: Text(user!.email!),
+          actions: [
+            GestureDetector(
+              onTap: () => FirebaseAuth.instance.signOut(),
+              child: const Icon(Icons.logout, color: Colors.deepPurple),
+            ),
+          ],
         ),
         drawer: const MainDrawer(),
         body: Container(
@@ -104,8 +108,23 @@ class _ProfileState extends State<ProfilePage> {
                 onPressed: saveProfile,
                 child: const Text('Save profile'),
               ),
-              _userUid(),
-              _signOutButton(),
+              Expanded(
+                child: FutureBuilder(
+                  future: getDocId(),
+                  builder: (context, snapshot) {
+                    return ListView.builder(
+                        itemCount: docIDs.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              title: GetUserName(documentId: docIDs[index]),
+                            ),
+                          );
+                        });
+                  },
+                ),
+              ),
             ],
           ),
         ));

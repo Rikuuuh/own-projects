@@ -32,6 +32,7 @@ class MainDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
     return Drawer(
+      surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
       width: 275,
       child: Column(
         children: [
@@ -49,13 +50,10 @@ class MainDrawer extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: [
                     Theme.of(context).colorScheme.primaryContainer,
-                    Theme.of(context)
-                        .colorScheme
-                        .primaryContainer
-                        .withOpacity(0.8),
+                    Theme.of(context).colorScheme.onPrimary.withOpacity(0.5),
                   ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
               ),
               child: Row(
@@ -63,35 +61,38 @@ class MainDrawer extends StatelessWidget {
                   if (user?.photoURL != null)
                     CircleAvatar(
                       backgroundImage: NetworkImage(user!.photoURL!),
-                      radius: 24,
+                      radius: 30,
                     )
                   else
                     const CircleAvatar(
                       backgroundImage: AssetImage('assets/images/user.png'),
-                      radius: 24,
+                      radius: 30,
                     ),
-                  const SizedBox(width: 18),
-                  Text(
-                    'Etusivu',
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+                  const SizedBox(width: 20),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Olympialaisten',
+                          style: Theme.of(context).textTheme.titleLarge!),
+                      Text('Aloitusalue',
+                          style: Theme.of(context).textTheme.titleLarge!),
+                    ],
                   ),
                 ],
               ),
             ),
           ),
           ListTile(
-            leading: Icon(
-              Icons.format_list_bulleted,
-              size: 26,
-              color: Theme.of(context).colorScheme.onBackground,
+            leading: const Icon(
+              Icons.lightbulb_outlined,
+              size: 30,
+              color: Colors.green,
             ),
             title: Text(
-              'Olympialais visa',
+              'Tietovisa - Testaa Tietosi',
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontSize: 24,
+                    color: Colors.green,
+                    fontSize: 20,
                   ),
             ),
             onTap: () {
@@ -99,51 +100,52 @@ class MainDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(
-              Icons.leaderboard,
-              size: 26,
-              color: Theme.of(context).colorScheme.onBackground,
+            leading: const Icon(
+              Icons.sports_esports_outlined,
+              size: 30,
+              color: Colors.blue,
             ),
             title: Text(
-              'Olympic Bird - Peli',
+              'Pelihetki - Olympic Bird',
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontSize: 24,
+                    color: Colors.blue,
+                    fontSize: 20,
                   ),
             ),
             onTap: () => startGame(context),
           ),
           const Spacer(),
           ListTile(
-            leading: Icon(
-              Icons.tag_faces_sharp,
-              size: 26,
-              color: Theme.of(context).colorScheme.onBackground,
+            leading: const Icon(
+              Icons.emoji_events_outlined,
+              size: 30,
+              color: Colors.yellow,
             ),
             title: Text(
-              'Osallistujat',
+              'Kisaajien Kunniajoukko',
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontSize: 24,
+                    color: Colors.yellow,
+                    fontSize: 20,
                   ),
             ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const UsersPage(),
+                builder: (context) => UsersPage(),
               ));
             },
           ),
+          const Spacer(),
           ListTile(
-            leading: Icon(
-              Icons.logout,
-              size: 26,
-              color: Theme.of(context).colorScheme.onBackground,
+            leading: const Icon(
+              Icons.exit_to_app_outlined,
+              size: 30,
+              color: Colors.redAccent,
             ),
             title: Text(
-              'Kirjaudu ulos',
+              'Paluu Arkeen',
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontSize: 24,
+                    color: Colors.redAccent,
+                    fontSize: 20,
                   ),
             ),
             onTap: () {

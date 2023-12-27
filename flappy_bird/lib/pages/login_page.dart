@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.showRegisterPage});
-  final VoidCallback showRegisterPage;
+  final void Function() showRegisterPage;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -16,47 +16,27 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  String _errorMessage = '';
+
   Future signIn() async {
+    // Tarkista, että sähköposti ja salasana on annettu
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      setState(() {
+        _errorMessage = 'Anna sähköposti ja salasana';
+      });
+      return;
+    }
+
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim());
-      // ignore: use_build_context_synchronously
-      showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      );
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pop();
-    } on FirebaseAuthException {
-      // ignore: use_build_context_synchronously
-      showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          content: const Text('Tarkista käyttäjätunnus ja salasana',
-              style: TextStyle(color: Colors.black)),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(ctx);
-              },
-              child: const Text(
-                'OK',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-            )
-          ],
-        ),
-      );
+      // Jatka sovelluksen käyttöä...
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _errorMessage = e.message ?? 'Kirjautuminen epäonnistui';
+      });
     }
-
-    // ignore: use_build_context_synchronously
   }
 
   @override
@@ -185,6 +165,14 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 25),
+                if (_errorMessage.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Text(
+                      _errorMessage,
+                      style: const TextStyle(color: Colors.red, fontSize: 16),
+                    ),
+                  ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

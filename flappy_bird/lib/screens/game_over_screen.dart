@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/game/assets.dart';
 import 'package:flappy_bird_game/game/configuration.dart';
 import 'package:flappy_bird_game/game/flappy_bird_game.dart';
-import 'package:flappy_bird_game/pages/users_page.dart';
+import 'package:flappy_bird_game/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 
@@ -38,7 +38,7 @@ class GameOverScreen extends StatelessWidget {
       if (currentAttempts > 0) {
         transaction.update(userRef, {'attempts left': currentAttempts - 1});
       } else {
-        return const UsersPage();
+        return const HomePage();
       }
     });
   }

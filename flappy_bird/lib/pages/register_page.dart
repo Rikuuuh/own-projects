@@ -1,18 +1,17 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flappy_bird_game/utils.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flappy_bird_game/pick_image.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, required this.showLoginPage});
-  final VoidCallback showLoginPage;
+  final void Function() showLoginPage;
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -26,66 +25,24 @@ class _RegisterPageState extends State<RegisterPage> {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
 
-  void _showDialog() {
-    if (Platform.isIOS) {
-      showCupertinoDialog(
-        context: context,
-        builder: (ctx) => CupertinoAlertDialog(
-          title: const Text('Kuva lisätty!'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(ctx);
-              },
-              child: const Text('OK'),
-            )
-          ],
-        ),
-      );
-    } else {
-      showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          backgroundColor: Colors.black,
-          title: const Text(
-            'Kuva lisätty!',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(ctx);
-              },
-              child: const Text(
-                'OK',
-                style: TextStyle(
-                  color: Colors.blue,
-                ),
-              ),
-            )
-          ],
-        ),
-      );
-    }
-  }
+  bool _isImageAdded = false;
+  String _errorMessage = '';
 
   User? user = FirebaseAuth.instance.currentUser;
 
   Uint8List? _image;
 
   void selectImage() async {
-    Uint8List img = await pickImage(ImageSource.camera);
-    // ignore: unnecessary_null_comparison
-    if (img == null) return;
-    setState(() {
-      _image = img;
-      _showDialog();
-    });
+    Uint8List? img = await pickImage(ImageSource.camera);
+    if (img != null) {
+      setState(() {
+        _image = img;
+        _isImageAdded = true;
+      });
+    }
   }
 
-  Future<void> saveProfile(User user) async {
+  Future<void> saveProfileImage(User user) async {
     if (_image != null) {
       String filePath = 'user_profiles/${user.uid}/profile.jpg';
       var storageRef = FirebaseStorage.instance.ref().child(filePath);
@@ -123,25 +80,48 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
-  Future signUp() async {
-    if (passwordConfirmed()) {
-      try {
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: _emailController.text.trim(),
-                password: _passwordController.text.trim());
+  Future<void> signUp() async {
+    if (!passwordConfirmed()) {
+      setState(() {
+        _errorMessage = 'Salasanat eivät täsmää';
+      });
+      return;
+    }
 
-        // Tallenna käyttäjän tiedot Firestoreen
-        await adduserDetails(userCredential.user!.uid,
-            _firstNameController.text.trim(), _lastNameController.text.trim());
+    if (_emailController.text.isEmpty ||
+        _passwordController.text.isEmpty ||
+        _firstNameController.text.isEmpty ||
+        _lastNameController.text.isEmpty) {
+      setState(() {
+        _errorMessage =
+            'Tarkista, että olet täyttänyt kaikki tarvittavat tiedot';
+      });
+      return;
+    }
 
-        // Tallenna profiilikuva (jos valittu) Firebase Storageen ja päivitä URL Firebase Authissa
-        if (_image != null) {
-          await saveProfile(userCredential.user!);
-        }
-      } catch (e) {
-        // Käsittely epäonnistuneelle rekisteröinnille
+    if (!_isImageAdded) {
+      setState(() {
+        _errorMessage = 'Lisää vielä kuvasi';
+      });
+      return;
+    }
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: _emailController.text.trim(),
+              password: _passwordController.text.trim());
+
+      await adduserDetails(userCredential.user!.uid,
+          _firstNameController.text.trim(), _lastNameController.text.trim());
+
+      if (_image != null) {
+        await saveProfileImage(userCredential.user!);
       }
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _errorMessage = e.message ?? 'Rekisteröityminen epäonnistui';
+      });
     }
   }
 
@@ -272,16 +252,28 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'Lisää vielä oman naaman kuvasi',
-                  style: TextStyle(fontSize: 18),
+                Text(
+                  _isImageAdded
+                      ? 'Kuva lisätty!'
+                      : 'Lisää vielä oman naaman kuvasi',
+                  style: const TextStyle(fontSize: 18),
                 ),
                 IconButton(
                   color: Colors.blue,
                   iconSize: 50,
                   onPressed: selectImage,
-                  icon: const Icon(Icons.add_a_photo),
+                  icon: Icon(
+                    _isImageAdded ? Icons.check_circle : Icons.add_a_photo,
+                  ),
                 ),
+                if (_errorMessage.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      _errorMessage,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: GestureDetector(

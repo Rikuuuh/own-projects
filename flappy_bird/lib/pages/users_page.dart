@@ -7,18 +7,13 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-class UsersPage extends StatefulWidget {
-  const UsersPage({super.key});
+class UsersPage extends StatelessWidget {
+  UsersPage({super.key});
 
-  @override
-  State<UsersPage> createState() => _UsersState();
-}
-
-class _UsersState extends State<UsersPage> {
   final User? user = FirebaseAuth.instance.currentUser;
 
   // Document ID's
-  List<String> docIDs = [];
+  final List<String> docIDs = [];
 
   // get docID's
   Future getDocId() async {
@@ -34,8 +29,8 @@ class _UsersState extends State<UsersPage> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Osallistujat',
-          style: TextStyle(fontSize: 30),
+          'Kunniajoukko',
+          style: TextStyle(fontSize: 24, color: Colors.yellow),
         ),
       ),
       drawer: const MainDrawer(),
@@ -54,7 +49,10 @@ class _UsersState extends State<UsersPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
                           leading: CircleAvatar(
-                            backgroundImage: NetworkImage(user!.photoURL!),
+                            backgroundImage: user?.photoURL != null
+                                ? NetworkImage(user!.photoURL!) as ImageProvider
+                                : const AssetImage('assets/images/user.png')
+                                    as ImageProvider,
                             radius: 24,
                           ),
                           title: GetUserData(

@@ -1,6 +1,7 @@
 import 'package:flame/game.dart';
+import 'package:flappy_bird_game/auth/main_page.dart';
 import 'package:flappy_bird_game/pages/home_page.dart';
-import 'package:flappy_bird_game/pages/profile_page.dart';
+import 'package:flappy_bird_game/pages/users_page.dart';
 import 'package:flappy_bird_game/screens/game_over_screen.dart';
 import 'package:flappy_bird_game/screens/main_menu_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -71,7 +72,7 @@ class MainDrawer extends StatelessWidget {
                     ),
                   const SizedBox(width: 18),
                   Text(
-                    'Mökki Olympialaiset',
+                    'Etusivu',
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                         ),
@@ -112,14 +113,15 @@ class MainDrawer extends StatelessWidget {
             ),
             onTap: () => startGame(context),
           ),
+          const Spacer(),
           ListTile(
             leading: Icon(
-              Icons.settings,
+              Icons.tag_faces_sharp,
               size: 26,
               color: Theme.of(context).colorScheme.onBackground,
             ),
             title: Text(
-              'Omat tiedot',
+              'Osallistujat',
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Theme.of(context).colorScheme.onBackground,
                     fontSize: 24,
@@ -127,7 +129,27 @@ class MainDrawer extends StatelessWidget {
             ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const ProfilePage(),
+                builder: (context) => const UsersPage(),
+              ));
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.logout,
+              size: 26,
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
+            title: Text(
+              'Kirjaudu ulos',
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground,
+                    fontSize: 24,
+                  ),
+            ),
+            onTap: () {
+              FirebaseAuth.instance.signOut();
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const MainPage(),
               ));
             },
           )

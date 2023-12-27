@@ -32,13 +32,13 @@ class _LoginPageState extends State<LoginPage> {
       );
       // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          content: Text(e.message.toString(),
-              style: const TextStyle(color: Colors.black)),
+          content: const Text('Tarkista käyttäjätunnus ja salasana',
+              style: TextStyle(color: Colors.black)),
           actions: [
             TextButton(
               onPressed: () {

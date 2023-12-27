@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/game/assets.dart';
 import 'package:flappy_bird_game/game/configuration.dart';
 import 'package:flappy_bird_game/game/flappy_bird_game.dart';
-import 'package:flappy_bird_game/pages/profile_page.dart';
+import 'package:flappy_bird_game/pages/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 
@@ -38,7 +38,7 @@ class GameOverScreen extends StatelessWidget {
       if (currentAttempts > 0) {
         transaction.update(userRef, {'attempts left': currentAttempts - 1});
       } else {
-        return const ProfilePage();
+        return const UsersPage();
       }
     });
   }
@@ -103,6 +103,12 @@ class GameOverScreen extends StatelessWidget {
   }
 
   void onMainMenu() async {
+    await submitScore();
+    String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
+    int attemptsLeft = await getRemainingAttempts(userId);
+    if (attemptsLeft > 0) {
+      await decreaseAttempt(userId);
+    }
     Config.gameSpeed = 220.0;
     game.bird.reset();
     game.overlays.remove('gameOver');

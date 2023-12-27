@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/auth/auth_page.dart';
-import 'package:flappy_bird_game/pages/profile_page.dart';
+import 'package:flappy_bird_game/pages/users_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
@@ -13,7 +13,7 @@ class MainPage extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const ProfilePage();
+              return const UsersPage();
             } else {
               return const AuthPage();
             }

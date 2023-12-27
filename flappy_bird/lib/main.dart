@@ -13,7 +13,6 @@ Future<void> main() async {
   runApp(
     MaterialApp(
       theme: ThemeData().copyWith(
-        useMaterial3: true,
         colorScheme: colorScheme,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

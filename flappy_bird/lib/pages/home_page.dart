@@ -5,15 +5,15 @@ import 'package:flutter_animate/flutter_animate.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  Widget _title() {
-    return const Text('Olympialaiset');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: _title(),
+        centerTitle: true,
+        title: const Text(
+          'Tervetuloa',
+          style: TextStyle(fontSize: 30),
+        ),
       ),
       drawer: const MainDrawer(),
       body: Container(

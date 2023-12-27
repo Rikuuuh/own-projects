@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// Käytössä flappy_bird_gamen main_menu_screenin highscoreja varten
+
 class Auth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 

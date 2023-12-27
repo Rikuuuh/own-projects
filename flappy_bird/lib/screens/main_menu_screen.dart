@@ -359,11 +359,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     }
     String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
     int attemptsLeft = await getRemainingAttempts(userId);
-    if (attemptsLeft > 0) {
-      // Aloita peli ja vähennä yritystä
-      await decreaseAttempt(userId);
-      startGame();
-    } else {
+    if (attemptsLeft == 0) {
       // Näytä ilmoitus, ettei yrityksiä ole jäljellä
       // ignore: use_build_context_synchronously
       showDialog(
@@ -392,6 +388,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           ],
         ),
       );
+    } else {
+      startGame();
     }
   }
 

@@ -1,7 +1,14 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flappy_bird_game/utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, required this.showLoginPage});
@@ -18,6 +25,75 @@ class _RegisterPageState extends State<RegisterPage> {
   final _confirmPasswordController = TextEditingController();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
+
+  void _showDialog() {
+    if (Platform.isIOS) {
+      showCupertinoDialog(
+        context: context,
+        builder: (ctx) => CupertinoAlertDialog(
+          title: const Text('Kuva lisätty!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('OK'),
+            )
+          ],
+        ),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          backgroundColor: Colors.black,
+          title: const Text(
+            'Kuva lisätty!',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    }
+  }
+
+  User? user = FirebaseAuth.instance.currentUser;
+
+  Uint8List? _image;
+
+  void selectImage() async {
+    Uint8List img = await pickImage(ImageSource.camera);
+    // ignore: unnecessary_null_comparison
+    if (img == null) return;
+    setState(() {
+      _image = img;
+      _showDialog();
+    });
+  }
+
+  Future<void> saveProfile(User user) async {
+    if (_image != null) {
+      String filePath = 'user_profiles/${user.uid}/profile.jpg';
+      var storageRef = FirebaseStorage.instance.ref().child(filePath);
+      await storageRef.putData(_image!);
+      String downloadURL = await storageRef.getDownloadURL();
+      await user.updatePhotoURL(downloadURL);
+    }
+  }
 
   @override
   void dispose() {
@@ -38,20 +114,6 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  Future signUp() async {
-    if (passwordConfirmed()) {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: _emailController.text.trim(),
-              password: _passwordController.text.trim());
-
-      await adduserDetails(
-          userCredential.user!.uid, // Käytä UID:tä dokumentin avaimena
-          _firstNameController.text.trim(),
-          _lastNameController.text.trim());
-    }
-  }
-
   Future adduserDetails(
       String userId, String firstName, String lastName) async {
     await FirebaseFirestore.instance.collection('users').doc(userId).set({
@@ -59,6 +121,28 @@ class _RegisterPageState extends State<RegisterPage> {
       'last name': lastName,
       'attempts left': 50,
     });
+  }
+
+  Future signUp() async {
+    if (passwordConfirmed()) {
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: _emailController.text.trim(),
+                password: _passwordController.text.trim());
+
+        // Tallenna käyttäjän tiedot Firestoreen
+        await adduserDetails(userCredential.user!.uid,
+            _firstNameController.text.trim(), _lastNameController.text.trim());
+
+        // Tallenna profiilikuva (jos valittu) Firebase Storageen ja päivitä URL Firebase Authissa
+        if (_image != null) {
+          await saveProfile(userCredential.user!);
+        }
+      } catch (e) {
+        // Käsittely epäonnistuneelle rekisteröinnille
+      }
+    }
   }
 
   @override
@@ -70,23 +154,12 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.android_sharp,
-                  size: 100,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
                 Text(
-                  'Tervetuloa!',
-                  style: GoogleFonts.bebasNeue(fontSize: 52),
+                  'Rekisteröidy Olympialaisiin',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.bebasNeue(fontSize: 40),
                 ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Rekisteröidy Olympialaisiin!',
-                  style: TextStyle(fontSize: 20),
-                ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
@@ -199,6 +272,16 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
+                const Text(
+                  'Lisää vielä oman naaman kuvasi',
+                  style: TextStyle(fontSize: 18),
+                ),
+                IconButton(
+                  color: Colors.blue,
+                  iconSize: 50,
+                  onPressed: selectImage,
+                  icon: const Icon(Icons.add_a_photo),
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: GestureDetector(

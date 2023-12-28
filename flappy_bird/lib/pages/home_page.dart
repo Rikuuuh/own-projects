@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
                   .titleLarge!
                   .copyWith(fontSize: 30),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 13),
             Row(
               children: [
                 Expanded(
@@ -53,13 +53,13 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             Text(
               'Valmistaudu ainutlaatuiseen seikkailuun, jossa yhdistyvät hauskuus, tieto ja taito.',
               style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             Text(
               'Tietovisa - Testaa Tietosi:',
               style: Theme.of(context)
@@ -70,7 +70,7 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              'Oletko tietäjä vai tuurittaja? Selvitä kuinka hyvin tunnet mökkiolympialaisten historian ja salat tässä jännittävässä tietovisassa!',
+              'Oletko tietäjä vai tuurittaja? Selvitä kuinka hyvin tunnet mökkiolympialaisten historian ja -salat tässä jännittävässä tietovisassa!',
               style: Theme.of(context).textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
@@ -108,9 +108,9 @@ class HomePage extends StatelessWidget {
         ).animate(
           effects: [
             const ScaleEffect(
-                begin: Offset(0.2, 0.4),
+                begin: Offset(0.1, 0.8),
                 end: Offset(1.0, 1.0),
-                duration: Duration(seconds: 5)),
+                duration: Duration(seconds: 1)),
             const FadeEffect(begin: 0, end: 1, duration: Duration(seconds: 3)),
           ],
         ),

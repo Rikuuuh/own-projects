@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/game/flappy_bird_game.dart';
 import 'package:flappy_bird_game/pages/home_page.dart';
+import 'package:flappy_bird_game/screens/count_down_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -171,13 +172,13 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 5),
               Wrap(
                 direction: Axis.horizontal,
                 alignment: WrapAlignment.center,
                 children: <Widget>[
                   Text(
-                    'Valmiina haasteeseen ${firstName?.toUpperCase()}?',
+                    'Valmiina haasteeseen $firstName?',
                     style: Theme.of(context).textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
@@ -388,9 +389,19 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           ],
         ),
       );
-    } else {
-      startGame();
+      return;
     }
+    late OverlayEntry overlayEntry;
+    overlayEntry = OverlayEntry(
+      builder: (context) => CountdownOverlay(
+        onCountdownComplete: () {
+          overlayEntry.remove();
+          startGame();
+        },
+      ),
+    );
+    // ignore: use_build_context_synchronously
+    Overlay.of(context).insert(overlayEntry);
   }
 
   void startGame() {

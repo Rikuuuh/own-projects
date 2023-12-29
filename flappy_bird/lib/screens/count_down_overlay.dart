@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:flame_audio/flame_audio.dart';
+import 'package:flappy_bird_game/game/assets.dart';
+
 class CountdownOverlay extends StatefulWidget {
   final VoidCallback onCountdownComplete;
 
@@ -11,7 +14,7 @@ class CountdownOverlay extends StatefulWidget {
 }
 
 class _CountdownOverlayState extends State<CountdownOverlay> {
-  int countdown = 3;
+  int countdown = 4;
 
   @override
   void initState() {
@@ -20,7 +23,8 @@ class _CountdownOverlayState extends State<CountdownOverlay> {
   }
 
   void startCountdown() async {
-    for (int i = 3; i > 0; i--) {
+    FlameAudio.play(Assets.maytheforce);
+    for (int i = 4; i > 0; i--) {
       await Future.delayed(const Duration(seconds: 1));
       if (mounted) {
         setState(() {
@@ -33,15 +37,43 @@ class _CountdownOverlayState extends State<CountdownOverlay> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black45,
-      child: Center(
-        child: Text(
-          countdown > 0 ? countdown.toString() : '',
-          style: const TextStyle(
-              fontSize: 68, fontWeight: FontWeight.bold, color: Colors.white),
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Container(color: Colors.black.withOpacity(0.75)),
         ),
-      ),
+        Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Valmistaudu',
+                style: TextStyle(
+                  fontSize: 55,
+                  color: Colors.white,
+                  fontFamily: 'Game',
+                ),
+              ),
+              const SizedBox(height: 15),
+              Text(
+                countdown > 0 ? countdown.toString() : '',
+                style: const TextStyle(
+                  fontSize: 55,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontFamily: 'Game',
+                ),
+              ),
+              const SizedBox(height: 15),
+              Image.asset(
+                Assets.message,
+                scale: 0.5,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

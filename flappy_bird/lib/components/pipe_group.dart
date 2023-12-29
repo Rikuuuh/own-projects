@@ -38,10 +38,17 @@ class PipeGroup extends PositionComponent with HasGameRef<FlappyBirdGame> {
   }
 
   void updateScore() {
+    const Map<int, String> scoreSounds = {
+      50: Assets.unstoppable,
+      100: Assets.godlike,
+      200: Assets.holyshit,
+      300: Assets.oneandonly,
+    };
     FlameAudio.play(Assets.point);
     gameRef.bird.score += 5;
-    if (gameRef.bird.score == 10) {
-      FlameAudio.play(Assets.collision);
+    String? soundToPlay = scoreSounds[gameRef.bird.score];
+    if (soundToPlay != null) {
+      FlameAudio.play(soundToPlay);
     }
   }
 

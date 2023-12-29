@@ -42,10 +42,6 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
     background = Background(selectedBackgroundType);
     add(background);
 
-    score.removeFromParent();
-    score = buildScore();
-    add(score);
-
     String groundType = 'assets/images/ground1_done.png';
     String pipeType = 'assets/images/pipe1_norm.png';
     switch (selectedBackgroundType) {
@@ -62,6 +58,9 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
         pipeType = "pipe3";
         break;
     }
+    score.removeFromParent();
+    score = buildScore();
+    add(score);
 
     ground = Ground(groundType);
     add(ground);
@@ -81,8 +80,7 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
 
     background = Background(selectedBackgroundType);
     add(background);
-    score = buildScore();
-    add(score);
+
     String groundType = 'assets/images/ground1_done.png';
     String pipeType = 'assets/images/pipe1_norm.png';
     switch (selectedBackgroundType) {
@@ -99,6 +97,8 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
         pipeType = "pipe3";
         break;
     }
+    score = buildScore();
+    add(score);
     ground = Ground(groundType);
     add(ground);
     interval.onTick = () => add(PipeGroup(pipeType));
@@ -106,7 +106,6 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
     bird = Bird(selectedBirdType);
     add(bird);
 
-    // Resetoi pelin tila
     isHit = false;
     interval.reset();
   }

@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const Icon(
                   Icons.android_sharp,
-                  size: 100,
+                  size: 120,
                 ),
                 const SizedBox(
                   height: 75,

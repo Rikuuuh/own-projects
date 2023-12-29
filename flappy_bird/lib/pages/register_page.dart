@@ -134,6 +134,11 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const Icon(
+                  Icons.emoji_events,
+                  color: Colors.yellow,
+                  size: 100,
+                ),
                 Text(
                   'Rekisteröidy Olympialaisiin',
                   textAlign: TextAlign.center,
@@ -251,15 +256,15 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 Text(
                   _isImageAdded
                       ? 'Kuva lisätty!'
-                      : 'Lisää vielä oman naaman kuvasi',
+                      : 'Lisää vielä kuva omasta naamastasi',
                   style: const TextStyle(fontSize: 18),
                 ),
                 IconButton(
-                  color: Colors.blue,
+                  color: Colors.deepPurple[300],
                   iconSize: 50,
                   onPressed: selectImage,
                   icon: Icon(

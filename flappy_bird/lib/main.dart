@@ -4,8 +4,9 @@ import 'package:flappy_bird_game/auth/main_page.dart';
 import 'package:flutter/material.dart';
 
 var colorScheme = ColorScheme.fromSeed(
-    brightness: Brightness.dark,
-    seedColor: const Color.fromARGB(255, 5, 99, 125));
+  brightness: Brightness.dark,
+  seedColor: const Color.fromARGB(255, 5, 99, 125),
+);
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

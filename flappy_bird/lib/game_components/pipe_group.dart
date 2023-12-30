@@ -5,7 +5,7 @@ import 'package:flappy_bird_game/game/assets.dart';
 import 'package:flappy_bird_game/game/configuration.dart';
 import 'package:flappy_bird_game/game/flappy_bird_game.dart';
 import 'package:flappy_bird_game/game/pipe_position.dart';
-import 'package:flappy_bird_game/components/pipe.dart';
+import 'package:flappy_bird_game/game_components/pipe.dart';
 
 class PipeGroup extends PositionComponent with HasGameRef<FlappyBirdGame> {
   PipeGroup(this.pipeType);

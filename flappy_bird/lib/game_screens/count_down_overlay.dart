@@ -40,7 +40,7 @@ class _CountdownOverlayState extends State<CountdownOverlay> {
     return Stack(
       children: [
         Positioned.fill(
-          child: Container(color: Colors.black.withOpacity(0.75)),
+          child: Container(color: Colors.black.withOpacity(0.70)),
         ),
         Center(
           child: Column(

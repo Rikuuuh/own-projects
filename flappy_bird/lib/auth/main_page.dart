@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
-
+  // Streambuilder, jos käyttäjä ei ole kirjautunut niin näytetään
+  // login / register screen
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(

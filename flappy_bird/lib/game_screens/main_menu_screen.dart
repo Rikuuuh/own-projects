@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/game/flappy_bird_game.dart';
 import 'package:flappy_bird_game/pages/home_page.dart';
-import 'package:flappy_bird_game/screens/count_down_overlay.dart';
+import 'package:flappy_bird_game/game_screens/count_down_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 

@@ -27,6 +27,7 @@ class UsersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.yellow,
         centerTitle: true,
         title: const Text(
           'Kunniajoukko',
@@ -53,7 +54,7 @@ class UsersPage extends StatelessWidget {
                                 ? NetworkImage(user!.photoURL!) as ImageProvider
                                 : const AssetImage('assets/images/user.png')
                                     as ImageProvider,
-                            radius: 24,
+                            radius: 25,
                           ),
                           title: GetUserData(
                               documentId: docIDs[index], userId: docIDs[index]),

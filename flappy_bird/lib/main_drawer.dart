@@ -1,9 +1,10 @@
 import 'package:flame/game.dart';
 import 'package:flappy_bird_game/auth/main_page.dart';
 import 'package:flappy_bird_game/pages/home_page.dart';
+import 'package:flappy_bird_game/pages/quiz.dart';
 import 'package:flappy_bird_game/pages/users_page.dart';
-import 'package:flappy_bird_game/screens/game_over_screen.dart';
-import 'package:flappy_bird_game/screens/main_menu_screen.dart';
+import 'package:flappy_bird_game/game_screens/game_over_screen.dart';
+import 'package:flappy_bird_game/game_screens/main_menu_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -38,11 +39,9 @@ class MainDrawer extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HomePage(),
-                  ));
+              Navigator.of(context).pop();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomePage()));
             },
             child: DrawerHeader(
               padding: const EdgeInsets.all(20),
@@ -89,7 +88,7 @@ class MainDrawer extends StatelessWidget {
               color: Colors.green,
             ),
             title: Text(
-              'Tietovisa - Testaa Tietosi',
+              'Tietovisa - Tietäjien Taisto',
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Colors.green,
                     fontSize: 20,
@@ -97,6 +96,8 @@ class MainDrawer extends StatelessWidget {
             ),
             onTap: () {
               Navigator.of(context).pop();
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => const Quiz()));
             },
           ),
           ListTile(
@@ -129,6 +130,7 @@ class MainDrawer extends StatelessWidget {
                   ),
             ),
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => UsersPage(),
               ));

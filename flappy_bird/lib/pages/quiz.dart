@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/main_drawer.dart';
-import 'package:flappy_bird_game/pages/quiz_questions_page.dart';
+import 'package:flappy_bird_game/pages/video_countdown_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,7 +31,7 @@ class _QuizState extends State<Quiz> {
   void _startQuiz(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const QuizQuestionsPage()),
+      MaterialPageRoute(builder: (context) => const VideoCountdownPage()),
     );
   }
 

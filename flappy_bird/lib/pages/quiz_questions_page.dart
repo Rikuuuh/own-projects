@@ -1,88 +1,102 @@
+import 'package:flappy_bird_game/answer_card.dart';
 import 'package:flappy_bird_game/data/questions.dart';
-import 'package:flappy_bird_game/model/quiz_question.dart';
 import 'package:flappy_bird_game/pages/quiz_results_page.dart';
-import 'package:flappy_bird_game/quiz_answerbutton.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class QuizQuestionsPage extends StatefulWidget {
   const QuizQuestionsPage({super.key});
+
   @override
-  QuizQuestionsPageState createState() => QuizQuestionsPageState();
+  State<QuizQuestionsPage> createState() => _QuizQuestionsPageState();
 }
 
-class QuizQuestionsPageState extends State<QuizQuestionsPage> {
-  var currentQuestionIndex = 0;
-  final List<String> selectedAnswers = [];
-  void chooseAnswer(String answer) {
-    selectedAnswers.add(answer);
+class _QuizQuestionsPageState extends State<QuizQuestionsPage> {
+  int? selectedAnswerIndex;
+  int questionIndex = 0;
+  int score = 0;
 
-    if (selectedAnswers.length == questions.length) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => QuizResultsPage(chosenAnswers: selectedAnswers),
-        ),
-      );
+  void pickAnswer(int value) {
+    selectedAnswerIndex = value;
+    final question = questions[questionIndex];
+    if (selectedAnswerIndex == question.correctAnswerIndex) {
+      score++;
     }
+    setState(() {});
   }
 
-  void answerQuestion(String selectedAnswer) {
-    chooseAnswer(selectedAnswer);
-
-    if (currentQuestionIndex < questions.length - 1) {
-      setState(() {
-        currentQuestionIndex++;
-      });
+  void goToNextQuestion() {
+    if (questionIndex < questions.length - 1) {
+      questionIndex++;
+      selectedAnswerIndex = null;
     }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    final question = questions[questionIndex];
+    bool isLastQuestion = questionIndex == questions.length - 1;
     return Scaffold(
-      body: PageView.builder(
-        itemCount: questions.length,
-        itemBuilder: (context, index) {
-          return _buildQuestion(questions[index], index);
-        },
-        onPageChanged: (index) {
-          setState(() {
-            currentQuestionIndex = index;
-          });
-        },
-      ),
-    );
-  }
-
-  Widget _buildQuestion(QuizQuestion question, int questionIndex) {
-    final currentQuestion = questions[currentQuestionIndex];
-    return Center(
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+      body: Padding(
+        padding: const EdgeInsets.all(25),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              currentQuestion.text,
-              style: GoogleFonts.bebasNeue(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
+              question.question,
+              style: const TextStyle(fontSize: 21),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(
-              height: 40,
-            ),
-            ...currentQuestion.shuffledAnswers.map(
-              (item) {
-                return AnswerButton(
-                  answerText: item,
-                  onTap: () {
-                    answerQuestion(item);
-                  },
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: question.options.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: selectedAnswerIndex == null
+                      ? () => pickAnswer(index)
+                      : null,
+                  child: AnswerCard(
+                    currentIndex: index,
+                    question: question.options[index],
+                    isSelected: selectedAnswerIndex != null,
+                    selectedAnswerIndex: selectedAnswerIndex,
+                    correctAnswerIndex: question.correctAnswerIndex,
+                  ),
                 );
               },
             ),
+            isLastQuestion
+                ? ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => QuizResultsPage(
+                            score: score,
+                          ),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 15), // Tekstin väri
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(width: 1.2)),
+                    ),
+                    child: const Text('Lopeta Visa'),
+                  )
+                : ElevatedButton(
+                    onPressed:
+                        selectedAnswerIndex != null ? goToNextQuestion : null,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 15), // Tekstin väri
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(width: 1.2)),
+                    ),
+                    child: const Text('Seuraava'),
+                  )
           ],
         ),
       ),

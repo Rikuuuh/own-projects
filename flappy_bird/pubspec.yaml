@@ -23,6 +23,7 @@ dependencies:
   google_fonts: ^6.1.0
   flutter_animate: ^4.3.0
   video_player: ^2.8.1
+  slide_countdown: ^1.5.0
 
 dev_dependencies:
   flutter_test:
@@ -38,6 +39,7 @@ flutter:
   assets:
     - assets/images/
     - assets/audio/
+    - assets/videos/
 
   fonts:
     - family: Game     

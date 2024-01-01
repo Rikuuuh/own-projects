@@ -7,8 +7,8 @@ class VideoCountdownPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: VideoCountdown(
+    return SafeArea(
+      child: VideoCountdown(
         onVideoComplete: () {
           Navigator.pushReplacement(
             context,

@@ -47,7 +47,8 @@ class GetUserData extends StatelessWidget {
 
               return Column(children: [
                 Text('Kisaaja : $name ${userData['last name']}'),
-                Text('Olympic Bird paras tulos : $highScore')
+                Text('Olympic Bird paras tulos : $highScore'),
+                Text('Tietovisan tulos : '),
               ]);
             },
           );

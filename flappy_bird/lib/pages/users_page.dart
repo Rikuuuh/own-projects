@@ -47,7 +47,7 @@ class UsersPage extends StatelessWidget {
                     itemCount: docIDs.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: ListTile(
                           leading: CircleAvatar(
                             backgroundImage: user?.photoURL != null

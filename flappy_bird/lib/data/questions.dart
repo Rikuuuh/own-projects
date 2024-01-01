@@ -1,64 +1,106 @@
-// Listojen käyttö, ! alkaa nollasta ! Callataan alhaalla olevalla tavalla
-// const animals = ['cat', 'mouse'];
-// animals[0]; = cat
-// animals[1]; = mouse
-// animals[2]; = error
-
 import 'package:flappy_bird_game/model/quiz_question.dart';
 
-const questions = [
-  QuizQuestion(
-    'What are the main building blocks of Flutter UIs?',
-    [
-      'Widgets',
-      'Components',
-      'Blocks',
-      'Functions',
+const List<Question> questions = [
+  Question(
+    question: '1. Kuka on voittanut eniten olympialaisia?',
+    correctAnswerIndex: 2,
+    options: [
+      'a) Emmi',
+      'b) Pihla',
+      'c) Atte',
+      'd) Aleksanteri',
     ],
   ),
-  QuizQuestion(
-    'How are Flutter UIs built?',
-    [
-      'By combining widgets in code',
-      'By combining widgets in a visual editor',
-      'By defining widgets in config files',
-      'By using XCode for iOS and Android Studio for Android',
+  Question(
+    question:
+        '2. Mikä oli Rikun ja Aten järjestämien olympialaisten pääpalkinto?',
+    correctAnswerIndex: 1,
+    options: [
+      'a) Keppihevonen',
+      'b) Musta dildo',
+      'c) Ikean lahjakortti',
+      'd) Elokuvaliput',
     ],
   ),
-  QuizQuestion(
-    'What\'s the purpose of a StatefulWidget?',
-    [
-      'Update UI as data changes',
-      'Update data as UI changes',
-      'Ignore data changes',
-      'Render UI that does not depend on data',
+  Question(
+    question: '3. Ketkä kaksi EIVÄT ole järjestäneet olympialaisia yhdessä?',
+    correctAnswerIndex: 0,
+    options: [
+      'a) Saara ja Emmi',
+      'b) Aleksanteri ja Harri',
+      'c) Jenna ja Karoliina',
+      'd) Riku ja Atte',
     ],
   ),
-  QuizQuestion(
-    'Which widget should you try to use more often: StatelessWidget or StatefulWidget?',
-    [
-      'StatelessWidget',
-      'StatefulWidget',
-      'Both are equally good',
-      'None of the above',
+  Question(
+    question: '4. Missä järjestettiin vuoden(2023) mökkiolympialaiset?',
+    correctAnswerIndex: 2,
+    options: [
+      'a) Tervossa',
+      'b) Karttulassa',
+      'c) Suonenjoella',
+      'd) Rautavaaralla',
     ],
   ),
-  QuizQuestion(
-    'What happens if you change data in a StatelessWidget?',
-    [
-      'The UI is not updated',
-      'The UI is updated',
-      'The closest StatefulWidget is updated',
-      'Any nested StatefulWidgets are updated',
+  Question(
+    question:
+        '5. Ketä henkilöitä oli paikalla ensimmäisissä mökkiolympialaisissa?',
+    correctAnswerIndex: 0,
+    options: [
+      'a) Viivi, Atte, Pihla, Aleksanteri, Harri, Riku, Jenna, Oili ja Karoliina',
+      'b) Oili, Jenna, Atte, Pihla, Harri, Riku, Aleksanteri ja Karoliina',
+      'c) Sonja, Karoliina, Jenna, Atte, Harri, Riku, Pihla, Aleksanteri ja Viivi',
+      'd) Jenna, Harri, Atte, Riku, Aleksanteri, Sonja, Pihla ja Karoliina',
     ],
   ),
-  QuizQuestion(
-    'How should you update data inside of StatefulWidgets?',
-    [
-      'By calling setState()',
-      'By calling updateData()',
-      'By calling updateUI()',
-      'By calling updateState()',
+  Question(
+    question: '6. Ketä kuului pahamaineiseen United Brotherhood - jengiin?',
+    correctAnswerIndex: 1,
+    options: [
+      'a) Atte, Riku, Harri, Aleksanteri',
+      'b) Atte, Riku, Aleksanteri',
+      'c) Jenna, Karoliina, Pihla, Emmi',
+      'd) Atte, Riku, Aleksanteri, Henri',
+    ],
+  ),
+  Question(
+    question: '7. ',
+    correctAnswerIndex: 1,
+    options: [
+      'a) Jumala',
+      'b) apina',
+      'c) joku',
+      'd) koira',
+    ],
+  ),
+  Question(
+    question: '1. Mitä tapahtui 2000 luvulla?',
+    correctAnswerIndex: 1,
+    options: [
+      'a) Jumala',
+      'b) apina',
+      'c) joku',
+      'd) koira',
+    ],
+  ),
+  Question(
+    question: '1. Mitä tapahtui 2000 luvulla?',
+    correctAnswerIndex: 1,
+    options: [
+      'a) Jumala',
+      'b) apina',
+      'c) joku',
+      'd) koira',
+    ],
+  ),
+  Question(
+    question: '1. Mitä tapahtui 2000 luvulla?',
+    correctAnswerIndex: 1,
+    options: [
+      'a) Jumala',
+      'b) apina',
+      'c) joku',
+      'd) koira',
     ],
   ),
 ];

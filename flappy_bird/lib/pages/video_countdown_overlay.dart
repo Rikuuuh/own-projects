@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoCountdown extends StatefulWidget {
-  final VoidCallback onVideoComplete;
+  final Function onVideoComplete;
 
   const VideoCountdown({super.key, required this.onVideoComplete});
 
@@ -16,7 +16,7 @@ class VideoCountdownState extends State<VideoCountdown> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/countdown_video.mp4')
+    _controller = VideoPlayerController.asset('assets/videos/Olympialaiset.mp4')
       ..initialize().then((_) {
         setState(() {});
         _controller.play();

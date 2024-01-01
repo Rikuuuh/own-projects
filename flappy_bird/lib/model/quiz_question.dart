@@ -1,14 +1,14 @@
-class QuizQuestion {
+class Question {
   // Constructor, joka ottaa vastaan datan
-  const QuizQuestion(this.text, this.answers);
 
   // kaksi luokkamuuttujaa, kysymys ja lista vastauksia
-  final String text;
-  final List<String> answers;
+  final String question;
+  final List<String> options;
+  final int correctAnswerIndex;
 
-  List<String> get shuffledAnswers {
-    final shuffledList = List.of(answers); // luodaan kopio
-    shuffledList.shuffle(); // sekoitetaan kopio
-    return shuffledList; // palautetaan kopio
-  }
+  const Question({
+    required this.question,
+    required this.correctAnswerIndex,
+    required this.options,
+  });
 }

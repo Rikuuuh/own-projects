@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/main_drawer.dart';
+import 'package:flappy_bird_game/pages/quiz_questions_page.dart';
 import 'package:flappy_bird_game/pages/video_countdown_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +18,7 @@ class Quiz extends StatefulWidget {
 class _QuizState extends State<Quiz> {
   final User? user = FirebaseAuth.instance.currentUser;
   String? firstName;
+
   @override
   void initState() {
     super.initState();
@@ -31,7 +35,9 @@ class _QuizState extends State<Quiz> {
   void _startQuiz(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const VideoCountdownPage()),
+      MaterialPageRoute(
+        builder: (context) => const QuizQuestionsPage(),
+      ),
     );
   }
 
@@ -91,6 +97,12 @@ class _QuizState extends State<Quiz> {
                 ),
                 Text(
                   'Kullakin kysymyksellä on aikaraja: sinulla on vain 30 sekuntia vastauksen antamiseen.',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'Katso mökkiolympialaisten parhaita hetkiä - video ja visa alkaa heti sen jälkeen!',
                   style: Theme.of(context).textTheme.bodyLarge,
                   textAlign: TextAlign.center,
                 ),

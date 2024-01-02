@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/game/flappy_bird_game.dart';
-import 'package:flappy_bird_game/pages/home_page.dart';
 import 'package:flappy_bird_game/game_screens/count_down_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -44,26 +43,6 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     return userDoc['attempts left'];
   }
 
-  Future<void> decreaseAttempt(String userId) async {
-    DocumentReference userRef =
-        FirebaseFirestore.instance.collection('users').doc(userId);
-
-    FirebaseFirestore.instance.runTransaction((transaction) async {
-      DocumentSnapshot snapshot = await transaction.get(userRef);
-
-      if (!snapshot.exists) {
-        throw Exception("User not found!");
-      }
-
-      int currentAttempts = snapshot['attempts left'];
-      if (currentAttempts > 0) {
-        transaction.update(userRef, {'attempts left': currentAttempts - 1});
-      } else {
-        return const HomePage();
-      }
-    });
-  }
-
   Future<void> _loadUserData() async {
     var userDetails = await UserService.getUserDetails();
     setState(() {
@@ -84,10 +63,14 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           alignment: Alignment.center,
-          backgroundColor: Colors.deepPurple[200],
+          backgroundColor: Colors.deepPurple[100],
           title: const Text(
             'Tämän hetken 10 parasta',
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
           ),
           content: SizedBox(
             width: double.maxFinite,
@@ -99,17 +82,19 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 return ListTile(
                   title: Text(
                     '${scoreData['name']}',
-                    style: const TextStyle(color: Colors.black),
-                  ),
-                  leading: SizedBox(
-                    child: CircleAvatar(
-                      radius: 22,
-                      backgroundImage: NetworkImage(user!.photoURL!),
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  trailing: Text('${scoreData['score']}',
-                      style: const TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold)),
+                  trailing: Text(
+                    '${scoreData['score']}',
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                 );
               },
             ),
@@ -153,7 +138,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(33, 0, 33, 0),
+          padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
           child: Column(
             children: [
               const SizedBox(height: 10),
@@ -357,6 +342,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   void onStartGamePressed() async {
     if (selectedBirdType == null || selectedBackgroundType == null) {
       _showDialog();
+      return;
     }
     String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
     int attemptsLeft = await getRemainingAttempts(userId);
@@ -389,19 +375,19 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           ],
         ),
       );
-      return;
+    } else {
+      late OverlayEntry overlayEntry;
+      overlayEntry = OverlayEntry(
+        builder: (context) => CountdownOverlay(
+          onCountdownComplete: () {
+            overlayEntry.remove();
+            startGame();
+          },
+        ),
+      );
+      // ignore: use_build_context_synchronously
+      Overlay.of(context).insert(overlayEntry);
     }
-    late OverlayEntry overlayEntry;
-    overlayEntry = OverlayEntry(
-      builder: (context) => CountdownOverlay(
-        onCountdownComplete: () {
-          overlayEntry.remove();
-          startGame();
-        },
-      ),
-    );
-    // ignore: use_build_context_synchronously
-    Overlay.of(context).insert(overlayEntry);
   }
 
   void startGame() {

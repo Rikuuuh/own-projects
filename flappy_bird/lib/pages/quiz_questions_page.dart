@@ -1,4 +1,7 @@
+import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flappy_bird_game/answer_card.dart';
+import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/data/questions.dart';
 import 'package:flappy_bird_game/pages/quiz_results_page.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +18,30 @@ class _QuizQuestionsPageState extends State<QuizQuestionsPage> {
   int questionIndex = 0;
   int score = 0;
 
+  Timer? _timer;
+  int _remainingTime = 30;
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  void startTimer() {
+    _remainingTime = 30;
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_remainingTime > 0) {
+        setState(() {
+          _remainingTime--;
+        });
+      } else {
+        _timer?.cancel();
+        goToNextQuestion();
+      }
+    });
+  }
+
   void pickAnswer(int value) {
     selectedAnswerIndex = value;
     final question = questions[questionIndex];
@@ -28,6 +55,7 @@ class _QuizQuestionsPageState extends State<QuizQuestionsPage> {
     if (questionIndex < questions.length - 1) {
       questionIndex++;
       selectedAnswerIndex = null;
+      startTimer();
     }
     setState(() {});
   }
@@ -44,7 +72,7 @@ class _QuizQuestionsPageState extends State<QuizQuestionsPage> {
           children: [
             Text(
               question.question,
-              style: const TextStyle(fontSize: 21),
+              style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             ListView.builder(
@@ -67,18 +95,22 @@ class _QuizQuestionsPageState extends State<QuizQuestionsPage> {
             ),
             isLastQuestion
                 ? ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => QuizResultsPage(
-                            score: score,
-                          ),
-                        ),
-                      );
-                    },
+                    onPressed: selectedAnswerIndex != null
+                        ? () {
+                            _timer?.cancel();
+                            submitScore();
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => QuizResultsPage(
+                                  score: score,
+                                ),
+                              ),
+                            );
+                          }
+                        : null,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 15), // Tekstin väri
+                          horizontal: 50, vertical: 15),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                           side: const BorderSide(width: 1.2)),
@@ -90,16 +122,34 @@ class _QuizQuestionsPageState extends State<QuizQuestionsPage> {
                         selectedAnswerIndex != null ? goToNextQuestion : null,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 15), // Tekstin väri
+                          horizontal: 50, vertical: 15),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                           side: const BorderSide(width: 1.2)),
                     ),
                     child: const Text('Seuraava'),
-                  )
+                  ),
+            Text(
+              'Vastaus aikaa jäljellä: $_remainingTime sekuntia',
+              style: const TextStyle(fontSize: 20),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  Future<void> submitScore() async {
+    var userDetails = await UserService.getUserDetails();
+    String firstName = userDetails.firstName;
+
+    var database = FirebaseFirestore.instance;
+    database.collection('visascores').add({"name": firstName, "score": score});
   }
 }

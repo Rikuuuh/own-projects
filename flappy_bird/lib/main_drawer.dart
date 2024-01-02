@@ -1,4 +1,5 @@
 import 'package:flame/game.dart';
+import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/auth/main_page.dart';
 import 'package:flappy_bird_game/pages/home_page.dart';
 import 'package:flappy_bird_game/pages/quiz.dart';
@@ -31,7 +32,7 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final User? user = FirebaseAuth.instance.currentUser;
+    final User? user = Auth().currentUser;
     return Drawer(
       surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
       width: 275,

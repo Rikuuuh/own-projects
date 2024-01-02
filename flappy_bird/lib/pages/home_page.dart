@@ -16,7 +16,8 @@ class HomePage extends StatelessWidget {
         ),
       ),
       drawer: const MainDrawer(),
-      body: Container(
+      body: SingleChildScrollView(
+        child: Container(
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,20 +53,11 @@ class HomePage extends StatelessWidget {
                     )),
                   ),
                 ],
-              ).animate(
-                effects: [
-                  const ScaleEffect(
-                      begin: Offset(1.4, 1.8),
-                      end: Offset(1.0, 1.0),
-                      duration: Duration(seconds: 2)),
-                  const FadeEffect(
-                      begin: 0, end: 1, duration: Duration(seconds: 3)),
-                ],
               ),
               const SizedBox(height: 15),
               Text(
                 'Valmistaudu ainutlaatuiseen seikkailuun, jossa yhdistyvät hauskuus, tieto ja taito.',
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context).textTheme.titleLarge,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 15),
@@ -73,14 +65,14 @@ class HomePage extends StatelessWidget {
                 'Tietovisa - Testaa Tietosi:',
                 style: Theme.of(context)
                     .textTheme
-                    .bodyMedium!
+                    .bodyLarge!
                     .copyWith(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 5),
               Text(
                 'Oletko tietäjä vai tuurittaja? Selvitä kuinka hyvin tunnet mökkiolympialaisten historian ja -salat tässä jännittävässä tietovisassa!',
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
@@ -88,14 +80,14 @@ class HomePage extends StatelessWidget {
                 'Pelihetki - Olympic Bird:',
                 style: Theme.of(context)
                     .textTheme
-                    .bodyMedium!
+                    .bodyLarge!
                     .copyWith(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 5),
               Text(
                 'Näytä sormiesi nopeus ja taitavuus tässä koukuttavassa pelissä. Kuka teistä pääsee pisimmälle ja nappaa kultamitalin?',
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
@@ -103,18 +95,25 @@ class HomePage extends StatelessWidget {
                 'Kisaajien Kunniajoukko:',
                 style: Theme.of(context)
                     .textTheme
-                    .bodyMedium!
+                    .bodyLarge!
                     .copyWith(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 5),
               Text(
                 'Tutustu muihin kisaajiin ja vertaile tuloksianne. Kuka on mökkiolympialaisten monitaituri?',
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
-            ],
-          )),
+            ].animate(
+              effects: [
+                const FadeEffect(
+                    curve: Curves.easeIn, duration: Duration(seconds: 2))
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

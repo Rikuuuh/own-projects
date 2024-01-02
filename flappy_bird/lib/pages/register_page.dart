@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/auth/pick_image.dart';
 
 import 'package:flutter/material.dart';
@@ -28,8 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _isImageAdded = false;
   String _errorMessage = '';
 
-  User? user = FirebaseAuth.instance.currentUser;
-
+  final User? user = Auth().currentUser;
   Uint8List? _image;
 
   void selectImage() async {
@@ -42,14 +42,16 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  Future<void> saveProfileImage(User user) async {
+  Future<String> saveProfileImage(User user) async {
+    String downloadURL = '';
     if (_image != null) {
       String filePath = 'user_profiles/${user.uid}/profile.jpg';
       var storageRef = FirebaseStorage.instance.ref().child(filePath);
       await storageRef.putData(_image!);
-      String downloadURL = await storageRef.getDownloadURL();
+      downloadURL = await storageRef.getDownloadURL();
       await user.updatePhotoURL(downloadURL);
     }
+    return downloadURL;
   }
 
   @override
@@ -72,11 +74,13 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future adduserDetails(
-      String userId, String firstName, String lastName) async {
+      String userId, String firstName, String lastName, String imageUrl) async {
     await FirebaseFirestore.instance.collection('users').doc(userId).set({
       'first name': firstName,
       'last name': lastName,
       'attempts left': 50,
+      'imageUrl': imageUrl,
+      'visa attempt': 1,
     });
   }
 
@@ -112,12 +116,16 @@ class _RegisterPageState extends State<RegisterPage> {
               email: _emailController.text.trim(),
               password: _passwordController.text.trim());
 
-      await adduserDetails(userCredential.user!.uid,
-          _firstNameController.text.trim(), _lastNameController.text.trim());
-
+      String imageUrl = '';
       if (_image != null) {
-        await saveProfileImage(userCredential.user!);
+        imageUrl = await saveProfileImage(userCredential.user!);
       }
+
+      await adduserDetails(
+          userCredential.user!.uid,
+          _firstNameController.text.trim(),
+          _lastNameController.text.trim(),
+          imageUrl);
     } on FirebaseAuthException catch (e) {
       setState(() {
         _errorMessage = e.message ?? 'Rekisteröityminen epäonnistui';

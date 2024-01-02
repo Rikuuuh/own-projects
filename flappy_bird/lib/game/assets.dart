@@ -3,7 +3,7 @@ class Assets {
   static const message = 'assets/images/message.png';
 
   static const flying = 'fly.wav';
-  static const collision = 'humiliation.wav';
+  static const collision = 'collision.wav';
   static const point = 'point.wav';
   static const unstoppable = 'unstoppable.wav';
   static const holyshit = 'holyshit.wav';

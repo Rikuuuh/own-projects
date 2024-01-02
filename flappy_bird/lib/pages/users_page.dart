@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flappy_bird_game/auth/auth.dart';
 
 import 'package:flappy_bird_game/auth/get_user_data.dart';
 import 'package:flappy_bird_game/main_drawer.dart';
@@ -10,17 +11,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 class UsersPage extends StatelessWidget {
   UsersPage({super.key});
 
-  final User? user = FirebaseAuth.instance.currentUser;
+  final User? user = Auth().currentUser;
 
   // Document ID's
   final List<String> docIDs = [];
 
   // get docID's
-  Future getDocId() async {
+  Future<List<DocumentSnapshot>> getDocs() async {
     var snapshot = await FirebaseFirestore.instance.collection('users').get();
-    for (var document in snapshot.docs) {
-      docIDs.add(document.reference.id);
-    }
+    return snapshot.docs;
   }
 
   @override
@@ -40,24 +39,35 @@ class UsersPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
-            child: FutureBuilder(
-              future: getDocId(),
+            child: FutureBuilder<List<DocumentSnapshot>>(
+              future: getDocs(),
               builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  const CircularProgressIndicator();
+                }
+                if (!snapshot.hasData) {
+                  return const Text("Ei käyttäjiä.");
+                }
                 return ListView.builder(
-                    itemCount: docIDs.length,
+                    itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
+                      var userData =
+                          snapshot.data![index].data() as Map<String, dynamic>;
+                      var userImageUrl =
+                          userData['imageUrl'] ?? 'assets/images/user.png';
                       return Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(5.0),
                         child: ListTile(
                           leading: CircleAvatar(
-                            backgroundImage: user?.photoURL != null
-                                ? NetworkImage(user!.photoURL!) as ImageProvider
-                                : const AssetImage('assets/images/user.png')
-                                    as ImageProvider,
-                            radius: 25,
+                            backgroundImage: userImageUrl.startsWith('http')
+                                ? NetworkImage(userImageUrl) as ImageProvider
+                                : AssetImage(userImageUrl) as ImageProvider,
+                            radius: 30,
                           ),
                           title: GetUserData(
-                              documentId: docIDs[index], userId: docIDs[index]),
+                            documentId: snapshot.data![index].id,
+                            userId: snapshot.data![index].id,
+                          ),
                         ),
                       );
                     });

@@ -17,7 +17,7 @@ const List<Question> questions = [
     correctAnswerIndex: 1,
     options: [
       'a) Keppihevonen',
-      'b) Musta dildo',
+      'b) Dildo',
       'c) Ikean lahjakortti',
       'd) Elokuvaliput',
     ],
@@ -45,42 +45,43 @@ const List<Question> questions = [
   Question(
     question:
         '5. Ketä henkilöitä oli paikalla ensimmäisissä mökkiolympialaisissa?',
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 3,
     options: [
-      'a) Viivi, Atte, Pihla, Aleksanteri, Harri, Riku, Jenna, Oili ja Karoliina',
-      'b) Oili, Jenna, Atte, Pihla, Harri, Riku, Aleksanteri ja Karoliina',
-      'c) Sonja, Karoliina, Jenna, Atte, Harri, Riku, Pihla, Aleksanteri ja Viivi',
-      'd) Jenna, Harri, Atte, Riku, Aleksanteri, Sonja, Pihla ja Karoliina',
+      'a) Oili, Atte, Pihla, Aleksanteri, Harri, Riku, Jenna, Karoliina',
+      'b) Viivi, Atte, Pihla, Aleksanteri, Harri, Riku, Jenna, Karoliina',
+      'c) Viivi, Atte, Pihla, Aleksanteri, Harri, Riku, Jenna, Sonja, Karoliina',
+      'd) Viivi, Atte, Pihla, Aleksanteri, Harri, Riku, Jenna, Oili, Karoliina',
     ],
   ),
   Question(
     question: '6. Ketä kuului pahamaineiseen United Brotherhood - jengiin?',
     correctAnswerIndex: 1,
     options: [
-      'a) Atte, Riku, Harri, Aleksanteri',
+      'a) Atte, Harri, Aleksanteri',
       'b) Atte, Riku, Aleksanteri',
       'c) Jenna, Karoliina, Pihla, Emmi',
       'd) Atte, Riku, Aleksanteri, Henri',
     ],
   ),
   Question(
-    question: '7. ',
-    correctAnswerIndex: 1,
+    question: '7. Mitä oli ruokana lauantai-iltana mökkiolympialaisissa(2023)?',
+    correctAnswerIndex: 3,
     options: [
-      'a) Jumala',
-      'b) apina',
-      'c) joku',
-      'd) koira',
+      'a) Lohta, perunoita ja salaattia',
+      'b) Itse tehtyjä hampurilaisia, salaattia',
+      'c) Cremefraiche kanaa, ranskalaisia ja salaattia',
+      'd) Kanavartaat, perunoita ja salaattia',
     ],
   ),
   Question(
-    question: '1. Mitä tapahtui 2000 luvulla?',
-    correctAnswerIndex: 1,
+    question:
+        '8. Videolla näkyi muovipussilla hyppelyä, minkä värinen pussi oli?',
+    correctAnswerIndex: 2,
     options: [
-      'a) Jumala',
-      'b) apina',
-      'c) joku',
-      'd) koira',
+      'a) Musta ',
+      'b) Harmaa ',
+      'c) Tummansininen',
+      'd) Läpinäkyvä',
     ],
   ),
   Question(

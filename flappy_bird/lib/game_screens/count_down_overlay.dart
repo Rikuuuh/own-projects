@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flame_audio/flame_audio.dart';
 import 'package:flappy_bird_game/game/assets.dart';
 
 class CountdownOverlay extends StatefulWidget {
@@ -14,7 +13,7 @@ class CountdownOverlay extends StatefulWidget {
 }
 
 class _CountdownOverlayState extends State<CountdownOverlay> {
-  int countdown = 4;
+  int countdown = 5;
 
   @override
   void initState() {
@@ -23,8 +22,7 @@ class _CountdownOverlayState extends State<CountdownOverlay> {
   }
 
   void startCountdown() async {
-    FlameAudio.play(Assets.maytheforce);
-    for (int i = 4; i > 0; i--) {
+    for (int i = 5; i > 0; i--) {
       await Future.delayed(const Duration(seconds: 1));
       if (mounted) {
         setState(() {
@@ -37,43 +35,45 @@ class _CountdownOverlayState extends State<CountdownOverlay> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: Container(color: Colors.black.withOpacity(0.70)),
-        ),
-        Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Valmistaudu',
-                style: TextStyle(
-                  fontSize: 55,
-                  color: Colors.white,
-                  fontFamily: 'Game',
-                ),
-              ),
-              const SizedBox(height: 15),
-              Text(
-                countdown > 0 ? countdown.toString() : '',
-                style: const TextStyle(
-                  fontSize: 55,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: 'Game',
-                ),
-              ),
-              const SizedBox(height: 15),
-              Image.asset(
-                Assets.message,
-                scale: 0.5,
-              ),
-            ],
+    return Scaffold(
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(color: Colors.black.withOpacity(0.95)),
           ),
-        ),
-      ],
+          Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Valmistaudu',
+                  style: TextStyle(
+                    fontSize: 55,
+                    color: Colors.white,
+                    fontFamily: 'Game',
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Text(
+                  countdown > 0 ? countdown.toString() : '',
+                  style: const TextStyle(
+                    fontSize: 55,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontFamily: 'Game',
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Image.asset(
+                  Assets.message,
+                  scale: 0.5,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -26,7 +26,7 @@ class AnswerCard extends StatelessWidget {
 
     Color? backgroundColor = isUserSelected
         ? (isCorrectAnswer ? Colors.green[100] : Colors.red[100])
-        : Colors.blueGrey[500];
+        : Colors.grey[200];
 
     Color borderColor = selectedAnswerIndex != null
         ? (isCorrectAnswer
@@ -37,10 +37,10 @@ class AnswerCard extends StatelessWidget {
         : Colors.white24;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Container(
         height: 100,
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(10),
@@ -52,9 +52,9 @@ class AnswerCard extends StatelessWidget {
               child: Text(
                 question,
                 style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600),
               ),
             ),
             if (isCorrectAnswer)

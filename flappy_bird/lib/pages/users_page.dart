@@ -26,6 +26,7 @@ class UsersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black45,
         foregroundColor: Colors.yellow,
         centerTitle: true,
         title: const Text(
@@ -35,15 +36,15 @@ class UsersPage extends StatelessWidget {
       ),
       drawer: const MainDrawer(),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
             child: FutureBuilder<List<DocumentSnapshot>>(
               future: getDocs(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  const CircularProgressIndicator();
+                  return const Center(
+                    child: LinearProgressIndicator(),
+                  );
                 }
                 if (!snapshot.hasData) {
                   return const Text("Ei käyttäjiä.");
@@ -56,18 +57,23 @@ class UsersPage extends StatelessWidget {
                       var userImageUrl =
                           userData['imageUrl'] ?? 'assets/images/user.png';
                       return Padding(
-                        padding: const EdgeInsets.all(5.0),
+                        padding: const EdgeInsets.all(7.0),
                         child: ListTile(
+                          tileColor: Colors.black12,
                           leading: CircleAvatar(
                             backgroundImage: userImageUrl.startsWith('http')
                                 ? NetworkImage(userImageUrl) as ImageProvider
                                 : AssetImage(userImageUrl) as ImageProvider,
-                            radius: 30,
+                            radius: 25,
                           ),
                           title: GetUserData(
                             documentId: snapshot.data![index].id,
                             userId: snapshot.data![index].id,
                           ),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                              side: const BorderSide(
+                                  width: 0.8, color: Colors.yellow)),
                         ),
                       );
                     });

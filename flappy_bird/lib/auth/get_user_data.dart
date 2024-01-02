@@ -67,17 +67,19 @@ class GetUserData extends StatelessWidget {
           return Column(children: [
             Text(
               'Kisaaja : ${data['name']} ${data['lastName']}',
-              style: const TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 18),
             ),
             Text('Bird-pelin paras tulos : ${data['highScore']}',
-                style: const TextStyle(fontSize: 20)),
+                style: const TextStyle(fontSize: 16)),
             Text('Tietovisan tulos : ${data['visaScore']} / 10',
-                style: const TextStyle(fontSize: 20)),
+                style: const TextStyle(fontSize: 16)),
           ]);
         } else if (snapshot.hasError) {
           return Text('Virhe: ${snapshot.error}');
         }
-        return const CircularProgressIndicator();
+        return const Center(
+          child: LinearProgressIndicator(),
+        );
       },
     );
   }

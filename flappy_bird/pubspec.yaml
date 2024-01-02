@@ -24,6 +24,7 @@ dependencies:
   flutter_animate: ^4.3.0
   video_player: ^2.8.1
   slide_countdown: ^1.5.0
+  appinio_video_player: ^1.2.2
 
 dev_dependencies:
   flutter_test:

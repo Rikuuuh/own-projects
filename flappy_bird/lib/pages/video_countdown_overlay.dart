@@ -16,11 +16,12 @@ class VideoCountdownState extends State<VideoCountdown> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/videos/Olympialaiset.mp4')
-      ..initialize().then((_) {
-        setState(() {});
-        _controller.play();
-      });
+    _controller =
+        VideoPlayerController.asset('assets/videos/Olympialaisett.mp4')
+          ..initialize().then((_) {
+            setState(() {});
+            _controller.play();
+          });
 
     _controller.addListener(() {
       if (_controller.value.position == _controller.value.duration) {

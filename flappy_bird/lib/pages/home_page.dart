@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black45,
         centerTitle: true,
         title: const Text(
           'Aloitusalue',

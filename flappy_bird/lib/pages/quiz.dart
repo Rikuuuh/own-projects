@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
@@ -9,7 +10,6 @@ import 'package:flappy_bird_game/pages/home_page.dart';
 import 'package:flappy_bird_game/pages/video_countdown_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:video_player/video_player.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -18,24 +18,26 @@ class Quiz extends StatefulWidget {
   State<Quiz> createState() => _QuizState();
 }
 
-class _QuizState extends State<Quiz> with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
+class _QuizState extends State<Quiz> with WidgetsBindingObserver {
   final User? user = Auth().currentUser;
   String? firstName;
   int? remainingAttempt;
-  late VideoPlayerController _controller;
+  late CustomVideoPlayerController _customVideoPlayerController;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _loadRemainingAttempts();
     _loadUserData();
-    _controller = VideoPlayerController.asset('assets/videos/Olympialaiset.mp4')
-      ..initialize().then((_) {
-        setState(() {});
-        _controller.pause();
-      });
+    initializeVideoPlayer();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _customVideoPlayerController.dispose();
+    super.dispose();
   }
 
   Future<void> _loadRemainingAttempts() async {
@@ -94,10 +96,22 @@ class _QuizState extends State<Quiz> with AutomaticKeepAliveClientMixin {
     });
   }
 
+  void initializeVideoPlayer() {
+    VideoPlayerController videoPlayerController =
+        VideoPlayerController.asset('assets/videos/Olympialaisett.mp4')
+          ..initialize().then((_) {
+            setState(() {});
+          });
+
+    _customVideoPlayerController = CustomVideoPlayerController(
+        context: context, videoPlayerController: videoPlayerController);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black45,
         foregroundColor: Colors.green,
         centerTitle: true,
         title: const Text(
@@ -112,22 +126,22 @@ class _QuizState extends State<Quiz> with AutomaticKeepAliveClientMixin {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Tietäjien Taisto',
-                style: GoogleFonts.bebasNeue(
-                  color: Colors.green,
-                  fontSize: 55,
-                  fontWeight: FontWeight.bold,
-                  shadows: [
-                    const Shadow(
-                      color: Colors.black,
-                      blurRadius: 2.0,
-                      offset: Offset(1.5, 1.5),
-                    ),
-                  ],
-                ),
-              ),
               if (remainingAttempt != null && remainingAttempt! > 0) ...[
+                Text(
+                  'Tietäjien Taisto',
+                  style: GoogleFonts.bebasNeue(
+                    color: Colors.green,
+                    fontSize: 55,
+                    fontWeight: FontWeight.bold,
+                    shadows: [
+                      const Shadow(
+                        color: Colors.black,
+                        blurRadius: 2.0,
+                        offset: Offset(1.5, 1.5),
+                      ),
+                    ],
+                  ),
+                ),
                 CircleAvatar(
                   backgroundImage: NetworkImage(user!.photoURL!),
                   radius: 50,
@@ -179,44 +193,35 @@ class _QuizState extends State<Quiz> with AutomaticKeepAliveClientMixin {
                   ),
                   child: const Text('Aloita Video & Visa'),
                 ),
-              ],
-              if (remainingAttempt != null && remainingAttempt! == 0) ...[],
-              const SizedBox(height: 10),
-              Center(
-                child: _controller.value.isInitialized
-                    ? AspectRatio(
-                        aspectRatio: _controller.value.aspectRatio,
-                        child: VideoPlayer(_controller),
-                      )
-                    : Container(),
-              ),
-              FloatingActionButton(
-                onPressed: () {
-                  setState(() {
-                    _controller.value.isPlaying
-                        ? _controller.pause()
-                        : _controller.play();
-                  });
-                },
-                child: Icon(
-                  _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                const SizedBox(height: 10),
+                Text(
+                  'Psst! Laita äänet päälle ;)',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  textAlign: TextAlign.center,
                 ),
-              ),
-              Text(
-                'Psst! Laita äänet päälle ;)',
-                style: Theme.of(context).textTheme.bodyLarge,
-                textAlign: TextAlign.center,
-              ),
+              ] else if (remainingAttempt != null &&
+                  remainingAttempt! == 0) ...[
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Visa: suoritettu. Seuraava tehtävä: viihdytä itseäsi! Katso alla oleva video ja anna naurun raikaa',
+                      style: Theme.of(context).textTheme.titleLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 15),
+                    CustomVideoPlayer(
+                        customVideoPlayerController:
+                            _customVideoPlayerController)
+                  ],
+                )
+              ]
             ],
           ),
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
   }
 }

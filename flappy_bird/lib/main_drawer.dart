@@ -35,7 +35,6 @@ class MainDrawer extends StatelessWidget {
     final User? user = Auth().currentUser;
     return Drawer(
       surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
-      width: 275,
       child: Column(
         children: [
           GestureDetector(
@@ -152,6 +151,7 @@ class MainDrawer extends StatelessWidget {
                   ),
             ),
             onTap: () {
+              Navigator.of(context).pop();
               FirebaseAuth.instance.signOut();
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const MainPage(),

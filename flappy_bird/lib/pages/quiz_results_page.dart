@@ -1,3 +1,4 @@
+import 'package:flappy_bird_game/pages/users_page.dart';
 import 'package:flutter/material.dart';
 
 class QuizResultsPage extends StatelessWidget {
@@ -6,28 +7,34 @@ class QuizResultsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Tietovisan loppu',
-          style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: Colors.green,
-                fontSize: 20,
-              ),
-        ),
-      ),
       body: Container(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const Text(
+              textAlign: TextAlign.center,
+              'Onneksi olkoon visan suorittamisesta!',
+              style: TextStyle(
+                fontSize: 34,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              textAlign: TextAlign.center,
+              'Pisteesi: $score. Olet todellinen visa-velho!',
+              style: const TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Stack(
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                  height: 250,
-                  width: 250,
+                  height: 200,
+                  width: 200,
                   child: CircularProgressIndicator(
                     strokeWidth: 10,
                     value: score / 9,
@@ -48,20 +55,24 @@ class QuizResultsPage extends StatelessWidget {
             ),
             const Text(
               textAlign: TextAlign.center,
-              'Kiitos osallistumisestasi!',
+              'Katso, missä sijoitut Kisaajien Kunniajoukossa!',
               style: TextStyle(
-                fontSize: 34,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Text(
-              textAlign: TextAlign.center,
-              'Voit tarkistaa miten muilla on mennyt "Kisaajien Kunniajoukko" - välilehdestä',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => UsersPage()));
+              },
+              label: const Text(
+                'Kisaajien kunniajoukkoon',
               ),
-            ),
+              icon:
+                  const Icon(Icons.emoji_events_outlined, color: Colors.yellow),
+            )
           ],
         ),
       ),

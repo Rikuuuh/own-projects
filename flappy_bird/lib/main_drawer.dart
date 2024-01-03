@@ -34,6 +34,7 @@ class MainDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final User? user = Auth().currentUser;
     return Drawer(
+      width: 275,
       surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
       child: Column(
         children: [

@@ -1,12 +1,14 @@
-import 'dart:async';
 import 'dart:developer';
-
-import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flame/game.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
+import 'package:flappy_bird_game/game/flappy_bird_game.dart';
+import 'package:flappy_bird_game/game_screens/game_over_screen.dart';
+import 'package:flappy_bird_game/game_screens/main_menu_screen.dart';
 import 'package:flappy_bird_game/main_drawer.dart';
 import 'package:flappy_bird_game/pages/home_page.dart';
+import 'package:flappy_bird_game/pages/users_page.dart';
 import 'package:flappy_bird_game/pages/video_countdown_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,26 +20,16 @@ class Quiz extends StatefulWidget {
   State<Quiz> createState() => _QuizState();
 }
 
-class _QuizState extends State<Quiz> with WidgetsBindingObserver {
+class _QuizState extends State<Quiz> {
   final User? user = Auth().currentUser;
   String? firstName;
   int? remainingAttempt;
-  late CustomVideoPlayerController _customVideoPlayerController;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
     _loadRemainingAttempts();
     _loadUserData();
-    initializeVideoPlayer();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    _customVideoPlayerController.dispose();
-    super.dispose();
   }
 
   Future<void> _loadRemainingAttempts() async {
@@ -96,17 +88,6 @@ class _QuizState extends State<Quiz> with WidgetsBindingObserver {
     });
   }
 
-  void initializeVideoPlayer() {
-    VideoPlayerController videoPlayerController =
-        VideoPlayerController.asset('assets/videos/Olympialaisett.mp4')
-          ..initialize().then((_) {
-            setState(() {});
-          });
-
-    _customVideoPlayerController = CustomVideoPlayerController(
-        context: context, videoPlayerController: videoPlayerController);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,28 +106,34 @@ class _QuizState extends State<Quiz> with WidgetsBindingObserver {
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Icon(
+                Icons.lightbulb_outline,
+                size: 50.0,
+                color: Colors.green,
+              ),
+              Text(
+                'Tietäjien Taisto',
+                style: GoogleFonts.bebasNeue(
+                  color: Colors.green,
+                  fontSize: 55,
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    const Shadow(
+                      color: Colors.black,
+                      blurRadius: 2.0,
+                      offset: Offset(1.5, 1.5),
+                    ),
+                  ],
+                ),
+              ),
+              CircleAvatar(
+                backgroundImage: NetworkImage(user!.photoURL!),
+                radius: 50,
+              ),
+              const SizedBox(height: 20),
               if (remainingAttempt != null && remainingAttempt! > 0) ...[
-                Text(
-                  'Tietäjien Taisto',
-                  style: GoogleFonts.bebasNeue(
-                    color: Colors.green,
-                    fontSize: 55,
-                    fontWeight: FontWeight.bold,
-                    shadows: [
-                      const Shadow(
-                        color: Colors.black,
-                        blurRadius: 2.0,
-                        offset: Offset(1.5, 1.5),
-                      ),
-                    ],
-                  ),
-                ),
-                CircleAvatar(
-                  backgroundImage: NetworkImage(user!.photoURL!),
-                  radius: 50,
-                ),
-                const SizedBox(height: 20),
                 Wrap(
                   direction: Axis.horizontal,
                   alignment: WrapAlignment.center,
@@ -201,27 +188,81 @@ class _QuizState extends State<Quiz> with WidgetsBindingObserver {
                 ),
               ] else if (remainingAttempt != null &&
                   remainingAttempt! == 0) ...[
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Visa: suoritettu. Seuraava tehtävä: viihdytä itseäsi! Katso alla oleva video ja anna naurun raikaa',
-                      style: Theme.of(context).textTheme.titleLarge,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 15),
-                    CustomVideoPlayer(
-                        customVideoPlayerController:
-                            _customVideoPlayerController)
-                  ],
-                )
+                const SizedBox(height: 20),
+                Text(
+                  'Kiitos osallistumisestasi! Olet käyttänyt kaikki visayrityksesi',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontSize: 30),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'Vaikka tietovisasi on ohi, voit silti nauttia Olympic Bird -pelistä',
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 15),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    startGame(context);
+                  },
+                  icon: const Icon(
+                    Icons.sports_esports_outlined,
+                    size: 30,
+                    color: Colors.blue,
+                  ),
+                  label: const Text(
+                    'Olympic Bird peliin',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Text(
+                  'Katso muiden pelaajien tulokset Kisaajien Kunniajoukko-välilehdeltä tästä',
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 15),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => UsersPage()));
+                  },
+                  icon: const Icon(
+                    Icons.emoji_events_outlined,
+                    size: 30,
+                    color: Colors.yellow,
+                  ),
+                  label: const Text(
+                    'Kisaajien Kunniajoukkoon',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
               ]
             ],
           ),
         ),
       ),
     );
+  }
+
+  void startGame(BuildContext context) {
+    final game = FlappyBirdGame();
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) {
+        return GameWidget(
+          game: game,
+          initialActiveOverlays: const [MainMenuScreen.id],
+          overlayBuilderMap: {
+            'mainMenu': (context, _) => MainMenuScreen(context, game: game),
+            'gameOver': (context, _) => GameOverScreen(game: game),
+          },
+        );
+      },
+    ));
   }
 }

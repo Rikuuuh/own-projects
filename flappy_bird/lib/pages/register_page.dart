@@ -78,7 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
     await FirebaseFirestore.instance.collection('users').doc(userId).set({
       'first name': firstName,
       'last name': lastName,
-      'attempts left': 50,
+      'attempts left': 100,
       'imageUrl': imageUrl,
       'visa attempt': 1,
     });
@@ -165,6 +165,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
                         style: const TextStyle(color: Colors.black),
+                        textCapitalization: TextCapitalization.sentences,
                         controller: _firstNameController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
@@ -187,6 +188,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
                         style: const TextStyle(color: Colors.black),
+                        textCapitalization: TextCapitalization.sentences,
                         controller: _lastNameController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,

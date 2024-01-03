@@ -55,12 +55,16 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.android_sharp,
-                  size: 120,
+                ClipOval(
+                  child: Image.asset(
+                    'assets/images/SplashScreen.png',
+                    fit: BoxFit.fill,
+                    width: 260,
+                    height: 260,
+                  ),
                 ),
                 const SizedBox(
-                  height: 75,
+                  height: 40,
                 ),
                 Text(
                   'Tervetuloa!',

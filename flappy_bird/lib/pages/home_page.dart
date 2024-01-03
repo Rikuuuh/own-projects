@@ -29,9 +29,9 @@ class HomePage extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge!
-                    .copyWith(fontSize: 30),
+                    .copyWith(fontSize: 35),
               ),
-              const SizedBox(height: 13),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(
@@ -55,7 +55,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 20),
               Text(
                 'Valmistaudu ainutlaatuiseen seikkailuun, jossa yhdistyvät hauskuus, tieto ja taito.',
                 style: Theme.of(context).textTheme.titleLarge,
@@ -66,11 +66,11 @@ class HomePage extends StatelessWidget {
                 'Tietovisa - Testaa Tietosi:',
                 style: Theme.of(context)
                     .textTheme
-                    .bodyLarge!
+                    .titleLarge!
                     .copyWith(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 7),
               Text(
                 'Oletko tietäjä vai tuurittaja? Selvitä kuinka hyvin tunnet mökkiolympialaisten historian ja -salat tässä jännittävässä tietovisassa!',
                 style: Theme.of(context).textTheme.bodyLarge,
@@ -81,11 +81,11 @@ class HomePage extends StatelessWidget {
                 'Pelihetki - Olympic Bird:',
                 style: Theme.of(context)
                     .textTheme
-                    .bodyLarge!
+                    .titleLarge!
                     .copyWith(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 7),
               Text(
                 'Näytä sormiesi nopeus ja taitavuus tässä koukuttavassa pelissä. Kuka teistä pääsee pisimmälle ja nappaa kultamitalin?',
                 style: Theme.of(context).textTheme.bodyLarge,
@@ -96,11 +96,11 @@ class HomePage extends StatelessWidget {
                 'Kisaajien Kunniajoukko:',
                 style: Theme.of(context)
                     .textTheme
-                    .bodyLarge!
+                    .titleLarge!
                     .copyWith(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 7),
               Text(
                 'Tutustu muihin kisaajiin ja vertaile tuloksianne. Kuka on mökkiolympialaisten monitaituri?',
                 style: Theme.of(context).textTheme.bodyLarge,

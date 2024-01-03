@@ -23,8 +23,16 @@ class QuizResultsPage extends StatelessWidget {
             ),
             Text(
               textAlign: TextAlign.center,
-              'Pisteesi: $score. Olet todellinen visa-velho!',
+              'Tietovisan tulos : $score.',
               style: const TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Text(
+              textAlign: TextAlign.center,
+              'Olet todellinen visa-velho!',
+              style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
@@ -39,7 +47,7 @@ class QuizResultsPage extends StatelessWidget {
                     strokeWidth: 10,
                     value: score / 9,
                     color: Colors.green,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.redAccent,
                   ),
                 ),
                 Column(
@@ -62,6 +70,8 @@ class QuizResultsPage extends StatelessWidget {
               ),
             ),
             ElevatedButton.icon(
+              style:
+                  ElevatedButton.styleFrom(padding: const EdgeInsets.all(15)),
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.of(context)
@@ -69,9 +79,10 @@ class QuizResultsPage extends StatelessWidget {
               },
               label: const Text(
                 'Kisaajien kunniajoukkoon',
+                style: TextStyle(fontSize: 20),
               ),
-              icon:
-                  const Icon(Icons.emoji_events_outlined, color: Colors.yellow),
+              icon: const Icon(Icons.emoji_events_outlined,
+                  color: Colors.yellow, size: 30),
             )
           ],
         ),

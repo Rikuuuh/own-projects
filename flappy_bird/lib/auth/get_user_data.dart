@@ -77,8 +77,11 @@ class GetUserData extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Text('Virhe: ${snapshot.error}');
         }
-        return const Center(
-          child: LinearProgressIndicator(),
+        return Center(
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.blueGrey[800],
+            color: Colors.black,
+          ),
         );
       },
     );

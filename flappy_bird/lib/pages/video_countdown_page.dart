@@ -10,8 +10,7 @@ class VideoCountdownPage extends StatelessWidget {
     return SafeArea(
       child: VideoCountdown(
         onVideoComplete: () {
-          Navigator.of(context).pop();
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const QuizQuestionsPage()),
           );

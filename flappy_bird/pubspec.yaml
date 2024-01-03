@@ -24,13 +24,17 @@ dependencies:
   flutter_animate: ^4.3.0
   video_player: ^2.8.1
   slide_countdown: ^1.5.0
-  hidden_drawer_menu: ^3.0.1
+  flutter_native_splash: ^2.3.9
+
+flutter_native_splash:
+  background_image: assets/images/SplashScreen.png
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^3.0.1
+  flutter_launcher_icons: "^0.13.1"
 
 flutter:
 
@@ -46,3 +50,10 @@ flutter:
     - family: Game     
       fonts:
         - asset: assets/fonts/Game.ttf
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: "AppIcon"
+  image_path: "assets/icons/iconBird.png"
+  min_sdk_android: 21
+  remove_alpha_ios: true

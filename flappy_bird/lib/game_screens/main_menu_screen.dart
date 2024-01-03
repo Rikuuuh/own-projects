@@ -173,7 +173,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    'Sinulla on 50 yritystä saada parempi tulos kuin muilla osallistujilla.',
+                    'Sinulla on 100 yritystä saada parempi tulos kuin muilla osallistujilla.',
                     style: Theme.of(context).textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
@@ -354,7 +354,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
         builder: (context) => AlertDialog(
           backgroundColor: Colors.black,
           title: const Text(
-            '50 yrityksen raja tuli vastaan! ',
+            '100 yrityksen raja tuli vastaan! ',
             style: TextStyle(
               color: Colors.white,
             ),

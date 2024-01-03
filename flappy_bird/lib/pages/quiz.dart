@@ -132,9 +132,10 @@ class _QuizState extends State<Quiz> {
                 backgroundImage: NetworkImage(user!.photoURL!),
                 radius: 50,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               if (remainingAttempt != null && remainingAttempt! > 0) ...[
                 Wrap(
+                  spacing: 25,
                   direction: Axis.horizontal,
                   alignment: WrapAlignment.center,
                   children: <Widget>[
@@ -146,17 +147,19 @@ class _QuizState extends State<Quiz> {
                           .copyWith(fontWeight: FontWeight.bold, fontSize: 26),
                       textAlign: TextAlign.center,
                     ),
+                    const SizedBox(height: 20),
                     Text(
                       'Tämä on SINUN tilaisuutesi loistaa ja vastata kaikkiin kysymyksiin oikein!',
                       style: Theme.of(context).textTheme.titleLarge,
                       textAlign: TextAlign.center,
                     ),
+                    const SizedBox(height: 15),
                     Text(
                       'Kullakin kysymyksellä on aikaraja: sinulla on vain 30 sekuntia vastauksen antamiseen.',
                       style: Theme.of(context).textTheme.titleLarge,
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 15),
                     Text(
                       'Katso mökkiolympialaisten parhaita hetkiä video ja visa alkaa heti sen jälkeen!',
                       style: Theme.of(context).textTheme.titleLarge,

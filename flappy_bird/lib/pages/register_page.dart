@@ -78,7 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
     await FirebaseFirestore.instance.collection('users').doc(userId).set({
       'first name': firstName,
       'last name': lastName,
-      'attempts left': 100,
+      'attempts left': 50,
       'imageUrl': imageUrl,
       'visa attempt': 1,
     });
@@ -268,9 +268,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  _isImageAdded
-                      ? 'Kuva lisätty!'
-                      : 'Lisää vielä kuva omasta naamastasi',
+                  _isImageAdded ? 'Kuva lisätty!' : 'Lisää vielä naamakuvasi',
                   style: const TextStyle(fontSize: 18),
                 ),
                 IconButton(

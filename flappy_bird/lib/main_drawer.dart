@@ -7,7 +7,6 @@ import 'package:flappy_bird_game/pages/users_page.dart';
 import 'package:flappy_bird_game/game_screens/game_over_screen.dart';
 import 'package:flappy_bird_game/game_screens/main_menu_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
 
 import 'game/flappy_bird_game.dart';
@@ -34,7 +33,7 @@ class MainDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final User? user = Auth().currentUser;
     return Drawer(
-      width: 275,
+      width: 255,
       surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
       child: Column(
         children: [
@@ -114,7 +113,10 @@ class MainDrawer extends StatelessWidget {
                     fontSize: 20,
                   ),
             ),
-            onTap: () => startGame(context),
+            onTap: () {
+              Navigator.of(context).pop();
+              startGame(context);
+            },
           ),
           const Spacer(),
           ListTile(

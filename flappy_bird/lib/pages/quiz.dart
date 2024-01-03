@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flame/game.dart';
@@ -82,9 +81,6 @@ class _QuizState extends State<Quiz> {
           builder: (context) => const VideoCountdownPage(),
         ),
       );
-    }).catchError((error) {
-      // Käsittele virhe täällä, esimerkiksi näyttämällä virheilmoitus
-      log('Virhe vähentäessä yrityksiä: $error');
     });
   }
 
@@ -193,7 +189,7 @@ class _QuizState extends State<Quiz> {
                   remainingAttempt! == 0) ...[
                 const SizedBox(height: 20),
                 Text(
-                  'Kiitos osallistumisestasi! Olet käyttänyt kaikki visayrityksesi',
+                  'Kiitos osallistumisestasi! Olet jo käyttänyt visayrityksesi',
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge!
@@ -208,6 +204,9 @@ class _QuizState extends State<Quiz> {
                 ),
                 const SizedBox(height: 15),
                 ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(12),
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                     startGame(context);
@@ -224,12 +223,15 @@ class _QuizState extends State<Quiz> {
                 ),
                 const SizedBox(height: 15),
                 Text(
-                  'Katso muiden pelaajien tulokset Kisaajien Kunniajoukko-välilehdeltä tästä',
+                  'Katso muiden pelaajien tulokset Kisaajien Kunniajoukko-välilehdeltä',
                   style: Theme.of(context).textTheme.titleLarge,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 15),
                 ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(12),
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).push(

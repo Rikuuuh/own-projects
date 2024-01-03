@@ -43,6 +43,7 @@ class _QuizQuestionsPageState extends State<QuizQuestionsPage> {
   }
 
   void pickAnswer(int value) {
+    _timer?.cancel();
     selectedAnswerIndex = value;
     final question = questions[questionIndex];
     if (selectedAnswerIndex == question.correctAnswerIndex) {

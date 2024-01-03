@@ -59,12 +59,12 @@ class _LoginPageState extends State<LoginPage> {
                   child: Image.asset(
                     'assets/images/SplashScreen.png',
                     fit: BoxFit.fill,
-                    width: 260,
-                    height: 260,
+                    width: 275,
+                    height: 250,
                   ),
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 30,
                 ),
                 Text(
                   'Tervetuloa!',

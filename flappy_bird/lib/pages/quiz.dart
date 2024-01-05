@@ -99,6 +99,7 @@ class _QuizState extends State<Quiz> {
       drawer: const MainDrawer(),
       body: SingleChildScrollView(
         child: Container(
+          alignment: Alignment.topCenter,
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

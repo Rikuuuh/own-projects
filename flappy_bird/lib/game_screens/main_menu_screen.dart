@@ -141,7 +141,6 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
           child: Column(
             children: [
-              const SizedBox(height: 10),
               Text(
                 'Olympic Bird',
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -157,24 +156,23 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 5),
               Wrap(
                 direction: Axis.horizontal,
                 alignment: WrapAlignment.center,
                 children: <Widget>[
                   Text(
                     'Valmiina haasteeseen $firstName?',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyLarge,
                     textAlign: TextAlign.center,
                   ),
                   Text(
                     'Olympic Bird kutsuu sinut kisaamaan!',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyLarge,
                     textAlign: TextAlign.center,
                   ),
                   Text(
                     'Sinulla on 50 yritystä saada parempi tulos kuin muilla osallistujilla.',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyLarge,
                     textAlign: TextAlign.center,
                   ),
                   Text(
@@ -190,7 +188,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               GridView.builder(
-                padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
+                padding: const EdgeInsets.fromLTRB(15, 12, 15, 12),
                 shrinkWrap: true,
                 itemCount: birdImages.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -226,9 +224,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 'Valitse maailmasi',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              const SizedBox(height: 5),
               GridView.builder(
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+                padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
                 shrinkWrap: true,
                 itemCount: backgroundImages.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

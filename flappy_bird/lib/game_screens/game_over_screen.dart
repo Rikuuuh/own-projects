@@ -17,9 +17,8 @@ class GameOverScreen extends StatelessWidget {
     String firstName = userDetails.firstName;
 
     var database = FirebaseFirestore.instance;
-    database
-        .collection('highscores')
-        .add({"name": firstName, "score": game.bird.score});
+    database.collection('highscores').add(
+        {"userId": user?.uid, "name": firstName, "score": game.bird.score});
   }
 
   Future<void> decreaseAttempt(String userId) async {

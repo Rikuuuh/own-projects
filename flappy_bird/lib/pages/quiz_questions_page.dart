@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/answer_card.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/data/questions.dart';
@@ -149,8 +150,11 @@ class _QuizQuestionsPageState extends State<QuizQuestionsPage> {
   Future<void> submitScore() async {
     var userDetails = await UserService.getUserDetails();
     String firstName = userDetails.firstName;
+    User? user = FirebaseAuth.instance.currentUser;
 
     var database = FirebaseFirestore.instance;
-    database.collection('visascores').add({"name": firstName, "score": score});
+    database
+        .collection('visascores')
+        .add({"userId": user?.uid, "name": firstName, "score": score});
   }
 }

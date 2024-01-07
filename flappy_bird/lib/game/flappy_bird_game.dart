@@ -30,7 +30,7 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
     score.text = 'Score: ${bird.score}';
 
     if (bird.score % 10 == 0 && bird.score != 0) {
-      Config.gameSpeed = 220.0 + (bird.score / 10 * 10);
+      Config.gameSpeed = 220.0 + (bird.score / 10 * 5);
     }
   }
 

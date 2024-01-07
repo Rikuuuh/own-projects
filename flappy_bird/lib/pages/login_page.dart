@@ -12,14 +12,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // Text  controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   String _errorMessage = '';
 
   Future signIn() async {
-    // Tarkista, että sähköposti ja salasana on annettu
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       setState(() {
         _errorMessage = 'Anna sähköposti ja salasana';
@@ -31,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim());
-      // Jatka sovelluksen käyttöä...
     } on FirebaseAuthException catch (e) {
       setState(() {
         _errorMessage = e.message ?? 'Kirjautuminen epäonnistui';

@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
-
 import 'package:flappy_bird_game/auth/get_user_data.dart';
 import 'package:flappy_bird_game/main_drawer.dart';
-
 import 'package:flutter/material.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,10 +11,8 @@ class UsersPage extends StatelessWidget {
 
   final User? user = Auth().currentUser;
 
-  // Document ID's
   final List<String> docIDs = [];
 
-  // get docID's
   Future<List<DocumentSnapshot>> getDocs() async {
     var snapshot = await FirebaseFirestore.instance.collection('users').get();
     return snapshot.docs;
@@ -43,7 +38,7 @@ class UsersPage extends StatelessWidget {
             child: Column(
               children: [
                 const Icon(
-                  Icons.emoji_events, // Voit valita sopivan ikonin
+                  Icons.emoji_events,
                   size: 50.0,
                   color: Colors.yellow,
                 ),

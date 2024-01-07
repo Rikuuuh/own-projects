@@ -8,11 +8,10 @@ class CountdownOverlay extends StatefulWidget {
   const CountdownOverlay({super.key, required this.onCountdownComplete});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _CountdownOverlayState createState() => _CountdownOverlayState();
+  CountdownOverlayState createState() => CountdownOverlayState();
 }
 
-class _CountdownOverlayState extends State<CountdownOverlay> {
+class CountdownOverlayState extends State<CountdownOverlay> {
   int countdown = 5;
 
   @override

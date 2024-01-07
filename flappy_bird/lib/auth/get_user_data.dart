@@ -18,12 +18,10 @@ class GetUserData extends StatelessWidget {
     CollectionReference visascores =
         FirebaseFirestore.instance.collection('visascores');
 
-    // Haetaan käyttäjän tiedot users taulukosta.
     var userSnapshot = await users.doc(documentId).get();
     Map<String, dynamic> userData = userSnapshot.data() as Map<String, dynamic>;
     String name = userData['first name'];
 
-    // Hae highscore ja visascore samaan aikaan
     var scoreFuture = scores
         .where('name', isEqualTo: name)
         .orderBy('score', descending: true)
@@ -34,10 +32,9 @@ class GetUserData extends StatelessWidget {
         .orderBy('score', descending: true)
         .limit(1)
         .get();
-    // odotetaan resultit
+
     var results = await Future.wait([scoreFuture, visaScoreFuture]);
 
-    // Tulokset
     int highScore = 0;
     if (results[0].docs.isNotEmpty) {
       highScore = results[0].docs.first['score'];
@@ -67,12 +64,12 @@ class GetUserData extends StatelessWidget {
           return Column(children: [
             Text(
               'Kisaaja : ${data['name']} ${data['lastName']}',
-              style: const TextStyle(fontSize: 17),
+              style: const TextStyle(fontSize: 18),
             ),
             Text('Bird-pelin paras tulos : ${data['highScore']}',
-                style: const TextStyle(fontSize: 15)),
+                style: const TextStyle(fontSize: 16)),
             Text('Tietovisan tulos : ${data['visaScore']} / 10',
-                style: const TextStyle(fontSize: 15)),
+                style: const TextStyle(fontSize: 16)),
           ]);
         } else if (snapshot.hasError) {
           return Text('Virhe: ${snapshot.error}');

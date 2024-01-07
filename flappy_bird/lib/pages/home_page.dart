@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flappy_bird_game/main_drawer.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class HomePage extends StatelessWidget {

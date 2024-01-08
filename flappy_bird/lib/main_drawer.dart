@@ -38,129 +38,138 @@ class MainDrawer extends StatelessWidget {
       surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
       child: Column(
         children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const HomePage()));
-            },
-            child: DrawerHeader(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Theme.of(context).colorScheme.primaryContainer,
-                    Theme.of(context).colorScheme.onPrimary.withOpacity(0.5),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+          Container(
+            padding: const EdgeInsets.only(top: 40, bottom: 25),
+            child: Column(
+              children: [
+                if (user?.photoURL != null)
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(user!.photoURL!),
+                    radius: 52,
+                  )
+                else
+                  const CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/user.png'),
+                    radius: 52,
+                  ),
+                const SizedBox(
+                  height: 14,
                 ),
-              ),
-              child: Row(
-                children: [
-                  if (user?.photoURL != null)
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(user!.photoURL!),
-                      radius: 30,
-                    )
-                  else
-                    const CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/user.png'),
-                      radius: 30,
-                    ),
-                  const SizedBox(width: 20),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Olympialaisten',
-                          style: Theme.of(context).textTheme.titleLarge!),
-                      Text('Aloitusalue',
-                          style: Theme.of(context).textTheme.titleLarge!),
-                    ],
-                  ),
-                ],
-              ),
+                Text(
+                  user!.email!,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+              ],
             ),
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.lightbulb_outlined,
-              size: 30,
-              color: Colors.green,
-            ),
-            title: Text(
-              'Tietovisa - Tietäjien Taisto',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+          const Divider(
+            color: Colors.black,
+          ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(0, 15, 0, 10),
+            child: Wrap(
+              runSpacing: 16,
+              children: [
+                ListTile(
+                  leading: const Icon(
+                    Icons.home,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    'Olympialaisten aloitusalue',
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const HomePage()));
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.lightbulb_outlined,
+                    size: 30,
                     color: Colors.green,
-                    fontSize: 20,
                   ),
-            ),
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => const Quiz()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.sports_esports_outlined,
-              size: 30,
-              color: Colors.blue,
-            ),
-            title: Text(
-              'Pelihetki - Olympic Bird',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  title: Text(
+                    'Tietovisa - Tietäjien Taisto',
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.green,
+                          fontSize: 20,
+                        ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => const Quiz()));
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.sports_esports_outlined,
+                    size: 30,
                     color: Colors.blue,
-                    fontSize: 20,
                   ),
-            ),
-            onTap: () {
-              Navigator.of(context).pop();
-              startGame(context);
-            },
-          ),
-          const Spacer(),
-          ListTile(
-            leading: const Icon(
-              Icons.emoji_events_outlined,
-              size: 30,
-              color: Colors.yellow,
-            ),
-            title: Text(
-              'Kisaajien Kunniajoukko',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  title: Text(
+                    'Pelihetki - Olympic Bird',
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.blue,
+                          fontSize: 20,
+                        ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    startGame(context);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.emoji_events_outlined,
+                    size: 30,
                     color: Colors.yellow,
-                    fontSize: 20,
                   ),
-            ),
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => UsersPage(),
-              ));
-            },
-          ),
-          const Spacer(),
-          ListTile(
-            leading: const Icon(
-              Icons.exit_to_app_outlined,
-              size: 30,
-              color: Colors.redAccent,
-            ),
-            title: Text(
-              'Paluu Arkeen',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  title: Text(
+                    'Kisaajien Kunniajoukko',
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.yellow,
+                          fontSize: 20,
+                        ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => UsersPage(),
+                    ));
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.exit_to_app_outlined,
+                    size: 30,
                     color: Colors.redAccent,
-                    fontSize: 20,
                   ),
+                  title: Text(
+                    'Paluu Arkeen',
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.redAccent,
+                          fontSize: 20,
+                        ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    FirebaseAuth.instance.signOut();
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const MainPage(),
+                    ));
+                  },
+                ),
+              ],
             ),
-            onTap: () {
-              Navigator.of(context).pop();
-              FirebaseAuth.instance.signOut();
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const MainPage(),
-              ));
-            },
           )
         ],
       ),

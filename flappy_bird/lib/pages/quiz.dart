@@ -5,10 +5,10 @@ import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/game/flappy_bird_game.dart';
 import 'package:flappy_bird_game/game_screens/game_over_screen.dart';
 import 'package:flappy_bird_game/game_screens/main_menu_screen.dart';
-import 'package:flappy_bird_game/main_drawer.dart';
+import 'package:flappy_bird_game/components/main_drawer.dart';
 import 'package:flappy_bird_game/pages/home_page.dart';
-import 'package:flappy_bird_game/pages/users_page.dart';
-import 'package:flappy_bird_game/pages/video_countdown_page.dart';
+import 'package:flappy_bird_game/pages/view_users_page.dart';
+import 'package:flappy_bird_game/components/video_countdown_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -93,7 +93,7 @@ class _QuizState extends State<Quiz> {
         centerTitle: true,
         title: const Text(
           'Tietovisa',
-          style: TextStyle(fontSize: 24, color: Colors.green),
+          style: TextStyle(fontSize: 22, color: Colors.green),
         ),
       ),
       drawer: const MainDrawer(),

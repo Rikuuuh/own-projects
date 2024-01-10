@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flappy_bird_game/answer_card.dart';
+import 'package:flappy_bird_game/components/answer_card.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/data/questions.dart';
 import 'package:flappy_bird_game/pages/quiz_results_page.dart';

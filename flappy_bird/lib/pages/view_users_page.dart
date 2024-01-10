@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/auth/get_user_data.dart';
-import 'package:flappy_bird_game/main_drawer.dart';
+import 'package:flappy_bird_game/components/main_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,7 +27,7 @@ class UsersPage extends StatelessWidget {
         centerTitle: true,
         title: const Text(
           'Kunniajoukko',
-          style: TextStyle(fontSize: 24, color: Colors.yellow),
+          style: TextStyle(fontSize: 22, color: Colors.yellow),
         ),
       ),
       drawer: const MainDrawer(),

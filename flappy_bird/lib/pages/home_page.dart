@@ -1,4 +1,4 @@
-import 'package:flappy_bird_game/main_drawer.dart';
+import 'package:flappy_bird_game/components/main_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
         title: const Text(
           'Aloitusalue',
-          style: TextStyle(fontSize: 24),
+          style: TextStyle(fontSize: 22),
         ),
       ),
       drawer: const MainDrawer(),

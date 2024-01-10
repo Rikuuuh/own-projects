@@ -72,11 +72,12 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  Future adduserDetails(
-      String userId, String firstName, String lastName, String imageUrl) async {
+  Future adduserDetails(String userId, String firstName, String lastName,
+      String email, String imageUrl) async {
     await FirebaseFirestore.instance.collection('users').doc(userId).set({
       'first name': firstName,
       'last name': lastName,
+      'email': email,
       'attempts left': 50,
       'imageUrl': imageUrl,
       'visa attempt': 1,
@@ -124,6 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
           userCredential.user!.uid,
           _firstNameController.text.trim(),
           _lastNameController.text.trim(),
+          _emailController.text.trim(),
           imageUrl);
     } on FirebaseAuthException catch (e) {
       setState(() {

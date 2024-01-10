@@ -1,4 +1,4 @@
-import 'package:flappy_bird_game/pages/users_page.dart';
+import 'package:flappy_bird_game/pages/view_users_page.dart';
 import 'package:flutter/material.dart';
 
 class QuizResultsPage extends StatelessWidget {

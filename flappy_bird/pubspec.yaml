@@ -43,6 +43,7 @@ flutter:
     - assets/images/
     - assets/audio/
     - assets/videos/
+    - assets/icons/
 
   fonts:
     - family: Game     

@@ -82,7 +82,7 @@ class UsersPage extends StatelessWidget {
                   return const Text("Ei käyttäjiä.");
                 }
                 return ListView.builder(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.only(top: 7.0),
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     var userData =
@@ -96,7 +96,7 @@ class UsersPage extends StatelessWidget {
                           backgroundImage: userImageUrl.startsWith('http')
                               ? NetworkImage(userImageUrl) as ImageProvider
                               : AssetImage(userImageUrl) as ImageProvider,
-                          radius: 25,
+                          radius: 30,
                         ),
                         title: GetUserData(
                           documentId: snapshot.data![index].id,

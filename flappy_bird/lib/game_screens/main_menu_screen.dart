@@ -63,7 +63,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           alignment: Alignment.center,
-          backgroundColor: Colors.deepPurple[100],
+          backgroundColor: Colors.blueGrey,
           title: const Text(
             'Tämän hetken 10 parasta',
             style: TextStyle(
@@ -71,6 +71,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
+          ),
+          icon: const Icon(
+            Icons.emoji_events,
+            color: Colors.yellow,
           ),
           content: SizedBox(
             width: double.maxFinite,
@@ -101,6 +105,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           ),
           actions: <Widget>[
             TextButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.teal)),
               child: const Text(
                 'Sulje',
                 style: TextStyle(color: Colors.black),
@@ -137,186 +143,187 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     widget.game.pauseEngine();
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-          child: Column(
-            children: [
-              Text(
-                'Olympic Bird',
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  letterSpacing: 2,
-                  fontSize: 55,
-                  fontFamily: 'game',
-                  shadows: [
-                    const Shadow(
-                      color: Colors.blueAccent,
-                      blurRadius: 2.0,
-                      offset: Offset(1.5, 1.5),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+            child: Column(
+              children: [
+                Text(
+                  'Olympic Bird',
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    letterSpacing: 2,
+                    fontSize: 55,
+                    fontFamily: 'game',
+                    shadows: [
+                      const Shadow(
+                        color: Colors.blueAccent,
+                        blurRadius: 2.0,
+                        offset: Offset(1.5, 1.5),
+                      ),
+                    ],
+                  ),
+                ),
+                Wrap(
+                  direction: Axis.horizontal,
+                  alignment: WrapAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Valmiina haasteeseen $firstName?',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      textAlign: TextAlign.center,
                     ),
+                    Text(
+                      'Olympic Bird kutsuu sinut kisaamaan!',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      'Sinulla on 50 yritystä saada parempi tulos kuin muilla osallistujilla.',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      'Onnea matkaan!',
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                    )
                   ],
                 ),
-              ),
-              Wrap(
-                direction: Axis.horizontal,
-                alignment: WrapAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Valmiina haasteeseen $firstName?',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    'Olympic Bird kutsuu sinut kisaamaan!',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    'Sinulla on 50 yritystä saada parempi tulos kuin muilla osallistujilla.',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    'Onnea matkaan!',
-                    style: Theme.of(context).textTheme.titleMedium,
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-              const SizedBox(height: 12),
-              Text(
-                'Valitse hahmosi',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              GridView.builder(
-                padding: const EdgeInsets.fromLTRB(15, 12, 15, 12),
-                shrinkWrap: true,
-                itemCount: birdImages.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
+                const SizedBox(height: 12),
+                Text(
+                  'Valitse hahmosi',
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
-                itemBuilder: (context, index) {
-                  bool isSelected =
-                      birdImages[index].split('/').last.split('_')[0] ==
-                          selectedBirdType;
-                  return GestureDetector(
-                    onTap: () => onBirdSelected(
-                        birdImages[index].split('/').last.split('_')[0]),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: isSelected
-                            ? Border.all(
-                                color: const Color.fromARGB(255, 200, 225, 255),
-                                width: 2.5)
-                            : null,
+                GridView.builder(
+                  padding: const EdgeInsets.fromLTRB(15, 12, 15, 12),
+                  shrinkWrap: true,
+                  itemCount: birdImages.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
+                  ),
+                  itemBuilder: (context, index) {
+                    bool isSelected =
+                        birdImages[index].split('/').last.split('_')[0] ==
+                            selectedBirdType;
+                    return GestureDetector(
+                      onTap: () => onBirdSelected(
+                          birdImages[index].split('/').last.split('_')[0]),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: isSelected
+                              ? Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 200, 225, 255),
+                                  width: 2.5)
+                              : null,
+                        ),
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: Image.asset(birdImages[index],
+                              fit: BoxFit.fitWidth),
+                        ),
                       ),
-                      child: AspectRatio(
-                        aspectRatio: 1,
-                        child: Image.asset(birdImages[index],
-                            fit: BoxFit.fitWidth),
-                      ),
-                    ),
-                  );
-                },
-              ),
-              Text(
-                'Valitse maailmasi',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              GridView.builder(
-                padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
-                shrinkWrap: true,
-                itemCount: backgroundImages.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
+                    );
+                  },
                 ),
-                itemBuilder: (context, index) {
-                  bool isSelected =
-                      backgroundImages[index].split('/').last.split('_')[0] ==
-                          selectedBackgroundType;
-                  return GestureDetector(
-                    onTap: () => onBackgroundSelected(
-                        backgroundImages[index].split('/').last.split('_')[0]),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: isSelected
-                            ? Border.all(
-                                color: const Color.fromARGB(255, 200, 225, 255),
-                                width: 2.5)
-                            : null,
+                Text(
+                  'Valitse maailmasi',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                GridView.builder(
+                  padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
+                  shrinkWrap: true,
+                  itemCount: backgroundImages.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
+                  ),
+                  itemBuilder: (context, index) {
+                    bool isSelected =
+                        backgroundImages[index].split('/').last.split('_')[0] ==
+                            selectedBackgroundType;
+                    return GestureDetector(
+                      onTap: () => onBackgroundSelected(backgroundImages[index]
+                          .split('/')
+                          .last
+                          .split('_')[0]),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: isSelected
+                              ? Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 200, 225, 255),
+                                  width: 2.5)
+                              : null,
+                        ),
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: Image.asset(backgroundImages[index],
+                              fit: BoxFit.fill),
+                        ),
                       ),
-                      child: AspectRatio(
-                        aspectRatio: 1,
-                        child: Image.asset(backgroundImages[index],
-                            fit: BoxFit.fill),
-                      ),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 5),
-              ElevatedButton(
-                onPressed: onStartGamePressed,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  foregroundColor: const Color.fromARGB(255, 56, 255, 225),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 11),
-                  textStyle: Theme.of(context).textTheme.titleMedium,
-                  shape: RoundedRectangleBorder(
+                    );
+                  },
+                ),
+                const SizedBox(height: 5),
+                ElevatedButton(
+                  onPressed: onStartGamePressed,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    foregroundColor: const Color.fromARGB(255, 56, 255, 225),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 11),
+                    textStyle: Theme.of(context).textTheme.titleMedium,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        side: const BorderSide(
+                            color: Color.fromARGB(255, 56, 255, 225),
+                            width: 1.5)),
+                  ),
+                  child: const Text('Aloita peli'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 11),
+                    textStyle: Theme.of(context).textTheme.titleMedium,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
-                      side: const BorderSide(
-                          color: Color.fromARGB(255, 56, 255, 225),
-                          width: 1.5)),
-                ),
-                child: const Text('Aloita peli'),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.redAccent,
-                      foregroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 11),
-                      textStyle: Theme.of(context).textTheme.titleMedium,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                        side: const BorderSide(color: Colors.black, width: 1.5),
-                      ),
+                      side: const BorderSide(color: Colors.black, width: 1.5),
                     ),
-                    child: const Text('Poistu pelistä'),
                   ),
-                  const SizedBox(width: 5),
-                  ElevatedButton(
-                    onPressed: () {
-                      showHighScores(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 42, vertical: 11),
-                      textStyle: Theme.of(context).textTheme.titleMedium,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                        side: BorderSide(
-                            color: Theme.of(context).colorScheme.primary,
-                            width: 1.5),
-                      ),
+                  child: const Text('Poistu pelistä'),
+                ),
+                const SizedBox(width: 5),
+                ElevatedButton(
+                  onPressed: () {
+                    showHighScores(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 42, vertical: 11),
+                    textStyle: Theme.of(context).textTheme.titleMedium,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      side: BorderSide(
+                          color: Theme.of(context).colorScheme.primary,
+                          width: 1.5),
                     ),
-                    child: const Text('Tulokset'),
-                  )
-                ],
-              ),
-              const SizedBox(height: 10),
-              Text('$remainingAttempts Yritystä jäljellä'),
-            ],
+                  ),
+                  child: const Text('Tulokset'),
+                ),
+                const SizedBox(height: 10),
+                Text('$remainingAttempts Yritystä jäljellä'),
+              ],
+            ),
           ),
         ),
       ),

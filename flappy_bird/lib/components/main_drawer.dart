@@ -43,16 +43,10 @@ class MainDrawer extends StatelessWidget {
             padding: const EdgeInsets.only(top: 40, bottom: 25),
             child: Column(
               children: [
-                if (user?.photoURL != null)
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(user!.photoURL!),
-                    radius: 52,
-                  )
-                else
-                  const CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/user.png'),
-                    radius: 52,
-                  ),
+                const CircleAvatar(
+                  backgroundImage: AssetImage('assets/icons/iconBird.png'),
+                  radius: 100,
+                ),
                 const SizedBox(
                   height: 14,
                 ),

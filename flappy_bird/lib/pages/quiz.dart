@@ -127,7 +127,7 @@ class _QuizState extends State<Quiz> {
               ),
               CircleAvatar(
                 backgroundImage: NetworkImage(user!.photoURL!),
-                radius: 50,
+                radius: 75,
               ),
               const SizedBox(height: 25),
               if (remainingAttempt != null && remainingAttempt! > 0) ...[

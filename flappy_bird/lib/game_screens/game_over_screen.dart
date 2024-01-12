@@ -106,7 +106,7 @@ class GameOverScreen extends StatelessWidget {
     await submitScore();
     String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
     int attemptsLeft = await getRemainingAttempts(userId);
-    if (attemptsLeft > 0) {
+    if (attemptsLeft >= 0) {
       await decreaseAttempt(userId);
     }
     Config.gameSpeed = 220.0;

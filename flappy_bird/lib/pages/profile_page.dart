@@ -81,29 +81,35 @@ class _ProfilePageState extends State<ProfilePage> {
             return ListView(
               children: [
                 const SizedBox(height: 20),
-                ClipOval(
-                  child: Image.network(
-                    currentUser!.photoURL!,
-                    fit: BoxFit.contain,
-                    height: 270,
-                    width: 270,
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      ClipOval(
+                        child: Image.network(
+                          alignment: Alignment.centerLeft,
+                          currentUser!.photoURL!,
+                          fit: BoxFit.contain,
+                          height: 300,
+                          width: 300,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 115,
+                        right: 25,
+                        child: TextButton.icon(
+                          onPressed: updateProfileImage,
+                          icon: const Icon(
+                            Icons.add_a_photo_rounded,
+                            color: Colors.orange,
+                            size: 50,
+                          ),
+                          label: const Text(''),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                TextButton.icon(
-                  onPressed: updateProfileImage,
-                  icon: const Icon(
-                    Icons.add_a_photo,
-                    color: Colors.orange,
-                  ),
-                  label: const Text(
-                    'Vaihda kuvasi',
-                    style: TextStyle(color: Colors.orange),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  currentUser!.email!,
-                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20),
                 const Text(

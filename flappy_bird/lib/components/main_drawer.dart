@@ -45,7 +45,7 @@ class MainDrawer extends StatelessWidget {
               children: [
                 const CircleAvatar(
                   backgroundImage: AssetImage('assets/icons/iconBird.png'),
-                  radius: 100,
+                  radius: 50,
                 ),
                 const SizedBox(
                   height: 14,

@@ -105,7 +105,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           ),
           actions: <Widget>[
             TextButton(
-              style: ButtonStyle(
+              style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(Colors.teal)),
               child: const Text(
                 'Sulje',

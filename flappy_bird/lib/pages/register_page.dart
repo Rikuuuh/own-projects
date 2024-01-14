@@ -296,7 +296,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   onPressed: signUp,
                   child: Text(
-                    'Kirjaudu sisään',
+                    'Rekisteröidy',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),

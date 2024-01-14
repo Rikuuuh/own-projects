@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 7),
               Text(
-                'Oletko tietäjä vai tuurittaja? Selvitä kuinka hyvin tunnet mökkiolympialaisten historian ja -salat tässä jännittävässä tietovisassa!',
+                'Onko sinulla tietoa vai onnea? Testaa tietämyksesi mökkiolympialaisten menneisyydestä ja mysteereistä tässä kiehtovassa visailussa!',
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
@@ -87,13 +87,13 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 7),
               Text(
-                'Näytä sormiesi nopeus ja taitavuus tässä koukuttavassa pelissä. Kuka teistä pääsee pisimmälle ja nappaa kultamitalin?',
+                'Näytä sormiesi nopeus ja taitavuus tässä koukuttavassa pelissä. Kuka pääsee pisimmälle ja nappaa pääpalkinnon?',
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
               Text(
-                'Kisaajien Kunniajoukko:',
+                'Hall of Fame:',
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge!

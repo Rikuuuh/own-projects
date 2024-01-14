@@ -71,7 +71,7 @@ class GetUserData extends StatelessWidget {
             ),
             Text('Bird-pelin paras tulos : ${data['highScore']}',
                 style: Theme.of(context).textTheme.titleMedium),
-            Text('Tietovisan tulos : ${data['visaScore']} / 10',
+            Text('Tietovisan tulos : ${data['visaScore']} / 15',
                 style: Theme.of(context).textTheme.titleMedium),
           ]);
         } else if (snapshot.hasError) {

@@ -52,7 +52,7 @@ class QuizResultsPage extends StatelessWidget {
                   width: 200,
                   child: CircularProgressIndicator(
                     strokeWidth: 10,
-                    value: score / 9,
+                    value: score / 15,
                     color: Colors.green,
                     backgroundColor: Colors.redAccent,
                   ),

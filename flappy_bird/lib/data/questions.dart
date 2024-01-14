@@ -2,13 +2,13 @@ import 'package:flappy_bird_game/model/quiz_question.dart';
 
 const List<Question> questions = [
   Question(
-    question: 'Kuka on voittanut eniten olympialaisia?',
+    question: 'Kuka ei ole ollut vielä mitalisijoilla?',
     correctAnswerIndex: 2,
     options: [
+      'Karoliina',
+      'Oili',
       'Emmi',
-      'Pihla',
-      'Atte',
-      'Aleksanteri',
+      'Jenna',
     ],
   ),
   Question(
@@ -75,32 +75,82 @@ const List<Question> questions = [
   Question(
     question:
         'Videolla näkyi muovipussilla hyppelyä, minkä värinen muovipussi oli?',
-    correctAnswerIndex: 2,
+    correctAnswerIndex: 1,
     options: [
       'Musta',
-      'Harmaa',
       'Tummansininen',
+      'Harmaa',
       'Läpinäkyvä',
     ],
   ),
   Question(
-    question: 'Tulevana kesänä 2024 on vuorossa _?_ mökkiolympialaiset.',
-    correctAnswerIndex: 3,
+    question: 'Kenenkä järjestämissä olympialaisissa ammuttiin vesipyssyllä?',
+    correctAnswerIndex: 2,
     options: [
-      'Kolmannet',
-      'Neljännet',
-      'Viidennet',
-      'Kuudennet',
+      'Rikun ja Aten',
+      'Jennan ja Karoliinan',
+      'Emmin ja Juhon',
+      'Aleksanterin ja Harrin',
     ],
   ),
   Question(
-    question: 'Videolla pojilla oli päällä tiimipaidat, mitä paidassa luki?',
+    question: 'Videolla pojilla oli päällä tiimipaidat, mitä paidoissa luki?',
     correctAnswerIndex: 2,
     options: [
       'Low Rider',
-      'Outlaw King',
+      'Ride King',
       'Live To Ride',
-      'Ride For Life',
+      'Ride To Me',
+    ],
+  ),
+  Question(
+    question: 'Mitä Saaralla oli kädessä videolla?',
+    correctAnswerIndex: 3,
+    options: [
+      'Kaukosäädin',
+      'Aurinkolasit',
+      'Kirja',
+      'Pelikortit',
+    ],
+  ),
+  Question(
+    question: 'Kenenkä järjestämissä juhlissa oli yhtenä lajina tikanheitto?',
+    correctAnswerIndex: 0,
+    options: [
+      'Aleksanterin ja Harrin',
+      'Jennan ja Karoliinan',
+      'Rikun ja Aten',
+      'Saaran ja Pihlan',
+    ],
+  ),
+  Question(
+    question: 'Tulevana kesänä 2024 on vuorossa _?_ mökkiolympialaiset.',
+    correctAnswerIndex: 0,
+    options: [
+      'Kuudennet',
+      'Viidennet',
+      'Neljännet',
+      'Kolmannet',
+    ],
+  ),
+  Question(
+    question: 'Ketkä ovat ensimmäistä kertaa mukana mökkiolympialaisissa?',
+    correctAnswerIndex: 3,
+    options: [
+      'Repa ja Milla',
+      'Mila ja Reko',
+      'Reko ja Miia',
+      'Reko ja Milla',
+    ],
+  ),
+  Question(
+    question: 'Viimeinen kysymys : Ketkä järjestävät olympialaiset vuonna 2024',
+    correctAnswerIndex: 2,
+    options: [
+      'Emmi ja Reko',
+      'Aleksanteri ja Milla',
+      'Henri ja Aleksanteri',
+      'Riku ja Atte',
     ],
   ),
 ];

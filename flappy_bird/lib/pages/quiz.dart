@@ -111,7 +111,7 @@ class _QuizState extends State<Quiz> {
                     .copyWith(fontSize: 50, color: Colors.green),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
               CircleAvatar(
                 backgroundImage: user != null && user?.photoURL != null
                     ? NetworkImage(user!.photoURL!) as ImageProvider<Object>
@@ -136,13 +136,13 @@ class _QuizState extends State<Quiz> {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      'Tämä on SINUN tilaisuutesi loistaa ja vastata kaikkiin kysymyksiin oikein!',
+                      'Kullakin kysymyksellä on aikaraja: sinulla on vain 30 sekuntia vastauksen antamiseen.',
                       style: Theme.of(context).textTheme.titleLarge,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 15),
                     Text(
-                      'Kullakin kysymyksellä on aikaraja: sinulla on vain 30 sekuntia vastauksen antamiseen.',
+                      'Seuraa videota tarkalla silmällä, kysymyksissä saatetaan kysyä videolla näkyviä tapahtumia',
                       style: Theme.of(context).textTheme.titleLarge,
                       textAlign: TextAlign.center,
                     ),
@@ -159,14 +159,8 @@ class _QuizState extends State<Quiz> {
                   onPressed: () => _startQuiz(context),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 10),
+                        horizontal: 40, vertical: 15),
                     textStyle: Theme.of(context).textTheme.titleMedium,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      side: BorderSide(
-                          color: Theme.of(context).colorScheme.primary,
-                          width: 1.5),
-                    ),
                   ),
                   child: const Text('Aloita Video & Visa'),
                 ),

@@ -1,13 +1,10 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/auth/pick_image.dart';
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -146,12 +143,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 const Icon(
                   Icons.emoji_events,
                   color: Colors.yellow,
-                  size: 100,
+                  size: 80,
                 ),
                 Text(
                   'Rekisteröidy Olympialaisiin',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.bebasNeue(fontSize: 40),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontSize: 40),
                 ),
                 const SizedBox(height: 30),
                 Padding(
@@ -159,7 +159,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
-                      border: Border.all(color: Colors.deepPurple),
+                      border: Border.all(color: Colors.black),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
@@ -182,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
-                      border: Border.all(color: Colors.deepPurple),
+                      border: Border.all(color: Colors.black),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
@@ -205,7 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
-                      border: Border.all(color: Colors.deepPurple),
+                      border: Border.all(color: Colors.black),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
@@ -227,7 +227,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
-                      border: Border.all(color: Colors.deepPurple),
+                      border: Border.all(color: Colors.black),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
@@ -250,7 +250,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
-                      border: Border.all(color: Colors.deepPurple),
+                      border: Border.all(color: Colors.black),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
@@ -273,7 +273,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   style: const TextStyle(fontSize: 18),
                 ),
                 IconButton(
-                  color: Colors.deepPurple[300],
+                  color: Colors.yellowAccent,
                   iconSize: 50,
                   onPressed: selectImage,
                   icon: Icon(
@@ -288,26 +288,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       style: const TextStyle(color: Colors.red),
                     ),
                   ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: GestureDetector(
-                    onTap: signUp,
-                    child: Container(
-                      padding: const EdgeInsets.all(25),
-                      decoration: BoxDecoration(
-                          color: Colors.deepPurple,
-                          borderRadius: BorderRadius.circular(12)),
-                      child: const Center(
-                        child: Text(
-                          'Rekisteröidy',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
+                ElevatedButton(
+                  style: const ButtonStyle(
+                    padding: MaterialStatePropertyAll(
+                      EdgeInsets.only(left: 50, right: 50, top: 15, bottom: 15),
                     ),
+                  ),
+                  onPressed: signUp,
+                  child: Text(
+                    'Kirjaudu sisään',
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
                 const SizedBox(height: 25),

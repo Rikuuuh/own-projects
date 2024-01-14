@@ -1,10 +1,9 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flappy_bird_game/auth/pick_image.dart';
-import 'package:flappy_bird_game/components/main_drawer.dart';
+import 'package:flappy_bird_game/components/menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -21,8 +20,8 @@ class _ProfilePageState extends State<ProfilePage> {
   final String userId = FirebaseAuth.instance.currentUser!.uid;
   Uint8List? _image;
 
-  Future<Uint8List?> selectImage() async {
-    Uint8List? img = await pickImage(ImageSource.camera);
+  Future<Uint8List?> selectImage(ImageSource source) async {
+    Uint8List? img = await pickImage(source);
     return img;
   }
 
@@ -38,8 +37,8 @@ class _ProfilePageState extends State<ProfilePage> {
     return downloadURL;
   }
 
-  Future<void> updateProfileImage() async {
-    Uint8List? img = await selectImage();
+  Future<void> updateProfileImage(ImageSource source) async {
+    Uint8List? img = await selectImage(source);
     if (img != null) {
       setState(() {
         _image = img;
@@ -62,14 +61,13 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black45,
-        foregroundColor: Colors.orange,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Oma Profiili',
-          style: TextStyle(fontSize: 22, color: Colors.orange),
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 22),
         ),
+        leading: const MenuWidget(),
       ),
-      drawer: const MainDrawer(),
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
             .collection('users')
@@ -83,40 +81,50 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Stack(
-                    alignment: AlignmentDirectional.center,
+                  child: Column(
                     children: [
                       ClipOval(
                         child: Image.network(
                           alignment: Alignment.centerLeft,
                           currentUser!.photoURL!,
-                          fit: BoxFit.contain,
-                          height: 300,
-                          width: 300,
+                          fit: BoxFit.cover,
+                          height: 250,
+                          width: 250,
                         ),
                       ),
-                      Positioned(
-                        bottom: 115,
-                        right: 25,
-                        child: TextButton.icon(
-                          onPressed: updateProfileImage,
-                          icon: const Icon(
-                            Icons.add_a_photo_rounded,
-                            color: Colors.orange,
-                            size: 50,
-                          ),
-                          label: const Text(''),
-                        ),
-                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextButton.icon(
+                              onPressed: () =>
+                                  updateProfileImage(ImageSource.camera),
+                              icon: Icon(Icons.add_a_photo_outlined,
+                                  size: 40,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer),
+                              label: Text('Ota kuva',
+                                  style:
+                                      Theme.of(context).textTheme.titleLarge),
+                            ),
+                            TextButton.icon(
+                              onPressed: () =>
+                                  updateProfileImage(ImageSource.gallery),
+                              icon: Icon(Icons.add_photo_alternate_outlined,
+                                  size: 40,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer),
+                              label: Text(
+                                'Valitse kuva',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ),
+                          ])
                     ],
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'Omat tietoni',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-                ),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.black26,

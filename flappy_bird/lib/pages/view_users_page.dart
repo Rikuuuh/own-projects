@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 import 'package:flappy_bird_game/auth/get_user_data.dart';
-import 'package:flappy_bird_game/components/main_drawer.dart';
+import 'package:flappy_bird_game/components/menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class UsersPage extends StatelessWidget {
   UsersPage({super.key});
@@ -23,14 +22,13 @@ class UsersPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black45,
-        foregroundColor: Colors.yellow,
         centerTitle: true,
-        title: const Text(
-          'Kunniajoukko',
-          style: TextStyle(fontSize: 22, color: Colors.yellow),
+        title: Text(
+          'Hall of Fame',
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 22),
         ),
+        leading: const MenuWidget(),
       ),
-      drawer: const MainDrawer(),
       body: Column(
         children: <Widget>[
           Padding(
@@ -39,23 +37,15 @@ class UsersPage extends StatelessWidget {
               children: [
                 const Icon(
                   Icons.emoji_events,
-                  size: 50.0,
+                  size: 80,
                   color: Colors.yellow,
                 ),
                 Text(
                   'Kisaajien Kunniajoukko',
-                  style: GoogleFonts.bebasNeue(
-                    color: Colors.yellow,
-                    fontSize: 45,
-                    fontWeight: FontWeight.bold,
-                    shadows: [
-                      const Shadow(
-                        color: Colors.black,
-                        blurRadius: 2.0,
-                        offset: Offset(1.5, 1.5),
-                      ),
-                    ],
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontSize: 45, color: Colors.yellow),
                   textAlign: TextAlign.center,
                 ),
                 Text(
@@ -75,7 +65,7 @@ class UsersPage extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
-                    child: LinearProgressIndicator(),
+                    child: CircularProgressIndicator(color: Colors.transparent),
                   );
                 }
                 if (!snapshot.hasData) {

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flappy_bird_game/auth/main_page.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 var colorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
@@ -21,22 +22,27 @@ Future<void> main() async {
           ),
         ),
         textTheme: ThemeData().textTheme.copyWith(
-              titleLarge: TextStyle(
+              titleLarge: GoogleFonts.baloo2(
                 fontWeight: FontWeight.bold,
                 color: colorScheme.onSecondaryContainer,
                 fontSize: 18,
               ),
-              titleMedium: TextStyle(color: colorScheme.onSecondaryContainer),
-              bodyMedium: TextStyle(color: colorScheme.onSecondaryContainer),
-              bodyLarge: TextStyle(color: colorScheme.onSecondaryContainer),
+              titleMedium:
+                  GoogleFonts.baloo2(color: colorScheme.onSecondaryContainer),
+              bodyMedium:
+                  GoogleFonts.baloo2(color: colorScheme.onSecondaryContainer),
+              bodyLarge:
+                  GoogleFonts.baloo2(color: colorScheme.onSecondaryContainer),
             ),
         scaffoldBackgroundColor: const Color.fromARGB(255, 1, 40, 51),
         iconTheme: const IconThemeData()
             .copyWith(color: colorScheme.onPrimaryContainer),
         canvasColor: colorScheme.secondaryContainer,
         inputDecorationTheme: InputDecorationTheme(
-          prefixStyle: TextStyle(color: colorScheme.onSecondaryContainer),
-          suffixStyle: TextStyle(color: colorScheme.onSecondaryContainer),
+          prefixStyle:
+              GoogleFonts.baloo2(color: colorScheme.onSecondaryContainer),
+          suffixStyle:
+              GoogleFonts.baloo2(color: colorScheme.onSecondaryContainer),
         ),
       ),
       home: const MainPage(),

@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/pages/forgot_pw_page.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.showRegisterPage});
@@ -56,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Image.asset(
                     'assets/images/SplashScreen.png',
                     fit: BoxFit.fill,
-                    width: 275,
+                    width: 250,
                     height: 250,
                   ),
                 ),
@@ -65,12 +64,18 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Text(
                   'Tervetuloa!',
-                  style: GoogleFonts.bebasNeue(fontSize: 52),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontSize: 50),
                 ),
                 const SizedBox(height: 10),
-                const Text(
+                Text(
                   'Oletko valmis haasteisiin?',
-                  style: TextStyle(fontSize: 20),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontSize: 20),
                 ),
                 const SizedBox(height: 50),
                 Padding(
@@ -78,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
-                      border: Border.all(color: Colors.deepPurple),
+                      border: Border.all(color: Colors.black),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
@@ -100,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
-                      border: Border.all(color: Colors.deepPurple),
+                      border: Border.all(color: Colors.black),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
@@ -134,35 +139,26 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           );
                         },
-                        child: const Text('Unohtuiko salasana?',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold)),
+                        child: const Text(
+                          'Unohtuiko salasana?',
+                          style: TextStyle(
+                              color: Colors.blue, fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: GestureDetector(
-                    onTap: signIn,
-                    child: Container(
-                      padding: const EdgeInsets.all(25),
-                      decoration: BoxDecoration(
-                          color: Colors.deepPurple,
-                          borderRadius: BorderRadius.circular(12)),
-                      child: const Center(
-                        child: Text(
-                          'Kirjaudu sisään',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
+                ElevatedButton(
+                  style: const ButtonStyle(
+                    padding: MaterialStatePropertyAll(
+                      EdgeInsets.only(left: 50, right: 50, top: 15, bottom: 15),
                     ),
+                  ),
+                  onPressed: signIn,
+                  child: Text(
+                    'Kirjaudu sisään',
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
                 const SizedBox(height: 25),

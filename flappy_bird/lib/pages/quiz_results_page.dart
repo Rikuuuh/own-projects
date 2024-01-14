@@ -1,4 +1,3 @@
-import 'package:flappy_bird_game/pages/view_users_page.dart';
 import 'package:flutter/material.dart';
 
 class QuizResultsPage extends StatelessWidget {
@@ -7,6 +6,14 @@ class QuizResultsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black45,
+        centerTitle: true,
+        title: Text(
+          'Tuloksesi',
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 22),
+        ),
+      ),
       body: Container(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -63,27 +70,12 @@ class QuizResultsPage extends StatelessWidget {
             ),
             const Text(
               textAlign: TextAlign.center,
-              'Katso, missä sijoitut Kisaajien Kunniajoukossa!',
+              'Katso seuraavaksi mihin sijoitut Hall of Fame:ssa!',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            ElevatedButton.icon(
-              style:
-                  ElevatedButton.styleFrom(padding: const EdgeInsets.all(15)),
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => UsersPage()));
-              },
-              label: const Text(
-                'Kisaajien kunniajoukkoon',
-                style: TextStyle(fontSize: 20),
-              ),
-              icon: const Icon(Icons.emoji_events_outlined,
-                  color: Colors.yellow, size: 30),
-            )
           ],
         ),
       ),

@@ -1,4 +1,4 @@
-import 'package:flappy_bird_game/components/main_drawer.dart';
+import 'package:flappy_bird_game/components/menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -11,12 +11,12 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black45,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Aloitusalue',
-          style: TextStyle(fontSize: 22),
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 22),
         ),
+        leading: const MenuWidget(),
       ),
-      drawer: const MainDrawer(),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(20),

@@ -1,16 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flame/game.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
-import 'package:flappy_bird_game/game/flappy_bird_game.dart';
-import 'package:flappy_bird_game/game_screens/game_over_screen.dart';
-import 'package:flappy_bird_game/game_screens/main_menu_screen.dart';
-import 'package:flappy_bird_game/components/main_drawer.dart';
+import 'package:flappy_bird_game/components/menu_widget.dart';
 import 'package:flappy_bird_game/pages/home_page.dart';
-import 'package:flappy_bird_game/pages/view_users_page.dart';
 import 'package:flappy_bird_game/components/video_countdown_page.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -89,14 +83,13 @@ class _QuizState extends State<Quiz> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black45,
-        foregroundColor: Colors.green,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Tietovisa',
-          style: TextStyle(fontSize: 22, color: Colors.green),
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 22),
         ),
+        leading: const MenuWidget(),
       ),
-      drawer: const MainDrawer(),
       body: SingleChildScrollView(
         child: Container(
           alignment: Alignment.topCenter,
@@ -106,30 +99,27 @@ class _QuizState extends State<Quiz> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(
-                Icons.lightbulb_outline,
-                size: 50.0,
+                Icons.psychology_alt_outlined,
+                size: 80,
                 color: Colors.green,
               ),
               Text(
                 'Tietäjien Taisto',
-                style: GoogleFonts.bebasNeue(
-                  color: Colors.green,
-                  fontSize: 55,
-                  fontWeight: FontWeight.bold,
-                  shadows: [
-                    const Shadow(
-                      color: Colors.black,
-                      blurRadius: 2.0,
-                      offset: Offset(1.5, 1.5),
-                    ),
-                  ],
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(fontSize: 50, color: Colors.green),
+                textAlign: TextAlign.center,
               ),
+              const SizedBox(height: 15),
               CircleAvatar(
-                backgroundImage: NetworkImage(user!.photoURL!),
-                radius: 75,
+                backgroundImage: user != null && user?.photoURL != null
+                    ? NetworkImage(user!.photoURL!) as ImageProvider<Object>
+                    : const AssetImage("assets/icons/iconBird.png")
+                        as ImageProvider<Object>,
+                radius: 70,
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 15),
               if (remainingAttempt != null && remainingAttempt! > 0) ...[
                 Wrap(
                   spacing: 25,
@@ -203,50 +193,11 @@ class _QuizState extends State<Quiz> {
                   style: Theme.of(context).textTheme.titleLarge,
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 15),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(12),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    startGame(context);
-                  },
-                  icon: const Icon(
-                    Icons.sports_esports_outlined,
-                    size: 30,
-                    color: Colors.blue,
-                  ),
-                  label: const Text(
-                    'Olympic Bird peliin',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 25),
                 Text(
-                  'Katso muiden pelaajien tulokset Kisaajien Kunniajoukko-välilehdeltä',
+                  'Katso muiden pelaajien tuloksia Hall of Fame-välilehdeltä',
                   style: Theme.of(context).textTheme.titleLarge,
                   textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 15),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(12),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => UsersPage()));
-                  },
-                  icon: const Icon(
-                    Icons.emoji_events_outlined,
-                    size: 30,
-                    color: Colors.yellow,
-                  ),
-                  label: const Text(
-                    'Kisaajien Kunniajoukkoon',
-                    style: TextStyle(fontSize: 18),
-                  ),
                 ),
               ]
             ],
@@ -254,21 +205,5 @@ class _QuizState extends State<Quiz> {
         ),
       ),
     );
-  }
-
-  void startGame(BuildContext context) {
-    final game = FlappyBirdGame();
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) {
-        return GameWidget(
-          game: game,
-          initialActiveOverlays: const [MainMenuScreen.id],
-          overlayBuilderMap: {
-            'mainMenu': (context, _) => MainMenuScreen(context, game: game),
-            'gameOver': (context, _) => GameOverScreen(game: game),
-          },
-        );
-      },
-    ));
   }
 }

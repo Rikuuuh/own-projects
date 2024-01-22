@@ -6,6 +6,8 @@ import 'package:flappy_bird_game/pages/home_page.dart';
 import 'package:flappy_bird_game/components/video_countdown_page.dart';
 import 'package:flutter/material.dart';
 
+// Tietäjien tietovisa widget. Käyttäjälle kerrotaan mitä on luvassa ja napista
+// painamalla pääsee aloittamaan videon & visan
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
 

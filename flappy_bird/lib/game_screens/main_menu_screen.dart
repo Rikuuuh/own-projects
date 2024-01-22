@@ -7,6 +7,8 @@ import 'package:flappy_bird_game/game_screens/count_down_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+// Olympic Bird pelin widget, näytetään käyttäjälle mapit, linnut ja aloita peli
+// &  tulokset napit.
 class MainMenuScreen extends StatefulWidget {
   final FlappyBirdGame game;
   static const String id = 'mainMenu';

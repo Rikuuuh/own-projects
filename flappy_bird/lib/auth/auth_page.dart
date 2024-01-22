@@ -2,6 +2,8 @@ import 'package:flappy_bird_game/pages/login_page.dart';
 import 'package:flappy_bird_game/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
+// Vaihetaan register / login pagen välillä käyttäen toggleScreens funktiota
+
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
 

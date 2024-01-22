@@ -7,6 +7,8 @@ import 'package:flappy_bird_game/components/menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+// Oma profiili sivu, käyttäjä näkee omat tulokset ja pystyy vaihtamaan omaa
+// kuvaansa.
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 

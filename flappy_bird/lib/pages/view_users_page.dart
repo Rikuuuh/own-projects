@@ -5,6 +5,9 @@ import 'package:flappy_bird_game/components/menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// Hall of fame widget, käyttäjä näkee muitten käyttäjien kuvat, nimet,
+// pelitulokset (Quiz, Olympic Bird)
+
 class UsersPage extends StatelessWidget {
   UsersPage({super.key});
 
@@ -40,14 +43,7 @@ class UsersPage extends StatelessWidget {
                   size: 80,
                   color: Colors.yellow,
                 ),
-                Text(
-                  'Kisaajien Kunniajoukko',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(fontSize: 45, color: Colors.yellow),
-                  textAlign: TextAlign.center,
-                ),
+                const SizedBox(height: 10),
                 Text(
                   'Tutustu muihin kisaajiin ja vertaile tuloksianne. Kuka on mökkiolympialaisten monitaituri?',
                   textAlign: TextAlign.center,

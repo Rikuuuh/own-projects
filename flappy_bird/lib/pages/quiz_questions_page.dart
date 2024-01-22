@@ -7,6 +7,7 @@ import 'package:flappy_bird_game/data/questions.dart';
 import 'package:flappy_bird_game/pages/quiz_results_page.dart';
 import 'package:flutter/material.dart';
 
+// Quiz pelin kysymys widget, Quiz.dart:in child.
 class QuizQuestionsPage extends StatefulWidget {
   const QuizQuestionsPage({super.key});
 

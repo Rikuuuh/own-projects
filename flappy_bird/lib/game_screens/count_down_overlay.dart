@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flappy_bird_game/game/assets.dart';
 
+// Widget "overlay", joka näkyy Olympic Bird aloita pelin nappia painaessa.
+// Kestää 5 sec for loop
 class CountdownOverlay extends StatefulWidget {
   final VoidCallback onCountdownComplete;
 

@@ -2,6 +2,7 @@ import 'package:flappy_bird_game/components/menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+// Etusivu // landingpage kun kirjautuu sisään
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 

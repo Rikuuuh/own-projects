@@ -1,5 +1,7 @@
 import 'package:flappy_bird_game/model/quiz_question.dart';
 
+// Luokka, jossa kaikki kysymykset ja vastaukset
+
 const List<Question> questions = [
   Question(
     question: 'Kuka ei ole ollut vielä mitalisijoilla?',

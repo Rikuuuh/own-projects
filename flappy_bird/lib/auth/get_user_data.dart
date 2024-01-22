@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+// Käytössä view_users_page.dart:issa (Hall of Fame)
+// Haetaan käyttäjien tiedot users-, highscores- ja visascores tauluista
+// Näytetään ne view_users_page:n Listview builderissa.
+
 class GetUserData extends StatelessWidget {
   final String documentId;
   final String userId;

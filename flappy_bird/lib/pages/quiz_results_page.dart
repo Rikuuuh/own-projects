@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Quiz_questions.page.dart:in child.
+// Näytetään käyttäjälle Quizin tulokset.
 class QuizResultsPage extends StatelessWidget {
   const QuizResultsPage({super.key, required this.score});
   final int score;

@@ -11,6 +11,8 @@ import 'package:flappy_bird_game/pages/view_users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
+// Drawerin ylin widget
+
 class MenuState extends StatefulWidget {
   const MenuState({super.key});
 

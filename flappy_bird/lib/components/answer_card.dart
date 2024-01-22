@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// Käytössä quiz_questions.dart widgetissä
+// Käyttäjä painaa vastaus listview tileä, muuttuu värit oikea = vihreä etc.
+
 class AnswerCard extends StatelessWidget {
   const AnswerCard({
     super.key,

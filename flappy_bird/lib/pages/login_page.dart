@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flappy_bird_game/pages/forgot_pw_page.dart';
 import 'package:flutter/material.dart';
 
+// Sisäänkirjautumis sivu
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.showRegisterPage});
   final void Function() showRegisterPage;

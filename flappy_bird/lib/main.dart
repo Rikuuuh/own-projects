@@ -3,6 +3,8 @@ import 'package:flappy_bird_game/auth/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// Main.dart, eli täällä luodaan teemat joita käytössä joka sivulla apissa.
+
 var colorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
   seedColor: const Color.fromARGB(255, 5, 99, 125),

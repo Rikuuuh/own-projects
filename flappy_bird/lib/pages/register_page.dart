@@ -7,6 +7,8 @@ import 'package:flappy_bird_game/auth/pick_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+// Register widget, käyttäjä pääsee rekisteröitymään sovellukseen
+// täyttämällä vaaditut tiedot
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, required this.showLoginPage});
   final void Function() showLoginPage;

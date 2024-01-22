@@ -4,6 +4,9 @@ import 'package:flappy_bird_game/auth/main_page.dart';
 import 'package:flappy_bird_game/model/menu_item.dart';
 import 'package:flutter/material.dart';
 
+// Drawer:iin kuuluva widget, menu_state.dart:in child
+// MenuItemsiin laitettu kaikki sivut joissa käyttäjä voi käydä drawerin kautta
+
 class MenuItems {
   static const etusivu = MenuItem('Etusivu', Icons.home_outlined);
   static const tietovisa =

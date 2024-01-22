@@ -6,6 +6,8 @@ import 'package:flappy_bird_game/game/flappy_bird_game.dart';
 import 'package:flutter/material.dart';
 import 'package:flappy_bird_game/auth/auth.dart';
 
+// Kun käyttäjä osuu seinään / kattoon / palkkkiin pelissä, tulee tämä widget
+// näkyviin. submitScore lähtee jos käyttäjä painaa restart tai mainmenu nappia.
 class GameOverScreen extends StatelessWidget {
   final FlappyBirdGame game;
   GameOverScreen({super.key, required this.game});

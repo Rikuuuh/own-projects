@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+// Widget käytössä ennen quiz_questions.dart:ia, näyttää videon ja siirtyy
+// quiz_questions.dart:iin. (eli quizin kysymyksiin)
+
 class VideoCountdown extends StatefulWidget {
   final Function onVideoComplete;
 

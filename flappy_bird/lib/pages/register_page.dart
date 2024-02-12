@@ -213,6 +213,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
+                        keyboardType: TextInputType.emailAddress,
                         style: const TextStyle(color: Colors.black),
                         controller: _emailController,
                         decoration: const InputDecoration(

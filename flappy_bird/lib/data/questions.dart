@@ -71,7 +71,7 @@ const List<Question> questions = [
       'Lohta, perunoita ja salaattia',
       'Itse tehtyjä hampurilaisia, salaattia',
       'Cremefraiche kanaa, ranskalaisia ja salaattia',
-      'Kanavartaat, perunoita ja salaattia',
+      'Kanaa, perunoita ja salaattia',
     ],
   ),
   Question(

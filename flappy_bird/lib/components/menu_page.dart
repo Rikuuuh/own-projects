@@ -53,14 +53,16 @@ class MenuPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 30, top: 40),
+            const Padding(
+              padding: EdgeInsets.only(left: 20, top: 40),
               child: CircleAvatar(
-                backgroundImage: user != null && user.photoURL != null
-                    ? NetworkImage(user.photoURL!) as ImageProvider<Object>
-                    : const AssetImage("assets/icons/iconBird.png")
-                        as ImageProvider<Object>,
-                radius: 70,
+                radius: 90,
+                backgroundColor:
+                    Color.fromARGB(255, 0, 41, 53), // Reunuksen väri
+                child: CircleAvatar(
+                  radius: 85, // Avatarin säde
+                  backgroundImage: AssetImage("assets/icons/iconBird.png"),
+                ),
               ),
             ),
             const Spacer(),

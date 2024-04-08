@@ -6,6 +6,32 @@ import 'package:flutter_animate/flutter_animate.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  void _showImageDialog(BuildContext context, String imagePath) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: InkWell(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(imagePath),
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      barrierColor: Colors.black.withOpacity(0.5),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,23 +62,33 @@ class HomePage extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: ClipOval(
+                    child: GestureDetector(
+                      onTap: () =>
+                          _showImageDialog(context, 'assets/images/miehet.png'),
+                      child: ClipOval(
                         child: Image.asset(
-                      'assets/images/miehet.png',
-                      fit: BoxFit.fill,
-                      width: 130,
-                      height: 180,
-                    )),
+                          'assets/images/miehet.png',
+                          fit: BoxFit.fill,
+                          width: 130,
+                          height: 180,
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: ClipOval(
+                    child: GestureDetector(
+                      onTap: () =>
+                          _showImageDialog(context, 'assets/images/naiset.png'),
+                      child: ClipOval(
                         child: Image.asset(
-                      'assets/images/naiset.png',
-                      fit: BoxFit.fill,
-                      width: 130,
-                      height: 180,
-                    )),
+                          'assets/images/naiset.png',
+                          fit: BoxFit.fill,
+                          width: 130,
+                          height: 180,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

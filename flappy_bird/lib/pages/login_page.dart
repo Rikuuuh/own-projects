@@ -56,8 +56,8 @@ class _LoginPageState extends State<LoginPage> {
                   child: Image.asset(
                     'assets/images/SplashScreen.png',
                     fit: BoxFit.fill,
-                    width: 250,
-                    height: 250,
+                    width: 280,
+                    height: 280,
                   ),
                 ),
                 const SizedBox(

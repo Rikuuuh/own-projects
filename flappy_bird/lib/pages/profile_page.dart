@@ -94,6 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 250,
                         ),
                       ),
+                      const SizedBox(height: 12),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [

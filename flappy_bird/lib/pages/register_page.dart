@@ -294,7 +294,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ElevatedButton(
                   style: const ButtonStyle(
                     padding: MaterialStatePropertyAll(
-                      EdgeInsets.only(left: 50, right: 50, top: 15, bottom: 15),
+                      EdgeInsets.only(left: 60, right: 60, top: 15, bottom: 15),
                     ),
                   ),
                   onPressed: signUp,

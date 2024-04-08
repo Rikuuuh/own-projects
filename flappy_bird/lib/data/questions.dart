@@ -4,6 +4,26 @@ import 'package:flappy_bird_game/model/quiz_question.dart';
 
 const List<Question> questions = [
   Question(
+    question: 'Aloitetaan visa! Missä olet juuri nyt?',
+    correctAnswerIndex: 3,
+    options: [
+      'Paasikalliontiellä',
+      'Niemenvaarantiellä',
+      'Paasilahdentiellä',
+      'Niittyniementiellä',
+    ],
+  ),
+  Question(
+    question: 'Keillä EI ollut aurinkolaseja päässä etusivun kuvissa?',
+    correctAnswerIndex: 1,
+    options: [
+      'Jennalla, Pihlalla',
+      'Pihlalla, Jennalla, Emmillä',
+      'Emmillä, Jennalla',
+      'Entiiä, Emmin naama hämäs?',
+    ],
+  ),
+  Question(
     question: 'Kuka ei ole ollut vielä mitalisijoilla?',
     correctAnswerIndex: 2,
     options: [
@@ -25,21 +45,21 @@ const List<Question> questions = [
   ),
   Question(
     question: 'Ketkä kaksi ovat järjestäneet olympialaisia yhdessä?',
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 2,
     options: [
-      'Jenna ja Karoliina',
       'Aleksanteri ja Riku',
       'Saara ja Emmi',
+      'Jenna ja Karoliina',
       'Harri ja Atte',
     ],
   ),
   Question(
     question: 'Missä järjestettiin vuoden 2022 mökkiolympialaiset?',
-    correctAnswerIndex: 2,
+    correctAnswerIndex: 0,
     options: [
+      'Pieksämäellä',
       'Suonenjoella',
       'Karttulassa',
-      'Pieksämäellä',
       'Rautavaaralla',
     ],
   ),

@@ -403,6 +403,7 @@ article .icon {
 
 .contact-info-upper-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   border-radius: 2rem;
   border: rgb(53, 53, 53) 0.1rem solid;
@@ -459,11 +460,74 @@ footer p {
 }
 
 .modal-content {
+  position: relative;
   background-color: #fefefe;
   margin: 10% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.slider {
+  position: relative;
+  justify-items: center;
+  width: 100%;
+}
+.slider-mobile {
+  position: relative;
+  justify-items: center;
+  width: 50%;
+}
+.slides img {
+  width: 100%;
+  display: none;
+}
+
+.slides-mobile img {
+  display:none;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+.prev, .next, .next-mobile, .prev-mobile {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: whitesmoke;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.5s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next-mobile {
+  right: 25%;
+  border-radius: 3px 0 0 3px;
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev {
+  left: 0;
+  border-radius: 3px 0 0 3px;
+}
+.prev-mobile {
+  left: 25%;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover , .next-mobile:hover, .prev-mobile:hover{
+  background-color: rgba(0,0,0,0.8);
+  text-decoration: none;
 }
 
 .close {

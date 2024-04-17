@@ -106,4 +106,19 @@
     .text-container {
       text-align: justify;
     }
+    .slider-mobile{
+      width: 100%;
+    }
+    .modal-body{
+      flex-wrap: wrap;
+    }
+    .slides-mobile img{
+      width: 70%;
+    }
+    .prev-mobile{
+      left:15%;
+    }
+    .next-mobile{
+      right: 15%;
+    }
   }

@@ -35,6 +35,11 @@ function closeModal(modalId) {
     }
     slides[slideIndexes[modalId] - 1].style.display = "block";  
   }
-  
+  function switchLanguage(lang) {
+    var elements = document.querySelectorAll('[data-lang]');
+    elements.forEach(function(el) {
+      el.textContent = el.getAttribute('data-' + lang);
+    });
+  }
   
   

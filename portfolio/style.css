@@ -547,6 +547,9 @@ footer p {
 .modal-body {
   display: flex;
 }
+.modal-body-ecommerce {
+  display: flex;
+}
 
 .modal-image-container {
   flex: 50%;

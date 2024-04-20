@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="mediaqueries.css" />
+  </head>
+  <body>
+    <div class="language-select" id="languageSelect">
+      <div class="current-lang" onclick="toggleDropdown()"><img src="assets/Englandflag.png" alt="UK Flag"> ENG</div>
+      <ul class="lang-dropdown" style="display: none;">
+        <li onclick="switchLanguage('eng')"><img src="assets/Englandflag.png" alt="UK Flag"> ENG</li>
+        <li onclick="switchLanguage('fi')"><img src="assets/Finlandflag.png" alt="Finland Flag"> FIN</li>
+      </ul>
+    </div>    
+    <nav id="desktop-nav">
+      <div class="logo">Riku</div>
+      <div>
+        <ul class="nav-links">
+          <li><a href="#about" data-lang data-fi="Tietoja" data-eng="About">About</a></li>
+          <li><a href="#experience" data-lang data-fi="Kokemus" data-eng="Experience">Experience</a></li>
+          <li><a href="#projects" data-lang data-fi="Projektit" data-eng="Projects">Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+    <nav id="hamburger-nav">
+      <div class="logo">Riku</div>
+      <div class="hamburger-menu">
+        <div class="hamburger-icon" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="menu-links">
+          <li><a href="#about" data-lang data-fi="Tietoja" data-eng="About" onclick="toggleMenu()">About</a></li>
+          <li><a href="#experience" data-lang data-fi="Kokemus" data-eng="Experience" onclick="toggleMenu()">Experience</a></li>
+          <li><a href="#projects" data-lang data-fi="Projektit" data-eng="Projects" onclick="toggleMenu()">Projects</a></li>
+        </div>
+      </div>
+    </nav>
+    <section id="profile">
+      <div class="section__pic-container">
+        <img src="./assets/about-pic.jpg" alt="John Doe profile picture" />
+      </div>
+      <div class="section__text">
+        <p data-lang data-fi="Hei, Olen" data-eng="Hello, I'm" class="section__text__p1">Hello, I'm</p>
+        <h1 class="title">Riku Huovinen</h1>
+        <p data-lang data-fi="Ohjelmistokehittäjä" data-eng="Software Developer" class="section__text__p2">Software Developer</p>
+            <div class="contact-info-upper-container">
+              <div class="contact-info-container">
+                <img
+                  src="./assets/email.png"
+                  alt="Email icon"
+                  class="icon contact-icon email-icon"
+                />
+                <p>rikuuuuh@gmail.com</p>
+              </div>
+              <div class="contact-info-container">
+                <img
+                  src="./assets/phone.png"
+                  alt="Phone icon"
+                  class="icon contact-icon"
+                />
+                <p>0449726755</p>
+              </div>
+              <div class="contact-info-container">
+                    <img
+                    src="./assets/github.png"
+                    alt="My Github profile"
+                    class="icon contact-icon"
+                    />
+                <p>Github/Rikuuuh</p>
+              </div>
+            </div>
+      </div>
+    </section>
+    <section id="about">
+      <p data-lang data-fi="Opi Tuntemaan" data-eng="Get To Know More" class="section__text__p1">Get To Know More</p>
+      <h1 data-lang data-fi="Minut Paremmin" data-eng="About Me" class="title">About Me</h1>
+      <div class="section-container">
+        <div class="section__pic-container">
+          <img
+            src="./assets/about-pic.jpg"
+            alt="Profile picture"
+            class="about-pic"
+          />
+        </div>
+        <div class="about-details-container">
+          <div class="about-containers">
+            <div class="details-container">
+              <img
+                src="./assets/experience.png"
+                alt="Experience icon"
+                class="icon"
+              />
+              <h3 data-lang data-fi="Kokemus" data-eng="Experience">Experience</h3>
+                <p data-lang data-fi="2 vuotta Ohjelmistokehittäjänä" data-eng="2 years in Software Development">2 years in Software Development</p>
+                <p data-lang data-fi="Koulutuksen ja omien projektien kautta" data-eng="Through education and personal projects">Through education and personal projects</p>
+            </div>
+            <div class="details-container">
+              <img
+                src="./assets/education.png"
+                alt="Education icon"
+                class="icon"
+              />
+              <h3 data-lang data-fi="Koulutus" data-eng="Education">Education</h3>
+              <p data-lang data-fi="Tieto- ja viestintätekniikan perustutkinto, Ohjelmistokehittäjä" data-eng="Vocational ICT Software Developer">Vocational ICT Software Developer</p>
+            </div>
+          </div>
+          <div class="text-container">
+            <p data-lang data-fi="Olen 28-vuotias uraansa aloitteleva ohjelmistokehittäjä, 
+            jolla on vahva ongelmanratkaisukyky ja kyky sopeutua nopeasti uusiin haasteisiin.
+             Omaan vahvat taidot oppia nopeasti ja olen innokas hankkimaan uutta tietoa.
+              Kykenen työskentelemään sekä itsenäisesti että osana tiimiä ja menestyn erilaisissa työympäristöissä.
+               Olen parhaillaan viimeistelemässä koulutustani ICT-ohjelmistokehittäjänä
+                ja odotan innolla mahdollisuutta käyttää taitojani ammattimaisessa ympäristössä" data-eng="I am a 28-year-old emerging software developer with a strong ability for problem-solving
+                and a proven track record of quickly adapting to new challenges. 
+                I possess solid skills in learning quickly and a keen interest in acquiring new knowledge.
+                Capable of working both independently and as part of a team, 
+                I thrive in various work environments. 
+                I am currently finalizing my training as a ICT Software Developer, 
+                looking forward to use my skills in a professional environment.">
+                I am a 28-year-old emerging software developer with a strong ability for problem-solving
+                and a proven track record of quickly adapting to new challenges. 
+                I possess solid skills in learning quickly and a keen interest in acquiring new knowledge.
+                Capable of working both independently and as part of a team, 
+                I thrive in various work environments. 
+                I am currently finalizing my training as a ICT Software Developer, 
+                looking forward to use my skills in a professional environment.
+            </p>
+          </div>
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#experience'"
+      />
+    </section>
+    <section id="experience">
+      <p data-lang data-fi="Tutustu minun" data-eng="Explore My" class="section__text__p1">Explore My</p>
+      <h1 data-lang data-fi="Osaamiseeni" data-eng="Experience" class="title">Experience</h1>
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container">
+            <h2 data-lang data-fi="Ohjelmointikielet" data-eng="Programming Languages" class="experience-sub-title">Programming Languages</h2>
+            <div class="article-container">
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>HTML</h3>
+                  <p data-lang data-fi="Kiitettävä" data-eng="Advanced">Advanced</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>CSS</h3>
+                  <p data-lang data-fi="Kiitettävä" data-eng="Advanced">Advanced</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                    <h3>Flutter</h3>
+                    <p data-lang data-fi="Kiitettävä" data-eng="Advanced">Advanced</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                    <h3>PHP</h3>
+                    <p data-lang data-fi="Hyvä" data-eng="Intermediate">Intermediate</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>C#</h3>
+                  <p data-lang data-fi="Hyvä" data-eng="Intermediate">Intermediate</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>JavaScript</h3>
+                  <p data-lang data-fi="Perusteet" data-eng="Basic">Basic</p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="details-container">
+            <h2 data-lang data-fi="Kehitystyökalut ja -ympäristöt" data-eng="Development Tools and Environments" class="experience-sub-title">Development Tools and Environments</h2>
+            <div class="article-container">
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>MySQL</h3>
+                  <p data-lang data-fi="Kiitettävä" data-eng="Advanced">Advanced</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>Firebase</h3>
+                  <p data-lang data-fi="Kiitettävä" data-eng="Advanced">Advanced</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>GitHub</h3>
+                  <p data-lang data-fi="Kiitettävä" data-eng="Advanced">Advanced</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>Figma</h3>
+                  <p data-lang data-fi="Hyvä" data-eng="Intermediate">Intermediate</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#projects'"
+      />
+    </section>
+    <section id="projects">
+      <p data-lang data-fi="Tutustu tuoreimpiin " data-eng="Browse My Recent" class="section__text__p1">Browse My Recent</p>
+      <h1 data-lang data-fi="Projekteihini" data-eng="Projects" class="title">Projects</h1>
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img src="./assets/Huntshop.png" class="huntshop-img" alt="Project 1"  />
+            </div>
+            <h2 data-lang data-fi="Täysin varusteltu verkkokauppa" data-eng="Full-Featured Online Store" class="experience-sub-title project-title">Full-Featured Online Store</h2>
+            <div class="btn-container">
+              <button data-lang data-fi="Lue lisää" data-eng="Read More" class="btn btn-color-2 project-btn" onclick="openModal('modal1')">Read More</button>
+              <button class="btn btn-color-2 project-btn" onclick="window.open('https://github.com/Rikuuuh/own-projects/tree/main/verkkokauppa', '_blank')">Github</button>
+              <button data-lang data-fi="Live-esittely" data-eng="Live Demo" class="btn btn-color-2 project-btn" onclick="window.open('http://sakky.luowa.fi/riku_huovinen/verkkokauppa/index.php', '_blank')">Live Demo</button>
+            </div>
+          </div>
+          <div id="modal1" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="closeModal('modal1')">&times;</span>
+              <div class="modal-body-ecommerce">
+                <div class="slider">
+                  <div class="slides">
+                    <img src="./assets/Huntshop1.png" style="display: block;" alt="Slide 1" class="slide" />
+                    <img src="./assets/Huntshop2.png" alt="Slide 2" class="slide" />
+                    <img src="./assets/Huntshop3.png" alt="Slide 3" class="slide" />
+                    <img src="./assets/Huntshop4.png" alt="Slide 4" class="slide" />
+                    <img src="./assets/Huntshop5.png" alt="Slide 5" class="slide" />
+                  </div>
+                  <a class="prev" onclick="plusSlides(-1, 'modal1')">&#10094;</a>
+                  <a class="next" onclick="plusSlides(1, 'modal1')">&#10095;</a>
+                </div>
+                <div class="modal-text">
+                  <h1 data-lang data-fi="Täysin varusteltu verkkokauppa" data-eng="Full-Featured Online Store">Full-Featured Online Store</h1>
+                  <p data-lang data-fi="Tein itsenäisesti verkkokaupan, käyttämällä
+                  HTML & CSS & PHP & JS - ohjelmointikieliä.
+                  Projekti sisälsi frontend & backend kehityksen,
+                  tietokannan suunnittelun(MySQL). Sivu sisältää
+                  toiminnot asiakkaan kirjautumiseen, asiakkaan
+                  tietojen vaihtoon, tuotteiden selailuun,
+                  ostoskorin hallintaan, tilausten käsittelyyn,
+                  tilausvahvistuksen lähetykseen ja
+                  asiakastietojen tallentamiseen tietokantaan." data-eng="As a school project i independently developed an e-commerce website using HTML, CSS, PHP, and JavaScript.
+                  The project contains both frontend and backend development, including the design of a MySQL database.
+                   The site features functionalities for customer login, updating customer information, browsing products, 
+                   managing shopping carts, processing orders, sending order confirmations, and storing customer data in the database.">As a school project i independently developed an e-commerce website using HTML, CSS, PHP, and JavaScript.
+                     The project contains both frontend and backend development, including the design of a MySQL database.
+                      The site features functionalities for customer login, updating customer information, browsing products, managing shopping carts, processing orders, sending order confirmations, and storing customer data in the database.</p>
+                      <div class="btn-container">
+                        <button data-lang data-fi="Live-esittely" data-eng="Live Demo" class="btn btn-color-2 project-btn" onclick="window.open('http://sakky.luowa.fi/riku_huovinen/verkkokauppa/index.php', '_blank')">Live Demo</button>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img src="./assets/Olympicbird.png" alt="Project 2" class="modal-img" />
+            </div>
+            <h2 data-lang data-fi="Olympicbird" data-eng="Olympicbird" class="experience-sub-title project-title">Olympicbird</h2>
+            <h2 data-lang data-fi="visa- ja peliappi" data-eng="Trivia & Game App" class="experience-sub-title project-title">Trivia & Game App</h2>
+            <div class="btn-container">
+              <button data-lang data-fi="Lue lisää" data-eng="Read More" class="btn btn-color-2 project-btn" onclick="openModal('modal2')">Read More</button>
+              <button class="btn btn-color-2 project-btn" onclick="window.open('https://github.com/Rikuuuh/own-projects/tree/main/flappy_bird' , '_blank')">Github</button>
+            </div>
+          </div>
+          <div id="modal2" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="closeModal('modal2')">&times;</span>
+              <div class="modal-body">
+                <div class="slider-mobile">
+                  <div class="slides-mobile">
+                    <img src="./assets/Olympicbird1.png" style="display: block;" alt="Slide 1" class="slide" />
+                    <img src="./assets/Olympicbird2.png" alt="Slide 2" class="slide" />
+                    <img src="./assets/Olympicbird3.png" alt="Slide 3" class="slide" />
+                    <img src="./assets/Olympicbird4.png" alt="Slide 4" class="slide" />
+                    <img src="./assets/Olympicbird5.png" alt="Slide 5" class="slide" />
+                    <img src="./assets/Olympicbird6.png" alt="Slide 6" class="slide" />
+                    <img src="./assets/Olympicbird7.png" alt="Slide 7" class="slide" />
+                    <img src="./assets/Olympicbird8.png" alt="Slide 8" class="slide" />
+                  </div>
+                  <a class="prev-mobile" onclick="plusSlides(-1, 'modal2')">&#10094;</a>
+                  <a class="next-mobile" onclick="plusSlides(1, 'modal2')">&#10095;</a>
+                </div>
+                <div class="modal-text">
+                  <h1 data-lang data-fi="Olympicbird, visa- ja peliappi" data-eng="Olympicbird: Trivia & Game App">Olympicbird: Trivia & Game App</h1>
+                  <p data-lang data-fi="Tein itsenäisesti mobiilisovelluksen
+                  kaveriporukalleni, käyttämällä Flutteria. Projekti
+                  sisältää frontend & backend kehityksen,
+                  tietokannan suunnittelun (Firebase). Appi
+                  sisältää toiminnot pelaajan kirjautumiseen,
+                  pelaajan tietojen vaihtoon, Flappy Bird aiheisen pelin, tietovisan, tulostaulun kaikista
+                  pelaajista ja tuloksista" data-eng="I independently developed a mobile application for my group of friends using Flutter.
+                  The project includes both frontend and backend development, as well as the design of a database (Firebase).
+                   The app features functionalities for player login, updating player information, a Flappy Bird-themed game, a quiz, and a leaderboard displaying all players and their scores.">I independently developed a mobile application for my group of friends using Flutter.
+                     The project includes both frontend and backend development, as well as the design of a database (Firebase).
+                      The app features functionalities for player login, updating player information, a Flappy Bird-themed game, a quiz, and a leaderboard displaying all players and their scores.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img src="./assets/Taloyhtiö.png" alt="Project 3" class="modal-img" />
+            </div>
+            <h2 data-lang data-fi="Taloyhtiö" data-eng="Smart Living" class="experience-sub-title project-title">Smart Living</h2>
+            <h2 data-lang data-fi="mobiiliappi" data-eng="Community App" class="experience-sub-title project-title">Community App</h2>
+            <div class="btn-container">
+              <button data-lang data-fi="Lue lisää" data-eng="Read More" class="btn btn-color-2 project-btn" onclick="openModal('modal3')">Read More</button>
+              <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/'">Github</button>
+            </div>
+          </div>
+          <div id="modal3" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="closeModal('modal3')">&times;</span>
+              <div class="modal-body">
+                <div class="slider-mobile">
+                  <div class="slides-mobile">
+                    <img src="./assets/Taloyhtiö1.png" style="display: block;" alt="Slide 1" class="slide"/>
+                    <img src="./assets/Taloyhtiö2.png" alt="Slide 2" class="slide" />
+                    <img src="./assets/Taloyhtiö3.png" alt="Slide 3" class="slide" />
+                    <img src="./assets/Taloyhtiö4.png" alt="Slide 4" class="slide" />
+                    <img src="./assets/Taloyhtiö5.png" alt="Slide 5" class="slide" />
+                    <img src="./assets/Taloyhtiö6.png" alt="Slide 6" class="slide" />
+                    <img src="./assets/Taloyhtiö7.png" alt="Slide 7" class="slide" />
+                  </div>
+                  <a class="prev-mobile" onclick="plusSlides(-1, 'modal3')">&#10094;</a>
+                  <a class="next-mobile" onclick="plusSlides(1, 'modal3')">&#10095;</a>
+                </div>
+                <div class="modal-text">
+                  <h1 data-lang data-fi="Taloyhtiö mobiiliappi" data-eng="Smart Living Community App">Smart Living Community App</h1>
+                  <p data-lang data-fi="Koulutukseni päättötyönä teimme Taloyhtiö mobiilisovelluksen (ryhmätyö) käyttämällä Flutteria.
+                   Projekti sisältää frontend & backend kehityksen, tietokannan suunnittelun (Firebase) Appi sisältää toiminnot käyttäjän kirjautumiseen,
+                    käyttäjän tietojen vaihtoon, omien varausten näkymät ja poistot, varauskalenteri (Saunavuoro, pyykkivuoro ja vieraspaikka),
+                     heippalaput (Käyttäjät voivat esittää kysymyksiä yms.)" data-eng="As my educational capstone project, we developed a mobile application for housing cooperatives as a team of four using Flutter.
+                  The project includes both frontend and backend development, as well as the design of a database (Firebase).
+                   The app features functionalities for user login, updating user information, viewing and deleting personal bookings,
+                    a reservation calendar (for sauna slots, laundry times, and guest parking), and notice boards (where users can post questions etc.)">As my educational capstone project, we developed a mobile application for housing cooperatives as a team of four using Flutter.
+                     The project includes both frontend and backend development, as well as the design of a database (Firebase).
+                      The app features functionalities for user login, updating user information, viewing and deleting personal bookings,
+                       a reservation calendar (for sauna slots, laundry times, and guest parking), and notice boards (where users can post questions, comments etc.)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="arrow-up"
+        onclick="location.href='./#desktop-nav'"
+      />
+    </section>
+    <footer>
+      <nav>
+        <div class="nav-links-container">
+          <ul class="nav-links">
+            <li><a href="#about" data-lang data-fi="Tietoja" data-eng="About">About</a></li>
+            <li><a href="#experience" data-lang data-fi="Kokemus" data-eng="Experience">Experience</a></li>
+            <li><a href="#projects" data-lang data-fi="Projektit" data-eng="Projects">Projects</a></li>
+          </ul>
+        </div>
+      </nav>
+      <p>Copyright &#169; 2024 Riku Huovinen. All Rights Reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

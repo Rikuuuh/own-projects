@@ -9,8 +9,13 @@
     <link rel="stylesheet" href="mediaqueries.css" />
   </head>
   <body>
-  <button onclick="switchLanguage('fi')">Suomi</button>
-  <button onclick="switchLanguage('eng')">English</button>
+    <div class="language-select" id="languageSelect">
+      <div class="current-lang" onclick="toggleDropdown()"><img src="assets/Englandflag.png" alt="UK Flag"> ENG</div>
+      <ul class="lang-dropdown" style="display: none;">
+        <li onclick="switchLanguage('eng')"><img src="assets/Englandflag.png" alt="UK Flag"> ENG</li>
+        <li onclick="switchLanguage('fi')"><img src="assets/Finlandflag.png" alt="Finland Flag"> FIN</li>
+      </ul>
+    </div>    
     <nav id="desktop-nav">
       <div class="logo">Riku</div>
       <div>
@@ -18,7 +23,6 @@
           <li><a href="#about" data-lang data-fi="Tietoja" data-eng="About">About</a></li>
           <li><a href="#experience" data-lang data-fi="Kokemus" data-eng="Experience">Experience</a></li>
           <li><a href="#projects" data-lang data-fi="Projektit" data-eng="Projects">Projects</a></li>
-          
         </ul>
       </div>
     </nav>
@@ -34,7 +38,6 @@
           <li><a href="#about" data-lang data-fi="Tietoja" data-eng="About" onclick="toggleMenu()">About</a></li>
           <li><a href="#experience" data-lang data-fi="Kokemus" data-eng="Experience" onclick="toggleMenu()">Experience</a></li>
           <li><a href="#projects" data-lang data-fi="Projektit" data-eng="Projects" onclick="toggleMenu()">Projects</a></li>
-          
         </div>
       </div>
     </nav>
@@ -175,17 +178,6 @@
                   class="icon"
                 />
                 <div>
-                    <h3>PHP</h3>
-                    <p data-lang data-fi="Hyvä" data-eng="Intermediate">Intermediate</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
                     <h3>Flutter</h3>
                     <p data-lang data-fi="Kiitettävä" data-eng="Advanced">Advanced</p>
                 </div>
@@ -197,8 +189,8 @@
                   class="icon"
                 />
                 <div>
-                  <h3>JavaScript</h3>
-                  <p data-lang data-fi="Perusteet" data-eng="Basic">Basic</p>
+                    <h3>PHP</h3>
+                    <p data-lang data-fi="Hyvä" data-eng="Intermediate">Intermediate</p>
                 </div>
               </article>
               <article>
@@ -210,6 +202,17 @@
                 <div>
                   <h3>C#</h3>
                   <p data-lang data-fi="Hyvä" data-eng="Intermediate">Intermediate</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>JavaScript</h3>
+                  <p data-lang data-fi="Perusteet" data-eng="Basic">Basic</p>
                 </div>
               </article>
             </div>
@@ -258,7 +261,7 @@
                 />
                 <div>
                   <h3>Figma</h3>
-                  <p data-lang data-fi="Kiitettävä" data-eng="Advanced">Advanced</p>
+                  <p data-lang data-fi="Hyvä" data-eng="Intermediate">Intermediate</p>
                 </div>
               </article>
             </div>
@@ -284,8 +287,8 @@
             <h2 data-lang data-fi="Täysin varusteltu verkkokauppa" data-eng="Full-Featured Online Store" class="experience-sub-title project-title">Full-Featured Online Store</h2>
             <div class="btn-container">
               <button data-lang data-fi="Lue lisää" data-eng="Read More" class="btn btn-color-2 project-btn" onclick="openModal('modal1')">Read More</button>
-              <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/Rikuuuh/own-projects/tree/main/verkkokauppa'">Github</button>
-              <button data-lang data-fi="Live-esittely" data-eng="Live Demo" class="btn btn-color-2 project-btn" onclick="location.href='http://sakky.luowa.fi/riku_huovinen/verkkokauppa/index.php'">Live Demo</button>
+              <button class="btn btn-color-2 project-btn" onclick="window.open('https://github.com/Rikuuuh/own-projects/tree/main/verkkokauppa', '_blank')">Github</button>
+              <button data-lang data-fi="Live-esittely" data-eng="Live Demo" class="btn btn-color-2 project-btn" onclick="window.open('http://sakky.luowa.fi/riku_huovinen/verkkokauppa/index.php', '_blank')">Live Demo</button>
             </div>
           </div>
           <div id="modal1" class="modal">
@@ -305,11 +308,22 @@
                 </div>
                 <div class="modal-text">
                   <h1 data-lang data-fi="Täysin varusteltu verkkokauppa" data-eng="Full-Featured Online Store">Full-Featured Online Store</h1>
-                  <p>As a school project i independently developed an e-commerce website using HTML, CSS, PHP, and JavaScript.
+                  <p data-lang data-fi="Tein itsenäisesti verkkokaupan, käyttämällä
+                  HTML & CSS & PHP & JS - ohjelmointikieliä.
+                  Projekti sisälsi frontend & backend kehityksen,
+                  tietokannan suunnittelun(MySQL). Sivu sisältää
+                  toiminnot asiakkaan kirjautumiseen, asiakkaan
+                  tietojen vaihtoon, tuotteiden selailuun,
+                  ostoskorin hallintaan, tilausten käsittelyyn,
+                  tilausvahvistuksen lähetykseen ja
+                  asiakastietojen tallentamiseen tietokantaan." data-eng="As a school project i independently developed an e-commerce website using HTML, CSS, PHP, and JavaScript.
+                  The project contains both frontend and backend development, including the design of a MySQL database.
+                   The site features functionalities for customer login, updating customer information, browsing products, 
+                   managing shopping carts, processing orders, sending order confirmations, and storing customer data in the database.">As a school project i independently developed an e-commerce website using HTML, CSS, PHP, and JavaScript.
                      The project contains both frontend and backend development, including the design of a MySQL database.
                       The site features functionalities for customer login, updating customer information, browsing products, managing shopping carts, processing orders, sending order confirmations, and storing customer data in the database.</p>
                       <div class="btn-container">
-                        <button data-lang data-fi="Live-esittely" data-eng="Live Demo" class="btn btn-color-2 project-btn" onclick="location.href='http://sakky.luowa.fi/riku_huovinen/verkkokauppa/index.php'">Live Demo</button>
+                        <button data-lang data-fi="Live-esittely" data-eng="Live Demo" class="btn btn-color-2 project-btn" onclick="window.open('http://sakky.luowa.fi/riku_huovinen/verkkokauppa/index.php', '_blank')">Live Demo</button>
                       </div>
                 </div>
               </div>
@@ -323,7 +337,7 @@
             <h2 data-lang data-fi="visa- ja peliappi" data-eng="Trivia & Game App" class="experience-sub-title project-title">Trivia & Game App</h2>
             <div class="btn-container">
               <button data-lang data-fi="Lue lisää" data-eng="Read More" class="btn btn-color-2 project-btn" onclick="openModal('modal2')">Read More</button>
-              <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/Rikuuuh/own-projects/tree/main/flappy_bird'">Github</button>
+              <button class="btn btn-color-2 project-btn" onclick="window.open('https://github.com/Rikuuuh/own-projects/tree/main/flappy_bird' , '_blank')">Github</button>
             </div>
           </div>
           <div id="modal2" class="modal">
@@ -346,7 +360,15 @@
                 </div>
                 <div class="modal-text">
                   <h1 data-lang data-fi="Olympicbird, visa- ja peliappi" data-eng="Olympicbird: Trivia & Game App">Olympicbird: Trivia & Game App</h1>
-                  <p>I independently developed a mobile application for my group of friends using Flutter.
+                  <p data-lang data-fi="Tein itsenäisesti mobiilisovelluksen
+                  kaveriporukalleni, käyttämällä Flutteria. Projekti
+                  sisältää frontend & backend kehityksen,
+                  tietokannan suunnittelun (Firebase). Appi
+                  sisältää toiminnot pelaajan kirjautumiseen,
+                  pelaajan tietojen vaihtoon, Flappy Bird aiheisen pelin, tietovisan, tulostaulun kaikista
+                  pelaajista ja tuloksista" data-eng="I independently developed a mobile application for my group of friends using Flutter.
+                  The project includes both frontend and backend development, as well as the design of a database (Firebase).
+                   The app features functionalities for player login, updating player information, a Flappy Bird-themed game, a quiz, and a leaderboard displaying all players and their scores.">I independently developed a mobile application for my group of friends using Flutter.
                      The project includes both frontend and backend development, as well as the design of a database (Firebase).
                       The app features functionalities for player login, updating player information, a Flappy Bird-themed game, a quiz, and a leaderboard displaying all players and their scores.</p>
                 </div>
@@ -383,10 +405,16 @@
                 </div>
                 <div class="modal-text">
                   <h1 data-lang data-fi="Taloyhtiö mobiiliappi" data-eng="Smart Living Community App">Smart Living Community App</h1>
-                  <p>As my educational capstone project, we developed a mobile application for housing cooperatives as a team of four using Flutter.
+                  <p data-lang data-fi="Koulutukseni päättötyönä teimme Taloyhtiö mobiilisovelluksen (ryhmätyö) käyttämällä Flutteria.
+                   Projekti sisältää frontend & backend kehityksen, tietokannan suunnittelun (Firebase) Appi sisältää toiminnot käyttäjän kirjautumiseen,
+                    käyttäjän tietojen vaihtoon, omien varausten näkymät ja poistot, varauskalenteri (Saunavuoro, pyykkivuoro ja vieraspaikka),
+                     heippalaput (Käyttäjät voivat esittää kysymyksiä yms.)" data-eng="As my educational capstone project, we developed a mobile application for housing cooperatives as a team of four using Flutter.
+                  The project includes both frontend and backend development, as well as the design of a database (Firebase).
+                   The app features functionalities for user login, updating user information, viewing and deleting personal bookings,
+                    a reservation calendar (for sauna slots, laundry times, and guest parking), and notice boards (where users can post questions etc.)">As my educational capstone project, we developed a mobile application for housing cooperatives as a team of four using Flutter.
                      The project includes both frontend and backend development, as well as the design of a database (Firebase).
                       The app features functionalities for user login, updating user information, viewing and deleting personal bookings,
-                       a reservation calendar (for sauna slots, laundry times, and guest parking), and notice boards (where users can post questions, sell items, etc.)</p>
+                       a reservation calendar (for sauna slots, laundry times, and guest parking), and notice boards (where users can post questions, comments etc.)</p>
                 </div>
               </div>
             </div>

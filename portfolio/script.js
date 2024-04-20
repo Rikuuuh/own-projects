@@ -35,11 +35,27 @@ function closeModal(modalId) {
     }
     slides[slideIndexes[modalId] - 1].style.display = "block";  
   }
+
+
+  function toggleDropdown() {
+    var dropdown = document.querySelector('.lang-dropdown');
+    dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+  }
+  
   function switchLanguage(lang) {
     var elements = document.querySelectorAll('[data-lang]');
     elements.forEach(function(el) {
-      el.textContent = el.getAttribute('data-' + lang);
+        el.textContent = el.getAttribute('data-' + lang);
     });
-  }
-  
-  
+    
+    // Päivitä "Select Language" teksti valitun kielen mukaan
+    var languageText = document.querySelector('.current-lang');
+    if (lang === 'eng') {
+        languageText.innerHTML = '<img src="assets/Englandflag.png" alt="UK Flag"> ENG';
+    } else if (lang === 'fi') {
+        languageText.innerHTML = '<img src="assets/Finlandflag.png" alt="Finland Flag"> FIN';
+    }
+
+    // Piilota dropdown-valikko kielen vaihdon jälkeen
+    document.querySelector('.lang-dropdown').style.display = 'none';
+}

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "151528414069",
+    "firebase_url": "https://taloyhtio-app-cdb6b-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "taloyhtio-app-cdb6b",
+    "storage_bucket": "taloyhtio-app-cdb6b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151528414069:android:711c6fa23cd481e09f913c",
+        "android_client_info": {
+          "package_name": "com.example.naytto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151528414069-o28fiuki3duagc5q3ruf6i61v4ja4m0g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.naytto",
+            "certificate_hash": "d07a35166f5089e0d44269e70ca5c4642e6180b7"
+          }
+        },
+        {
+          "client_id": "151528414069-fmdu2at5fnd8eejv14fn32ebaffa6kaf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRgqgo3IPbjD583jqaK6VhzUOffMDZu_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151528414069-fmdu2at5fnd8eejv14fn32ebaffa6kaf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "151528414069-aqa8oel2dbjrveu6vplpag9k55k8o7ol.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.naytto"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

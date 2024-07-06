@@ -129,7 +129,7 @@ class _QuizState extends State<Quiz> {
                   alignment: WrapAlignment.center,
                   children: <Widget>[
                     Text(
-                      '$firstName, onko sinulla sitä mitä vaaditaan mestariksi?',
+                      '${firstName ?? 'pelaaja'}, onko sinulla sitä mitä vaaditaan mestariksi?',
                       style: Theme.of(context)
                           .textTheme
                           .titleLarge!

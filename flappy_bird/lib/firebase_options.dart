@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -30,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -60,15 +54,36 @@ class DefaultFirebaseOptions {
     messagingSenderId: '673005324146',
     projectId: 'olympialaiset-5e33c',
     storageBucket: 'olympialaiset-5e33c.appspot.com',
+    iosClientId: '673005324146-45om7fc7tjo6988ffajsa9r8nf9oku01.apps.googleusercontent.com',
     iosBundleId: 'com.example.flappyBird',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyCQ34RA82NKIzPGdVeoqMafO8qA7yBP9QI',
-    appId: '1:673005324146:ios:64343c2a66d33d29c83feb',
+    appId: '1:673005324146:ios:a02a1a7c69362aa0c83feb',
     messagingSenderId: '673005324146',
     projectId: 'olympialaiset-5e33c',
     storageBucket: 'olympialaiset-5e33c.appspot.com',
-    iosBundleId: 'com.example.flappyBird.RunnerTests',
+    iosClientId: '673005324146-45om7fc7tjo6988ffajsa9r8nf9oku01.apps.googleusercontent.com',
+    iosBundleId: 'com.example.flappyBird',
   );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyApLpLvzJgRu_7UtnheUFZxEdFuN1kB6d4',
+    appId: '1:673005324146:web:c6303e3fde823316c83feb',
+    messagingSenderId: '673005324146',
+    projectId: 'olympialaiset-5e33c',
+    authDomain: 'olympialaiset-5e33c.firebaseapp.com',
+    storageBucket: 'olympialaiset-5e33c.appspot.com',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyApLpLvzJgRu_7UtnheUFZxEdFuN1kB6d4',
+    appId: '1:673005324146:web:a49c3c9936dd99b6c83feb',
+    messagingSenderId: '673005324146',
+    projectId: 'olympialaiset-5e33c',
+    authDomain: 'olympialaiset-5e33c.firebaseapp.com',
+    storageBucket: 'olympialaiset-5e33c.appspot.com',
+  );
+
 }

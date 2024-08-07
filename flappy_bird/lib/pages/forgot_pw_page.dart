@@ -77,8 +77,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           .sendPasswordResetEmail(email: _emailController.text.trim());
       _showDialog();
     } on FirebaseAuthException catch (e) {
-      // ignore: use_build_context_synchronously
       showDialog(
+        // ignore: use_build_context_synchronously
         context: context,
         builder: (ctx) => AlertDialog(
           content: Text(e.message.toString(),
@@ -155,7 +155,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             ),
             ElevatedButton(
               style: const ButtonStyle(
-                padding: MaterialStatePropertyAll(
+                padding: WidgetStatePropertyAll(
                   EdgeInsets.only(left: 50, right: 50, top: 15, bottom: 15),
                 ),
               ),

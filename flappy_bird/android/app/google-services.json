@@ -12,7 +12,12 @@
           "package_name": "com.example.flappy_bird"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "673005324146-ngb2su0m2vv47dovc8olfo921bcid4lo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD2UmcDFNv0sIpgj5W5kCGHBFb_1z2I0Ls"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673005324146-ngb2su0m2vv47dovc8olfo921bcid4lo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "673005324146-45om7fc7tjo6988ffajsa9r8nf9oku01.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flappyBird"
+              }
+            }
+          ]
         }
       }
     }

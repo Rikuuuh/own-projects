@@ -59,8 +59,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
         .limit(10)
         .get();
 
-    // ignore: use_build_context_synchronously
     showDialog(
+      // ignore: use_build_context_synchronously
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -108,7 +108,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           actions: <Widget>[
             TextButton(
               style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Colors.teal)),
+                  backgroundColor: WidgetStatePropertyAll(Colors.teal)),
               child: const Text(
                 'Sulje',
                 style: TextStyle(color: Colors.black),
@@ -353,8 +353,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     int attemptsLeft = await getRemainingAttempts(userId);
     if (attemptsLeft == 0) {
       // Näytä ilmoitus, ettei yrityksiä ole jäljellä
-      // ignore: use_build_context_synchronously
       showDialog(
+        // ignore: use_build_context_synchronously
         context: context,
         builder: (context) => AlertDialog(
           backgroundColor: Colors.black,

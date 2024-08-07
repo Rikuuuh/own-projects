@@ -293,7 +293,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ElevatedButton(
                   style: const ButtonStyle(
-                    padding: MaterialStatePropertyAll(
+                    padding: WidgetStatePropertyAll(
                       EdgeInsets.only(left: 60, right: 60, top: 15, bottom: 15),
                     ),
                   ),

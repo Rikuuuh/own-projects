@@ -153,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 10),
                 ElevatedButton(
                   style: const ButtonStyle(
-                    padding: MaterialStatePropertyAll(
+                    padding: WidgetStatePropertyAll(
                       EdgeInsets.only(left: 50, right: 50, top: 15, bottom: 15),
                     ),
                   ),

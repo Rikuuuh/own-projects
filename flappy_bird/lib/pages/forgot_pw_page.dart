@@ -105,6 +105,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.black,
           elevation: 0,
         ),
         body: Column(
@@ -133,7 +134,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
-                  border: Border.all(color: Colors.deepPurple),
+                  border: Border.all(color: Colors.black),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Padding(
@@ -143,23 +144,27 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     controller: _emailController,
                     decoration: const InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'Sähköpostisi',
+                      hintText: 'Sähköposti',
                     ),
                   ),
                 ),
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 30,
             ),
-            MaterialButton(
-              onPressed: passwordReset,
-              color: Colors.deepPurple,
-              child: const Text(
-                'Vaihda salasanasi',
-                style: TextStyle(color: Colors.white),
+            ElevatedButton(
+              style: const ButtonStyle(
+                padding: MaterialStatePropertyAll(
+                  EdgeInsets.only(left: 50, right: 50, top: 15, bottom: 15),
+                ),
               ),
-            )
+              onPressed: passwordReset,
+              child: Text(
+                'Vaihda salasanasi',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
           ],
         ));
   }

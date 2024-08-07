@@ -20,7 +20,7 @@ const List<Question> questions = [
       'Jennalla, Pihlalla',
       'Pihlalla, Jennalla, Emmillä',
       'Emmillä, Jennalla',
-      'Entiiä, Emmin naama hämäs?',
+      'Harrilla',
     ],
   ),
   Question(
@@ -85,13 +85,13 @@ const List<Question> questions = [
     ],
   ),
   Question(
-    question: 'Mitä oli ruokana lauantai-iltana mökkiolympialaisissa(2023)?',
+    question: 'Mitä yhteistä ruokaa on huomenna lauantaina?',
     correctAnswerIndex: 3,
     options: [
       'Lohta, perunoita ja salaattia',
-      'Itse tehtyjä hampurilaisia, salaattia',
+      'Itse tehtyjä hampurilaisia',
       'Cremefraiche kanaa, ranskalaisia ja salaattia',
-      'Kanaa, perunoita ja salaattia',
+      'Tortilloja',
     ],
   ),
   Question(
@@ -106,12 +106,12 @@ const List<Question> questions = [
     ],
   ),
   Question(
-    question: 'Kenenkä järjestämissä olympialaisissa ammuttiin vesipyssyllä?',
+    question: 'Kenenkä järjestämissä olympialaisissa koottiin leluauto?',
     correctAnswerIndex: 2,
     options: [
       'Rikun ja Aten',
       'Jennan ja Karoliinan',
-      'Emmin ja Juhon',
+      'Pihlan ja Saaran',
       'Aleksanterin ja Harrin',
     ],
   ),
@@ -146,7 +146,7 @@ const List<Question> questions = [
     ],
   ),
   Question(
-    question: 'Tulevana kesänä 2024 on vuorossa _?_ mökkiolympialaiset.',
+    question: 'Monennetko olympialaiset nämä ovat?',
     correctAnswerIndex: 0,
     options: [
       'Kuudennet',

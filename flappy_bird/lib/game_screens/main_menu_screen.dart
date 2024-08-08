@@ -154,7 +154,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   'Olympic Bird',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     letterSpacing: 2,
-                    fontSize: 44,
+                    fontSize: 40,
                     fontFamily: 'game',
                     shadows: [
                       const Shadow(

@@ -128,17 +128,10 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
       anchor: Anchor.center,
       textRenderer: TextPaint(
         style: const TextStyle(
-          fontSize: 45,
-          fontFamily: 'Game',
-          fontWeight: FontWeight.bold,
-          shadows: [
-            Shadow(
-              color: Colors.black,
-              blurRadius: 2.0,
-              offset: Offset(2.5, 2.5),
-            ),
-          ],
-        ),
+            fontSize: 45,
+            fontFamily: 'Game',
+            fontWeight: FontWeight.bold,
+            color: Colors.white),
       ),
     );
   }

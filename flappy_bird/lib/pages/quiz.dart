@@ -103,7 +103,7 @@ class _QuizState extends State<Quiz> {
             children: [
               const Icon(
                 Icons.psychology_alt_outlined,
-                size: 80,
+                size: 70,
                 color: Colors.green,
               ),
               Text(
@@ -111,7 +111,7 @@ class _QuizState extends State<Quiz> {
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge!
-                    .copyWith(fontSize: 50, color: Colors.green),
+                    .copyWith(fontSize: 44, color: Colors.green),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),

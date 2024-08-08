@@ -154,7 +154,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   'Olympic Bird',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     letterSpacing: 2,
-                    fontSize: 40,
+                    fontSize: 44,
                     fontFamily: 'game',
                     shadows: [
                       const Shadow(
@@ -184,14 +184,9 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                       style: Theme.of(context).textTheme.titleMedium,
                       textAlign: TextAlign.center,
                     ),
-                    Text(
-                      'Onnea matkaan!',
-                      style: Theme.of(context).textTheme.titleMedium,
-                      textAlign: TextAlign.center,
-                    )
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 5),
                 Text(
                   'Valitse hahmosi',
                   style: Theme.of(context).textTheme.titleLarge,
@@ -240,8 +235,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   itemCount: backgroundImages.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 4,
+                    mainAxisSpacing: 4,
                   ),
                   itemBuilder: (context, index) {
                     bool isSelected =
@@ -311,7 +306,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 42, vertical: 11),
+                        horizontal: 45, vertical: 13),
                     textStyle: Theme.of(context).textTheme.titleMedium,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),

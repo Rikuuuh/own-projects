@@ -154,7 +154,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   'Olympic Bird',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     letterSpacing: 2,
-                    fontSize: 55,
+                    fontSize: 48,
                     fontFamily: 'game',
                     shadows: [
                       const Shadow(
@@ -171,17 +171,17 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   children: <Widget>[
                     Text(
                       'Valmiina haasteeseen $firstName?',
-                      style: Theme.of(context).textTheme.bodyLarge,
+                      style: Theme.of(context).textTheme.titleMedium,
                       textAlign: TextAlign.center,
                     ),
                     Text(
                       'Olympic Bird kutsuu sinut kisaamaan!',
-                      style: Theme.of(context).textTheme.bodyLarge,
+                      style: Theme.of(context).textTheme.titleMedium,
                       textAlign: TextAlign.center,
                     ),
                     Text(
                       'Sinulla on 50 yritystä saada parempi tulos kuin muilla osallistujilla.',
-                      style: Theme.of(context).textTheme.bodyLarge,
+                      style: Theme.of(context).textTheme.titleMedium,
                       textAlign: TextAlign.center,
                     ),
                     Text(
@@ -191,7 +191,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                     )
                   ],
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 10),
                 Text(
                   'Valitse hahmosi',
                   style: Theme.of(context).textTheme.titleLarge,
@@ -322,7 +322,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   ),
                   child: const Text('Tulokset'),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 5),
                 Text('$remainingAttempts Yritystä jäljellä'),
               ],
             ),

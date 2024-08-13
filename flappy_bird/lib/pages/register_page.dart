@@ -77,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
       'first name': firstName,
       'last name': lastName,
       'email': email,
-      'attempts left': 50,
+      'attempts left': 20,
       'imageUrl': imageUrl,
       'visa attempt': 1,
     });
@@ -272,7 +272,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  _isImageAdded ? 'Kuva lisätty!' : 'Lisää vielä naamakuvasi',
+                  _isImageAdded ? 'Kuva lisätty' : 'Lisää vielä naamakuvasi',
                   style: const TextStyle(fontSize: 18),
                 ),
                 IconButton(
